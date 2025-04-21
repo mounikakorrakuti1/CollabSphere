@@ -1,33 +1,61 @@
-:root {
-  --primary: #4361ee;
-  --secondary: #3f37c9;
-  --text: #2b2d42;
-  --bg: #f8f9fa;
-  --card-bg: rgba(255, 255, 255, 0.8);
-  --shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+/* Reset and basic styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-
-[data-theme="dark"] {
-  --primary: #4895ef;
-  --secondary: #560bad;
-  --text: #f8f9fa;
-  --bg: #121212;
-  --card-bg: rgba(30, 30, 30, 0.8);
-}
-
 body {
-  font-family: 'Poppins', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  transition: all 0.3s ease;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+  line-height: 1.6;
+}
+header {
+  background-color: #0b3d91;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+}
+.logo {
+  height: 40px;
+}
+nav a {
+  margin-left: 1.5rem;
+  color: white;
+  text-decoration: none;
+}
+.hero {
+  padding: 4rem 2rem;
+  background-color: #dce7f9;
+  text-align: center;
+}
+.cta-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #0b3d91;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+}
+.features {
+  display: flex;
+  justify-content: space-around;
+  padding: 2rem;
+}
+.feature {
+  width: 30%;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #0b3d91;
+  color: white;
+  margin-top: 2rem;
 }
 
-/* Glassmorphism cards */
-.card {
-  background: var(--card-bg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 16px;
-  box-shadow: var(--shadow);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
