@@ -1,27 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Project Management | CollabSphere</title>
-  <link rel="stylesheet" href="assets/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        header {
+            background: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1, h2 {
+            margin: 0;
+        }
+
+        .project-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .status.badge {
+            background: #28a745;
+            color: white;
+            padding: 5px;
+            border-radius: 3px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        #project-filters {
+            margin: 20px 0;
+        }
+
+        #projects-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        #team-members {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .team-member {
+            margin: 10px;
+            position: relative;
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .tooltip {
+            display: none;
+            position: absolute;
+            background: #333;
+            color: white;
+            padding: 5px;
+            border-radius: 3px;
+            top: 60px;
+            left: 0;
+        }
+
+        .team-member:hover .tooltip {
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #007bff;
+            color: white;
+        }
+
+        /* Dark Theme Styles */
+        .dark-theme {
+            background-color: #333;
+            color: #f4f4f4;
+        }
+
+        .dark-theme .project-card {
+            background: #444;
+            border: 1px solid #555;
+        }
+
+        .dark-theme .status.badge {
+            background: #5cb85c;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <img src="assets/images/logo.png" class="logo" alt="CollabSphere Logo">
-    <nav>
-      <a href="dashboard.html">Dashboard</a>
-      <a href="workspace.html">Workspace</a>
-    </nav>
-  </header>
+    <header>
+        <h1>Projects</h1>
+        <button id="theme-toggle">Toggle Dark/Light Theme</button>
+    </header>
 
-  <main>
-    <h2>Project Boards</h2>
-    <p>Manage tasks, track progress, and deadlines with your team.</p>
-    <!-- Kanban or table format -->
-  </main>
+    <section id="projects-grid">
+        <h2>All Projects</h2>
 
-  <footer>
-    <p>&copy; 2025 CollabSphere</p>
-  </footer>
+        <div class="project-card">
+            <h3>ClientConnect CRM</h3>
+            <p>A comprehensive CRM solution designed to streamline client management, enhance communication, and improve sales tracking.</p>
+            <p>Tech Stack: HTML, CSS, JavaScript, Node.js</p>
+            <span class="status badge">In Progress</span>
+            <img src="https://img.freepik.com/free-vector/isometric-crm-illustration_52683-83950.jpg?semt=ais_hybrid&w=740" alt="ClientConnect CRM" style="width: 100%; border-radius: 5px;">
+            <p>Developers: Alice Johnson, Mark Smith, Sarah Lee</p>
+        </div>
+
+        <div class="project-card">
+            <h3>HealthLink Telemedicine App</h3>
+            <p>A telemedicine application that connects patients with healthcare providers through video consultations, appointment scheduling, and secure messaging.</p>
+            <p>Tech Stack: React Native, Node.js</p>
+            <span class="status badge">In Progress</span>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQCuw-URbZub5FEyxPBoatYVuPl-EyjkEIqTjRTnX50WxLFMUyymfCNs1YatZyRhcJCAs&usqp=CAU" alt="HealthLink Telemedicine App" style="width: 100%; border-radius: 5px;">
+            <p>Developers: John Doe, Emily Davis, Michael Brown
+                        </p>
+        </div>
+
+        <div class="project-card">
+            <h3>DocuSmart Legal Automation</h3>
+            <p>An innovative legal document automation tool that simplifies the creation and management of legal documents, reducing operational costs and time.</p>
+            <p>Tech Stack: Python, Django, Cloud Storage</p>
+            <span class="status badge">In Progress</span>
+            <img src="https://www.artsyltech.com/img/blogs/role-of-document-automation-in-reducing-operational-costs.jpg" alt="DocuSmart Legal Automation" style="width: 100%; border-radius: 5px;">
+            <p>Developers: Jessica Taylor, David Wilson, Laura Martinez</p>
+        </div>
+
+        <div class="project-card">
+            <h3>EduFlex Online Learning Platform</h3>
+            <p>A dynamic online learning platform that offers courses, quizzes, and interactive content for students.</p>
+            <p>Tech Stack: HTML, CSS, JavaScript, Ruby on Rails</p>
+            <span class="status badge">In Progress</span>
+            <img src="https://img.etimg.com/thumb/width-1200,height-1200,imgsize-148529,resizemode-75,msid-68850167/industry/services/education/e-learning-platforms-slowly-changing-indian-education-landscape.jpg" alt="EduFlex Online Learning Platform" style="width: 100%; border-radius: 5px;">
+            <p>Developers: Kevin White, Sophia Green, Daniel Harris</p>
+        </div>
+
+        <div class="project-card">
+            <h3>BudgetWise Budgeting App</h3>
+            <p>A user-friendly budgeting application that helps users track their expenses, set financial goals, and manage their budgets effectively.</p>
+            <p>Tech Stack: React, Firebase</p>
+            <span class="status badge">In Progress</span>
+            <img src="https://static1.pocketlintimages.com/wordpress/wp-content/uploads/135942-apps-buyer-s-guide-best-budgeting-apps-2020-5-apps-to-take-control-of-your-finances-image1-nozyd5vfxo.jpg" alt="BudgetWise Budgeting App" style="width: 100%; border-radius: 5px;">
+            <p>Developers: Olivia Clark, Ethan Lewis, Mia Robinson</p>
+        </div>
+
+        <div class="project-card">
+            <h3>CommunityConnect Service Platform</h3>
+            <p>A platform that connects volunteers with community service opportunities, facilitating support for various social causes.</p>
+            <p>Tech Stack: Angular, Node.js</p>
+            <span class="status badge">In Progress</span>
+            <img src="https://universityconnection.in/wp-content/uploads/2024/01/volunteers-team-supporting-disabled-humanitarian-material-assistance-community-helping-old-sick-people-donation-food-clothes-charity-vector-concept_176411-1828.jpg" alt="CommunityConnect Service Platform" style="width: 100%; border-radius: 5px;">
+            <p>Developers: Liam Young, Ava King, Noah Scott</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Your Company</p>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggleButton = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        themeToggleButton.addEventListener('click', () => {
+            body.classList.toggle('dark-theme');
+            themeToggleButton.textContent = body.classList.contains('dark-theme') ? 'Toggle Light Theme' : 'Toggle Dark Theme';
+        });
+    </script>
 </body>
 </html>
