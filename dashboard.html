@@ -1,156 +1,155 @@
 <!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CollabSphere Dashboard</title>
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    .dashboard { padding: 20px; background: #f9f9f9; }
-    .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-    .project-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    .users { display: flex; margin-top: 10px; }
-    .users img { width: 40px; height: 40px; border-radius: 50%; margin-right: 5px; }
-    .filter { margin-bottom: 20px; }
-    .btn { background: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 6px; cursor: pointer; }
-    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); }
-    .modal-content { background: white; margin: 10% auto; padding: 20px; width: 80%; border-radius: 10px; position: relative; }
-    .close-btn { position: absolute; right: 20px; top: 20px; font-size: 20px; cursor: pointer; }
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 5px;
+    }
+    .project-card {
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .modal-content {
+      border-radius: 10px;
+    }
   </style>
 </head>
-<body>
-  <div class="dashboard">
-    <h2>Project Dashboard</h2>
-    <div class="filter">
-      <label>Filter by domain:</label>
-      <select id="domainFilter">
-        <option value="All">All</option>
-        <option value="Medical">Medical</option>
-        <option value="Law">Law</option>
-        <option value="Pharmacy">Pharmacy</option>
-        <option value="Entrepreneurship">Entrepreneurship</option>
-        <option value="Tech">Tech</option>
-      </select>
+<body class="bg-light p-4">
+  <div class="container">
+    <h2 class="mb-4 text-center">Project Dashboard</h2><!-- Filter -->
+<div class="mb-3">
+  <label for="domainFilter" class="form-label">Filter by Domain:</label>
+  <select class="form-select" id="domainFilter">
+    <option value="all">All</option>
+    <option value="Tech">Tech</option>
+    <option value="Medical">Medical</option>
+    <option value="Law">Law</option>
+    <option value="Pharmacy">Pharmacy</option>
+    <option value="Entrepreneurship">Entrepreneurship</option>
+  </select>
+</div>
+
+<div id="projectContainer"></div>
+
+  </div>  <!-- Modal Template -->  <div class="modal fade" id="projectModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content p-3">
+        <div class="modal-header">
+          <h5 class="modal-title" id="projectTitle">Project Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <canvas id="progressChart" height="100"></canvas>
+          <table class="table table-striped mt-4">
+            <thead><tr><th>Task</th><th>Status</th><th>Deadline</th></tr></thead>
+            <tbody id="taskTable"></tbody>
+          </table>
+        </div>
+      </div>
     </div>
-    <div class="projects" id="projectContainer">
-      <!-- Project cards will be inserted here -->
-    </div>
-  </div>  <!-- Modal -->  <div class="modal" id="projectModal">
-    <div class="modal-content">
-      <span class="close-btn" onclick="closeModal()">&times;</span>
-      <h3 id="modalTitle"></h3>
-      <canvas id="chartCanvas" width="400" height="200"></canvas>
-      <table border="1" width="100%" style="margin-top: 20px;">
-        <thead>
-          <tr><th>Task</th><th>Status</th><th>Deadline</th></tr>
-        </thead>
-        <tbody id="taskTable">
-          <!-- Tasks will be inserted dynamically -->
-        </tbody>
-      </table>
-    </div>
-  </div>  <script src="assets/js/main.js"></script>  <script>
+  </div>  <script>
     const projects = [
       {
-        title: "Telemedicine for Rural Areas",
-        domain: "Medical",
-        users: ["https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359554_640.png"],
-        chart: [30, 20, 50],
-        tasks: [
-          ["Set up appointment module", "In Progress", "April 28"],
-          ["Collect doctor data", "Completed", "April 20"]
-        ]
-      },
-      {
-        title: "Legal Aid Bot for Students",
-        domain: "Law",
-        users: ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgyshmoLfHlwl34SkVpkVb4a53cey9DCzYQw&s"],
-        chart: [20, 30, 50],
-        tasks: [
-          ["Integrate chatbot", "Not Started", "May 2"],
-          ["Legal FAQ dataset", "In Progress", "April 30"]
-        ]
-      },
-      {
-        title: "Pharmacy Inventory Tracker",
-        domain: "Pharmacy",
-        users: ["https://st2.depositphotos.com/1104517/11965/v/950/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg"],
-        chart: [40, 40, 20],
-        tasks: [
-          ["Design schema", "In Progress", "April 25"],
-          ["Add expiry alerts", "Not Started", "May 1"]
-        ]
-      },
-      {
-        title: "Startup Funding Portal",
-        domain: "Entrepreneurship",
-        users: ["https://as1.ftcdn.net/v2/jpg/05/79/55/26/1000_F_579552668_sZD51Sjmi89GhGqyF27pZcrqyi7cEYBH.jpg"],
-        chart: [25, 25, 50],
-        tasks: [
-          ["Connect investors", "In Progress", "April 30"],
-          ["Build pitch upload", "Not Started", "May 3"]
-        ]
-      },
-      {
-        title: "AI-based Attendance System",
+        title: "Smart Waste Tracker",
         domain: "Tech",
-        users: ["https://t3.ftcdn.net/jpg/07/64/40/98/360_F_764409867_iXpBxs90ZimTFHobmqvOaTtuJHJgHPOR.jpg"],
-        chart: [50, 30, 20],
+        users: ["https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359554_640.png", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgyshmoLfHlwl34SkVpkVb4a53cey9DCzYQw&s"],
+        progress: [60, 40],
         tasks: [
-          ["Face recognition", "Completed", "April 10"],
-          ["Integrate with ERP", "In Progress", "April 29"]
+          {name: "Sensor setup", status: "Done", deadline: "2025-04-20"},
+          {name: "Backend API", status: "Pending", deadline: "2025-04-27"}
+        ]
+      },
+      {
+        title: "AI Health Diagnosis",
+        domain: "Medical",
+        users: ["https://st2.depositphotos.com/1104517/11965/v/950/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg", "https://t3.ftcdn.net/jpg/07/64/40/98/360_F_764409867_iXpBxs90ZimTFHobmqvOaTtuJHJgHPOR.jpg"],
+        progress: [75, 25],
+        tasks: [
+          {name: "Patient data analysis", status: "In Progress", deadline: "2025-04-28"},
+          {name: "AI model testing", status: "Pending", deadline: "2025-05-02"}
+        ]
+      },
+      {
+        title: "Legal Case Automation",
+        domain: "Law",
+        users: ["https://cdni.iconscout.com/illustration/premium/thumb/female-user-image-8110250-6515859.png?f=webp"],
+        progress: [45, 55],
+        tasks: [
+          {name: "Document scan parser", status: "Done", deadline: "2025-04-22"},
+          {name: "Case analyzer UI", status: "In Progress", deadline: "2025-04-30"}
+        ]
+      },
+      {
+        title: "Pharma Inventory System",
+        domain: "Pharmacy",
+        users: ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgyshmoLfHlwl34SkVpkVb4a53cey9DCzYQw&s", "https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359554_640.png"],
+        progress: [80, 20],
+        tasks: [
+          {name: "Inventory module", status: "Done", deadline: "2025-04-21"},
+          {name: "Supplier integration", status: "In Progress", deadline: "2025-05-05"}
+        ]
+      },
+      {
+        title: "Startup Collab Hub",
+        domain: "Entrepreneurship",
+        users: ["https://t3.ftcdn.net/jpg/07/64/40/98/360_F_764409867_iXpBxs90ZimTFHobmqvOaTtuJHJgHPOR.jpg"],
+        progress: [55, 45],
+        tasks: [
+          {name: "Market survey", status: "Done", deadline: "2025-04-10"},
+          {name: "Business model", status: "In Progress", deadline: "2025-04-30"}
         ]
       }
     ];
 
-    const container = document.getElementById('projectContainer');
-    const modal = document.getElementById('projectModal');
-    const modalTitle = document.getElementById('modalTitle');
-    const taskTable = document.getElementById('taskTable');
-    let chart;
+    const container = document.getElementById("projectContainer");
+    const filter = document.getElementById("domainFilter");
+    const modal = new bootstrap.Modal(document.getElementById("projectModal"));
 
-    function showModal(project) {
-      modal.style.display = 'block';
-      modalTitle.innerText = project.title;
-      taskTable.innerHTML = '';
-      project.tasks.forEach(task => {
-        taskTable.innerHTML += <tr><td>${task[0]}</td><td>${task[1]}</td><td>${task[2]}</td></tr>;
-      });
-      if (chart) chart.destroy();
-      chart = new Chart(document.getElementById('chartCanvas'), {
-        type: 'pie',
-        data: {
-          labels: ["Design", "Development", "Testing"],
-          datasets: [{ data: project.chart, backgroundColor: ["#36A2EB", "#FFCE56", "#FF6384"] }]
-        }
-      });
-    }
-
-    function closeModal() {
-      modal.style.display = 'none';
-    }
-
-    function loadProjects(filter = 'All') {
-      container.innerHTML = '';
-      projects.forEach(project => {
-        if (filter !== 'All' && project.domain !== filter) return;
-        const card = document.createElement('div');
-        card.className = 'project-card';
+    function renderProjects() {
+      const selected = filter.value;
+      container.innerHTML = "";
+      projects.filter(p => selected === "all" || p.domain === selected).forEach((p, i) => {
+        const card = document.createElement("div");
+        card.className = "project-card bg-white";
         card.innerHTML = `
-          <h3>${project.title}</h3>
-          <p><strong>Domain:</strong> ${project.domain}</p>
-          <div class="users">
-            ${project.users.map(u => <img src="${u}" alt="User">).join('')}
-          </div>
-          <button class="btn" onclick='showModal(${JSON.stringify(project)})'>View Details</button>
+          <h4>${p.title} <span class="badge bg-secondary">${p.domain}</span></h4>
+          <div class="d-flex my-2">${p.users.map(u => <img src="${u}" class="user-avatar">).join('')}</div>
+          <button class="btn btn-outline-primary" onclick="showDetails(${i})">View Details</button>
         `;
         container.appendChild(card);
       });
     }
 
-    document.getElementById('domainFilter').addEventListener('change', (e) => loadProjects(e.target.value));
+    filter.addEventListener("change", renderProjects);
+    renderProjects();
 
-    loadProjects();
-  </script></body>
+    function showDetails(index) {
+      const p = projects[index];
+      document.getElementById("projectTitle").innerText = p.title;
+      document.getElementById("taskTable").innerHTML = p.tasks.map(t => <tr><td>${t.name}</td><td>${t.status}</td><td>${t.deadline}</td></tr>).join('');
+      const ctx = document.getElementById("progressChart").getContext("2d");
+      if (window.currentChart) window.currentChart.destroy();
+      window.currentChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ["Complete", "Remaining"],
+          datasets: [{
+            data: p.progress,
+            backgroundColor: ["#198754", "#ffc107"]
+          }]
+        },
+        options: { responsive: true }
+      });
+      modal.show();
+    }
+  </script>  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script></body>
 </html>
