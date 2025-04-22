@@ -217,45 +217,45 @@
       </tr>
     </table>
 
-    <!-- New Section: Entrepreneur & Business Students Projects -->
-    <h2>Entrepreneur & Business Students Projects</h2>
-    <table>
-      <tr>
-        <th>Project</th>
-        <th>Deadline</th>
-        <th>Status</th>
-      </tr>
-      <tr>
-        <td>Business Strategy Development</td>
-        <td>2025-05-25</td>
-        <td>Ongoing</td>
-      </tr>
-      <tr>
-        <td>Market Research</td>
-        <td>2025-06-10</td>
-        <td>Completed</td>
-      </tr>
-    </table>
+    <!-- Entrepreneurs and Business Students Section -->
+    <h2>Entrepreneurs and Business Students</h2>
+    <div class="user-card">
+      <img class="profile-img" src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359554_640.png" alt="">
+      <div class="user-details">
+        <h3>Amit Gupta</h3>
+        <p>Business Strategist</p>
+      </div>
+    </div>
+    <div class="user-card">
+      <img class="profile-img" src="https://st2.depositphotos.com/1104517/11965/v/950/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg" alt="">
+      <div class="user-details">
+        <h3>Simran Kaur</h3>
+        <p>Entrepreneur</p>
+      </div>
+    </div>
+    <div class="chart-container">
+      <canvas id="businessChart"></canvas>
+    </div>
 
-    <!-- New Section: Medical & Law Students Projects -->
-    <h2>Medical & Law Students Projects</h2>
-    <table>
-      <tr>
-        <th>Project</th>
-        <th>Deadline</th>
-        <th>Status</th>
-      </tr>
-      <tr>
-        <td>Medical Research Analysis</td>
-        <td>2025-06-05</td>
-        <td>Upcoming</td>
-      </tr>
-      <tr>
-        <td>Law Case Study</td>
-        <td>2025-07-01</td>
-        <td>Ongoing</td>
-      </tr>
-    </table>
+    <!-- Medical or Law Students Section -->
+    <h2>Medical or Law Students</h2>
+    <div class="user-card">
+      <img class="profile-img" src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359554_640.png" alt="">
+      <div class="user-details">
+        <h3>Dr. Neha Patel</h3>
+        <p>Medical Student</p>
+      </div>
+    </div>
+    <div class="user-card">
+      <img class="profile-img" src="https://st2.depositphotos.com/1104517/11965/v/950/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg" alt="">
+      <div class="user-details">
+        <h3>Ravi Sethi</h3>
+        <p>Law Student</p>
+      </div>
+    </div>
+    <div class="chart-container">
+      <canvas id="medicalLawChart"></canvas>
+    </div>
   </section>
 </div>
 
@@ -273,6 +273,38 @@
         label: 'Project Stats',
         data: [50, 30, 20],
         backgroundColor: ['#4e73df', '#1cc88a', '#f6c23e'],
+      }]
+    },
+    options: {
+      responsive: true
+    }
+  });
+
+  const businessCtx = document.getElementById('businessChart').getContext('2d');
+  const businessChart = new Chart(businessCtx, {
+    type: 'pie',
+    data: {
+      labels: ['Ongoing', 'Completed', 'Upcoming'],
+      datasets: [{
+        label: 'Business Projects',
+        data: [40, 40, 20],
+        backgroundColor: ['#ff5733', '#33ff57', '#3357ff'],
+      }]
+    },
+    options: {
+      responsive: true
+    }
+  });
+
+  const medicalLawCtx = document.getElementById('medicalLawChart').getContext('2d');
+  const medicalLawChart = new Chart(medicalLawCtx, {
+    type: 'pie',
+    data: {
+      labels: ['Ongoing', 'Completed', 'Upcoming'],
+      datasets: [{
+        label: 'Medical/Law Projects',
+        data: [60, 25, 15],
+        backgroundColor: ['#ffcc00', '#28a745', '#17a2b8'],
       }]
     },
     options: {
