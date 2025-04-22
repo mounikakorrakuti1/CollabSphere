@@ -5,135 +5,152 @@
   <title>CollabSphere Dashboard</title>
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/responsive.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f9f9f9;
-      color: #333;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background: #004080;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-    .dashboard-container {
-      padding: 30px;
-    }
-    .filter-bar {
-      margin-bottom: 20px;
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-    select, button {
-      padding: 8px 12px;
-      font-size: 16px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-    .project-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px;
-    }
-    .project-card {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    .project-card h3 {
-      margin-top: 0;
-    }
-    .participants {
-      display: flex;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    .participants img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-    }
-    footer {
-      background: #004080;
-      color: white;
-      text-align: center;
-      padding: 15px;
-      margin-top: 30px;
-    }
+    .dashboard { padding: 20px; background: #f9f9f9; }
+    .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+    .project-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    .users { display: flex; margin-top: 10px; }
+    .users img { width: 40px; height: 40px; border-radius: 50%; margin-right: 5px; }
+    .filter { margin-bottom: 20px; }
+    .btn { background: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 6px; cursor: pointer; }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); }
+    .modal-content { background: white; margin: 10% auto; padding: 20px; width: 80%; border-radius: 10px; position: relative; }
+    .close-btn { position: absolute; right: 20px; top: 20px; font-size: 20px; cursor: pointer; }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Welcome to Your Dashboard</h1>
-    <p>CollabSphere: Connect, Collaborate, Create</p>
-  </header>  <div class="dashboard-container">
-    <div class="filter-bar">
-      <select>
-        <option value="all">All Domains</option>
-        <option value="tech">Technology</option>
-        <option value="medical">Medical</option>
-        <option value="law">Law</option>
-        <option value="pharma">Pharmacy</option>
-        <option value="entrepreneurship">Entrepreneurship</option>
+  <div class="dashboard">
+    <h2>Project Dashboard</h2>
+    <div class="filter">
+      <label>Filter by domain:</label>
+      <select id="domainFilter">
+        <option value="All">All</option>
+        <option value="Medical">Medical</option>
+        <option value="Law">Law</option>
+        <option value="Pharmacy">Pharmacy</option>
+        <option value="Entrepreneurship">Entrepreneurship</option>
+        <option value="Tech">Tech</option>
       </select>
-      <button>Apply Filter</button>
-    </div><div class="project-list">
-  <div class="project-card">
-    <h3>AI-Powered Legal Research Tool</h3>
-    <p>A collaboration between law students and AI engineers to develop a legal case summarization system.</p>
-    <div class="participants">
-      <img src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359554_640.png" alt="User">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgyshmoLfHlwl34SkVpkVb4a53cey9DCzYQw&s" alt="User">
-      <img src="https://cdni.iconscout.com/illustration/premium/thumb/female-user-image-8110250-6515859.png?f=webp" alt="User">
     </div>
-  </div>
-
-  <div class="project-card">
-    <h3>Remote Health Monitoring System</h3>
-    <p>Pharmacy and tech students team up to monitor vitals using IoT and mobile apps.</p>
-    <div class="participants">
-      <img src="https://st2.depositphotos.com/1104517/11965/v/950/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg" alt="User">
-      <img src="https://as1.ftcdn.net/v2/jpg/05/79/55/26/1000_F_579552668_sZD51Sjmi89GhGqyF27pZcrqyi7cEYBH.jpg" alt="User">
-      <img src="https://t3.ftcdn.net/jpg/07/64/40/98/360_F_764409867_iXpBxs90ZimTFHobmqvOaTtuJHJgHPOR.jpg" alt="User">
+    <div class="projects" id="projectContainer">
+      <!-- Project cards will be inserted here -->
     </div>
-  </div>
-
-  <div class="project-card">
-    <h3>Startup Idea Incubation Tracker</h3>
-    <p>Entrepreneurship students collaborate to build a task board and pitch deck manager.</p>
-    <div class="participants">
-      <img src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359554_640.png" alt="User">
-      <img src="https://cdni.iconscout.com/illustration/premium/thumb/female-user-image-8110250-6515859.png?f=webp" alt="User">
+  </div>  <!-- Modal -->  <div class="modal" id="projectModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h3 id="modalTitle"></h3>
+      <canvas id="chartCanvas" width="400" height="200"></canvas>
+      <table border="1" width="100%" style="margin-top: 20px;">
+        <thead>
+          <tr><th>Task</th><th>Status</th><th>Deadline</th></tr>
+        </thead>
+        <tbody id="taskTable">
+          <!-- Tasks will be inserted dynamically -->
+        </tbody>
+      </table>
     </div>
-  </div>
+  </div>  <script src="assets/js/main.js"></script>  <script>
+    const projects = [
+      {
+        title: "Telemedicine for Rural Areas",
+        domain: "Medical",
+        users: ["https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359554_640.png"],
+        chart: [30, 20, 50],
+        tasks: [
+          ["Set up appointment module", "In Progress", "April 28"],
+          ["Collect doctor data", "Completed", "April 20"]
+        ]
+      },
+      {
+        title: "Legal Aid Bot for Students",
+        domain: "Law",
+        users: ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgyshmoLfHlwl34SkVpkVb4a53cey9DCzYQw&s"],
+        chart: [20, 30, 50],
+        tasks: [
+          ["Integrate chatbot", "Not Started", "May 2"],
+          ["Legal FAQ dataset", "In Progress", "April 30"]
+        ]
+      },
+      {
+        title: "Pharmacy Inventory Tracker",
+        domain: "Pharmacy",
+        users: ["https://st2.depositphotos.com/1104517/11965/v/950/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg"],
+        chart: [40, 40, 20],
+        tasks: [
+          ["Design schema", "In Progress", "April 25"],
+          ["Add expiry alerts", "Not Started", "May 1"]
+        ]
+      },
+      {
+        title: "Startup Funding Portal",
+        domain: "Entrepreneurship",
+        users: ["https://as1.ftcdn.net/v2/jpg/05/79/55/26/1000_F_579552668_sZD51Sjmi89GhGqyF27pZcrqyi7cEYBH.jpg"],
+        chart: [25, 25, 50],
+        tasks: [
+          ["Connect investors", "In Progress", "April 30"],
+          ["Build pitch upload", "Not Started", "May 3"]
+        ]
+      },
+      {
+        title: "AI-based Attendance System",
+        domain: "Tech",
+        users: ["https://t3.ftcdn.net/jpg/07/64/40/98/360_F_764409867_iXpBxs90ZimTFHobmqvOaTtuJHJgHPOR.jpg"],
+        chart: [50, 30, 20],
+        tasks: [
+          ["Face recognition", "Completed", "April 10"],
+          ["Integrate with ERP", "In Progress", "April 29"]
+        ]
+      }
+    ];
 
-  <div class="project-card">
-    <h3>Community Health Awareness Campaign</h3>
-    <p>Medical and law students raise awareness on public health rights and preventive care.</p>
-    <div class="participants">
-      <img src="https://t3.ftcdn.net/jpg/07/64/40/98/360_F_764409867_iXpBxs90ZimTFHobmqvOaTtuJHJgHPOR.jpg" alt="User">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgyshmoLfHlwl34SkVpkVb4a53cey9DCzYQw&s" alt="User">
-    </div>
-  </div>
+    const container = document.getElementById('projectContainer');
+    const modal = document.getElementById('projectModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const taskTable = document.getElementById('taskTable');
+    let chart;
 
-  <div class="project-card">
-    <h3>Medicine Expiry Alert App</h3>
-    <p>A collaboration of pharmacy, medical, and tech students to reduce medication waste with reminders.</p>
-    <div class="participants">
-      <img src="https://as1.ftcdn.net/v2/jpg/05/79/55/26/1000_F_579552668_sZD51Sjmi89GhGqyF27pZcrqyi7cEYBH.jpg" alt="User">
-      <img src="https://st2.depositphotos.com/1104517/11965/v/950/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg" alt="User">
-      <img src="https://cdni.iconscout.com/illustration/premium/thumb/female-user-image-8110250-6515859.png?f=webp" alt="User">
-    </div>
-  </div>
-</div>
+    function showModal(project) {
+      modal.style.display = 'block';
+      modalTitle.innerText = project.title;
+      taskTable.innerHTML = '';
+      project.tasks.forEach(task => {
+        taskTable.innerHTML += <tr><td>${task[0]}</td><td>${task[1]}</td><td>${task[2]}</td></tr>;
+      });
+      if (chart) chart.destroy();
+      chart = new Chart(document.getElementById('chartCanvas'), {
+        type: 'pie',
+        data: {
+          labels: ["Design", "Development", "Testing"],
+          datasets: [{ data: project.chart, backgroundColor: ["#36A2EB", "#FFCE56", "#FF6384"] }]
+        }
+      });
+    }
 
-  </div>  <footer>
-    <p>&copy; 2025 CollabSphere. All Rights Reserved.</p>
-  </footer>
-</body>
+    function closeModal() {
+      modal.style.display = 'none';
+    }
+
+    function loadProjects(filter = 'All') {
+      container.innerHTML = '';
+      projects.forEach(project => {
+        if (filter !== 'All' && project.domain !== filter) return;
+        const card = document.createElement('div');
+        card.className = 'project-card';
+        card.innerHTML = `
+          <h3>${project.title}</h3>
+          <p><strong>Domain:</strong> ${project.domain}</p>
+          <div class="users">
+            ${project.users.map(u => <img src="${u}" alt="User">).join('')}
+          </div>
+          <button class="btn" onclick='showModal(${JSON.stringify(project)})'>View Details</button>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    document.getElementById('domainFilter').addEventListener('change', (e) => loadProjects(e.target.value));
+
+    loadProjects();
+  </script></body>
 </html>
