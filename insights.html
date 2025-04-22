@@ -1,153 +1,230 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CollabSphere Insights</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Insights - CollabSphere</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    * {
+    /* General Body Style */
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      color: #333;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-      font-family: 'Inter', sans-serif;
     }
-    body {
-      background: #f5f7fa;
-      padding: 20px;
-      color: #1f1f1f;
+
+    header {
+      background: #ffffff;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 10px;
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
     }
-    .insight-boxes {
+
+    /* Navigation Menu */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav a {
+      margin: 0 12px;
+      color: #333;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* Insights Page Layout */
+    .insights-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      margin-bottom: 30px;
+      grid-template-columns: 1fr 3fr;
+      gap: 2rem;
+      padding: 2rem;
     }
-    .box {
-      background: #fff;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+
+    .left-panel {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.08);
     }
-    .box h3 {
-      font-size: 1.1rem;
-      margin-bottom: 10px;
-      color: #555;
+
+    .right-panel {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.08);
     }
-    .tags span {
-      background: #e1ecf4;
-      color: #0366d6;
-      padding: 5px 10px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      margin-right: 5px;
-      display: inline-block;
-      margin-bottom: 5px;
+
+    .success-story img {
+      width: 100%;
+      border-radius: 8px;
     }
-    canvas {
-      margin-top: 20px;
-      background: #fff;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+
+    .chart-container {
+      width: 100%;
+      height: 300px;
     }
-    ul.collaborators {
-      list-style: none;
-      margin-top: 10px;
+
+    .search-bar {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-bottom: 1.5rem;
     }
-    ul.collaborators li {
-      margin-bottom: 8px;
+
+    .cta-btn {
+      background: #28a745;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 1rem;
     }
+
     footer {
       text-align: center;
-      margin-top: 40px;
-      color: #999;
       font-size: 0.9rem;
+      padding: 1rem;
+      background: #eee;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .insights-container {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Insights - CollabSphere</h1>  <div class="insight-boxes">
-    <div class="box">
-      <h3>Most Active Time</h3>
-      <p>8:00 PM - 11:00 PM</p>
-    </div>
-    <div class="box">
-      <h3>Top Skill Tags</h3>
-      <div class="tags">
-        <span>#UI</span>
-        <span>#Backend</span>
-        <span>#Research</span>
-        <span>#Testing</span>
-      </div>
-    </div>
-    <div class="box">
-      <h3>Top Collaborators</h3>
-      <ul class="collaborators">
-        <li>Rohit Reddy</li>
-        <li>Arun Vardhan</li>
-        <li>Meghana Raj</li>
-      </ul>
-    </div>
-    <div class="box">
-      <h3>Smart Suggestion</h3>
-      <p>You're highly collaborative on Fridays. Try collaborating more in research modules!</p>
-    </div>
-  </div><canvas id="skillRadarChart" height="250"></canvas> <canvas id="contributionDonut" height="250"></canvas>
 
-  <footer>
-    &copy; 2025 CollabSphere | Insights Powered for You
-  </footer>  <script>
-    const skillCtx = document.getElementById('skillRadarChart').getContext('2d');
-    new Chart(skillCtx, {
-      type: 'radar',
-      data: {
-        labels: ['Communication', 'Coding', 'Teamwork', 'Planning', 'Research'],
-        datasets: [{
-          label: 'Skill Levels',
-          data: [8, 7, 9, 6, 8],
-          backgroundColor: 'rgba(78, 121, 167, 0.3)',
-          borderColor: '#4e79a7',
-          borderWidth: 2
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          title: {
-            display: true,
-            text: 'Skill Growth Radar'
-          }
-        }
-      }
-    });
+<header>
+  <h1>CollabSphere Insights</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="profile.html">Profile</a>
+    <a href="workspace.html">Workspace</a>
+    <a href="resources.html">Resources</a>
+    <a href="insights.html">Insights</a>
+    <a href="assistance.html">Assistance</a>
+  </nav>
+</header>
 
-    const donutCtx = document.getElementById('contributionDonut').getContext('2d');
-    new Chart(donutCtx, {
-      type: 'doughnut',
-      data: {
-        labels: ['Pull Requests', 'Issues Raised', 'Ideas Shared', 'Code Reviews'],
-        datasets: [{
-          data: [12, 6, 9, 4],
-          backgroundColor: ['#4e79a7', '#f28e2b', '#e15759', '#76b7b2']
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          title: {
-            display: true,
-            text: 'Contribution Type Breakdown'
-          },
-          legend: {
-            position: 'bottom'
-          }
-        }
-      }
-    });
-  </script></body>
+<!-- Insights Page Content -->
+<div class="insights-container">
+  <!-- Left Panel -->
+  <section class="left-panel">
+    <input type="text" class="search-bar" placeholder="Search for trends, insights...">
+
+    <h2>Success Stories</h2>
+    <!-- Medical Students Success -->
+    <div class="success-story">
+      <h3>Dr. Nocca - Medical Entrepreneur</h3>
+      <img src="https://swarajya.gumlet.io/swarajya/2021-04/d7463c48-126b-48b4-acda-0f2c160a75ea/Nocca_founders.png?w=610&q=50&compress=true&format=auto" alt="Medical Entrepreneur">
+    </div>
+
+    <!-- Networking Students Success -->
+    <div class="success-story">
+      <h3>Networking Professional - John Doe</h3>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReee6KugAkzLrv5nO8QnVzT9eCYh19g3E1gg&s" alt="Networking Professional">
+    </div>
+
+    <!-- Law Students Success -->
+    <div class="success-story">
+      <h3>Legal Expert - Jane Smith</h3>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNWCiuksmMlh4hOaM_peqKQX5JMaz3CauAsA&s" alt="Legal Expert">
+    </div>
+
+    <!-- Business Students Success -->
+    <div class="success-story">
+      <h3>Business Leader - Amit Gupta</h3>
+      <img src="https://thumbs.dreamstime.com/b/two-business-team-manager-having-discussing-new-project-success-financial-statistics-partner-meeting-professional-investor-138126828.jpg" alt="Business Leader">
+    </div>
+
+    <!-- AI Students Success -->
+    <div class="success-story">
+      <h3>AI Innovator - Rahul Sharma</h3>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8q3z2cazhaBBgLBgO-6GcJEOUUMDBpOCgDw&s" alt="AI Innovator">
+    </div>
+  </section>
+
+  <!-- Right Panel -->
+  <section class="right-panel">
+    <h2>Industry Insights</h2>
+    <div class="chart-container">
+      <canvas id="industryChart"></canvas>
+    </div>
+
+    <h2>Explore Job Opportunities</h2>
+    <button class="cta-btn">Explore Now</button>
+
+    <h2>Market Insights</h2>
+    <div class="chart-container">
+      <canvas id="marketChart"></canvas>
+    </div>
+  </section>
+</div>
+
+<footer>
+  &copy; 2025 CollabSphere. All rights reserved.
+</footer>
+
+<script>
+  // Industry Insights Chart (Mock Data)
+  const industryCtx = document.getElementById('industryChart').getContext('2d');
+  const industryChart = new Chart(industryCtx, {
+    type: 'pie',
+    data: {
+      labels: ['Healthcare', 'Tech', 'Finance', 'Marketing'],
+      datasets: [{
+        data: [30, 40, 20, 10],
+        backgroundColor: ['#ff5733', '#33ff57', '#1e90ff', '#ffcc00'],
+      }]
+    },
+    options: {
+      responsive: true
+    }
+  });
+
+  // Market Insights Chart (Mock Data)
+  const marketCtx = document.getElementById('marketChart').getContext('2d');
+  const marketChart = new Chart(marketCtx, {
+    type: 'bar',
+    data: {
+      labels: ['2023', '2024', '2025'],
+      datasets: [{
+        label: 'Job Market Trends',
+        data: [100, 200, 300],
+        backgroundColor: '#28a745',
+        borderColor: '#28a745',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true
+    }
+  });
+</script>
+
+</body>
 </html>
