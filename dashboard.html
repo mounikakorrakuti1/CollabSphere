@@ -1,196 +1,245 @@
-<!DOCTYPE html>
+\<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CollabSphere Dashboard</title>
-    <style>
-        /* General Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <title>CollabSphere Dashboard</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-        }
+    header {
+      background: #ffffff;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-        .dashboard-container {
-            display: flex;
-        }
+    nav a {
+      margin: 0 12px;
+      color: #333;
+      text-decoration: none;
+      font-weight: 500;
+    }
 
-        /* Sidebar */
-        .sidebar {
-            width: 250px;
-            background-color: #2c3e50;
-            color: white;
-            height: 100vh;
-            padding-top: 20px;
-        }
+    .dashboard {
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 2rem;
+    }
 
-        .sidebar-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+    .user-section, .content-section {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+    }
 
-        .sidebar-header h2 {
-            font-size: 24px;
-        }
+    .profile-img {
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      margin-right: 1rem;
+    }
 
-        .sidebar-nav {
-            list-style: none;
-            padding: 0;
-        }
+    .user-card {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.2rem;
+    }
 
-        .sidebar-nav li {
-            padding: 15px;
-            text-align: center;
-        }
+    .user-details h3 {
+      margin: 0;
+    }
 
-        .sidebar-nav li a {
-            color: white;
-            text-decoration: none;
-            display: block;
-        }
+    h2 {
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 0.5rem;
+    }
 
-        .sidebar-nav li a:hover {
-            background-color: #34495e;
-        }
+    .chart-container {
+      width: 100%;
+      height: 300px;
+    }
 
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            padding: 20px;
-        }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
 
-        header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 30px;
-        }
+    table th, table td {
+      border: 1px solid #ddd;
+      padding: 0.75rem;
+      text-align: center;
+    }
 
-        .user-profile {
-            display: flex;
-            align-items: center;
-        }
+    .dropdown, .filter-btn {
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      border: 1px solid #aaa;
+      border-radius: 6px;
+    }
 
-        .user-profile img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
+    .activity-log li {
+      margin-bottom: 10px;
+      list-style: none;
+    }
 
-        .user-info p {
-            margin: 0;
-        }
-
-        .user-role {
-            font-size: 14px;
-            color: #888;
-        }
-
-        /* Dashboard Overview */
-        .dashboard-overview {
-            display: flex;
-            gap: 20px;
-        }
-
-        .card {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            flex: 1;
-        }
-
-        .card h3 {
-            margin-bottom: 15px;
-            font-size: 18px;
-            color: #2c3e50;
-        }
-
-        .card ul {
-            list-style: none;
-        }
-
-        .card ul li {
-            margin-bottom: 10px;
-        }
-
-        /* Quick Access Links */
-        .quick-access {
-            margin-top: 30px;
-        }
-
-        .quick-access a {
-            color: #3498db;
-            text-decoration: none;
-        }
-
-        .quick-access a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.9rem;
+      padding: 1rem;
+      background: #eee;
+    }
+  </style>
 </head>
 <body>
-    <div class="dashboard-container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <h2>CollabSphere</h2>
-            </div>
-            <ul class="sidebar-nav">
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">Projects</a></li>
-                <li><a href="#">Teams</a></li>
-                <li><a href="#">Settings</a></li>
-            </ul>
-        </aside>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <header>
-                <div class="user-profile">
-                    <img src="profile.jpg" alt="Profile Picture">
-                    <div class="user-info">
-                        <p class="user-name">John Doe</p>
-                        <p class="user-role">Admin</p>
-                    </div>
-                </div>
-            </header>
+<header>
+  <img src="assets/images/logo.png" alt="CollabSphere" height="40">
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="profile.html">Profile</a>
+    <a href="workspace.html">Workspace</a>
+    <a href="resources.html">Resources</a>
+    <a href="insights.html">Insights</a>
+    <a href="assistance.html">Assistance</a>
+    <a href="messages.html">Messages</a>
+    <a href="settings.html">Settings</a>
+  </nav>
+</header>
 
-            <section class="dashboard-overview">
-                <div class="card">
-                    <h3>Recent Activities</h3>
-                    <ul>
-                        <li>Joined a new project - "AI Development"</li>
-                        <li>Completed task - "UI Update for Dashboard"</li>
-                        <li>Started following a new team</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <h3>Upcoming Events</h3>
-                    <ul>
-                        <li>Team meeting: 3:00 PM</li>
-                        <li>Code review: 10:00 AM</li>
-                    </ul>
-                </div>
-            </section>
+<div class="dashboard">
+  <!-- Left Panel -->
+  <section class="user-section">
+    <h2>Active Users</h2>
 
-            <section class="quick-access">
-                <div class="card">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="#">Create New Project</a></li>
-                        <li><a href="#">View Team Members</a></li>
-                    </ul>
-                </div>
-            </section>
-        </main>
+    <div class="user-card">
+      <img class="profile-img" src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359554_640.png" alt="">
+      <div class="user-details">
+        <h3>Rohit Sharma</h3>
+        <p>UI/UX Designer</p>
+      </div>
     </div>
+    <div class="user-card">
+      <img class="profile-img" src="https://st2.depositphotos.com/1104517/11965/v/950/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg" alt="">
+      <div class="user-details">
+        <h3>Anjali Mehra</h3>
+        <p>Frontend Developer</p>
+      </div>
+    </div>
+    <div class="user-card">
+      <img class="profile-img" src="https://cdni.iconscout.com/illustration/premium/thumb/female-user-image-8110250-6515859.png?f=webp" alt="">
+      <div class="user-details">
+        <h3>Yusuf Khan</h3>
+        <p>Backend Developer</p>
+      </div>
+    </div>
+
+    <h2>Filters</h2>
+    <select class="dropdown">
+      <option value="">Select Role</option>
+      <option>Developer</option>
+      <option>Designer</option>
+      <option>Analyst</option>
+    </select>
+    <button class="filter-btn">Apply Filter</button>
+  </section>
+
+  <!-- Right Panel -->
+  <section class="content-section">
+    <h2>Dashboard Overview</h2>
+    <div class="chart-container">
+      <canvas id="overviewChart"></canvas>
+    </div>
+
+    <h2>Recent Activities</h2>
+    <ul class="activity-log">
+      <li><i class="fas fa-bell"></i> You were assigned to "CollabSphere Redesign"</li>
+      <li><i class="fas fa-bell"></i> Anjali completed "Homepage wireframe"</li>
+      <li><i class="fas fa-bell"></i> Rohit joined "Frontend team"</li>
+    </ul>
+
+    <h2>Projects</h2>
+    <table>
+      <tr>
+        <th>Project</th>
+        <th>Deadline</th>
+        <th>Status</th>
+      </tr>
+      <tr>
+        <td>UI Redesign</td>
+        <td>2025-05-10</td>
+        <td>Ongoing</td>
+      </tr>
+      <tr>
+        <td>Backend API</td>
+        <td>2025-06-01</td>
+        <td>Completed</td>
+      </tr>
+      <tr>
+        <td>Testing Phase</td>
+        <td>2025-07-15</td>
+        <td>Upcoming</td>
+      </tr>
+    </table>
+
+    <h2>Collaboration Details</h2>
+    <table>
+      <tr>
+        <th>Team</th>
+        <th>Members</th>
+        <th>Tasks</th>
+      </tr>
+      <tr>
+        <td>Frontend</td>
+        <td>Rohit, Anjali</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td>Backend</td>
+        <td>Yusuf</td>
+        <td>3</td>
+      </tr>
+    </table>
+  </section>
+</div>
+
+<footer>
+  &copy; 2025 CollabSphere. All rights reserved.
+</footer>
+
+<script>
+  const ctx = document.getElementById('overviewChart').getContext('2d');
+  const overviewChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: ['Ongoing', 'Completed', 'Upcoming'],
+      datasets: [{
+        label: 'Project Stats',
+        data: [50, 30, 20],
+        backgroundColor: ['#4e73df', '#1cc88a', '#f6c23e'],
+      }]
+    },
+    options: {
+      responsive: true
+    }
+  });
+</script>
+
 </body>
 </html>
