@@ -1,245 +1,139 @@
-\<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CollabSphere Dashboard</title>
   <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="assets/css/responsive.css">
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #f9f9f9;
+      background-color: #f9f9f9;
       color: #333;
       margin: 0;
       padding: 0;
     }
-
     header {
-      background: #ffffff;
-      padding: 1rem 2rem;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      background: #004080;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .dashboard-container {
+      padding: 30px;
+    }
+    .filter-bar {
+      margin-bottom: 20px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      flex-wrap: wrap;
     }
-
-    nav a {
-      margin: 0 12px;
-      color: #333;
-      text-decoration: none;
-      font-weight: 500;
+    select, button {
+      padding: 8px 12px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
     }
-
-    .dashboard {
-      padding: 2rem;
+    .project-list {
       display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
     }
-
-    .user-section, .content-section {
+    .project-card {
       background: white;
-      padding: 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
-
-    .profile-img {
-      border-radius: 50%;
-      width: 80px;
-      height: 80px;
-      margin-right: 1rem;
+    .project-card h3 {
+      margin-top: 0;
     }
-
-    .user-card {
+    .participants {
       display: flex;
-      align-items: center;
-      margin-bottom: 1.2rem;
+      gap: 10px;
+      margin-top: 10px;
     }
-
-    .user-details h3 {
-      margin: 0;
+    .participants img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
     }
-
-    h2 {
-      margin-bottom: 1rem;
-      font-size: 1.4rem;
-      border-bottom: 2px solid #eee;
-      padding-bottom: 0.5rem;
-    }
-
-    .chart-container {
-      width: 100%;
-      height: 300px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1rem;
-    }
-
-    table th, table td {
-      border: 1px solid #ddd;
-      padding: 0.75rem;
-      text-align: center;
-    }
-
-    .dropdown, .filter-btn {
-      margin: 0.5rem 0;
-      padding: 0.5rem;
-      border: 1px solid #aaa;
-      border-radius: 6px;
-    }
-
-    .activity-log li {
-      margin-bottom: 10px;
-      list-style: none;
-    }
-
     footer {
-      margin-top: 3rem;
+      background: #004080;
+      color: white;
       text-align: center;
-      font-size: 0.9rem;
-      padding: 1rem;
-      background: #eee;
+      padding: 15px;
+      margin-top: 30px;
     }
   </style>
 </head>
 <body>
-
-<header>
-  <img src="assets/images/logo.png" alt="CollabSphere" height="40">
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="profile.html">Profile</a>
-    <a href="workspace.html">Workspace</a>
-    <a href="resources.html">Resources</a>
-    <a href="insights.html">Insights</a>
-    <a href="assistance.html">Assistance</a>
-    <a href="messages.html">Messages</a>
-    <a href="settings.html">Settings</a>
-  </nav>
-</header>
-
-<div class="dashboard">
-  <!-- Left Panel -->
-  <section class="user-section">
-    <h2>Active Users</h2>
-
-    <div class="user-card">
-      <img class="profile-img" src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359554_640.png" alt="">
-      <div class="user-details">
-        <h3>Rohit Sharma</h3>
-        <p>UI/UX Designer</p>
-      </div>
+  <header>
+    <h1>Welcome to Your Dashboard</h1>
+    <p>CollabSphere: Connect, Collaborate, Create</p>
+  </header>  <div class="dashboard-container">
+    <div class="filter-bar">
+      <select>
+        <option value="all">All Domains</option>
+        <option value="tech">Technology</option>
+        <option value="medical">Medical</option>
+        <option value="law">Law</option>
+        <option value="pharma">Pharmacy</option>
+        <option value="entrepreneurship">Entrepreneurship</option>
+      </select>
+      <button>Apply Filter</button>
+    </div><div class="project-list">
+  <div class="project-card">
+    <h3>AI-Powered Legal Research Tool</h3>
+    <p>A collaboration between law students and AI engineers to develop a legal case summarization system.</p>
+    <div class="participants">
+      <img src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359554_640.png" alt="User">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgyshmoLfHlwl34SkVpkVb4a53cey9DCzYQw&s" alt="User">
+      <img src="https://cdni.iconscout.com/illustration/premium/thumb/female-user-image-8110250-6515859.png?f=webp" alt="User">
     </div>
-    <div class="user-card">
-      <img class="profile-img" src="https://st2.depositphotos.com/1104517/11965/v/950/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg" alt="">
-      <div class="user-details">
-        <h3>Anjali Mehra</h3>
-        <p>Frontend Developer</p>
-      </div>
+  </div>
+
+  <div class="project-card">
+    <h3>Remote Health Monitoring System</h3>
+    <p>Pharmacy and tech students team up to monitor vitals using IoT and mobile apps.</p>
+    <div class="participants">
+      <img src="https://st2.depositphotos.com/1104517/11965/v/950/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg" alt="User">
+      <img src="https://as1.ftcdn.net/v2/jpg/05/79/55/26/1000_F_579552668_sZD51Sjmi89GhGqyF27pZcrqyi7cEYBH.jpg" alt="User">
+      <img src="https://t3.ftcdn.net/jpg/07/64/40/98/360_F_764409867_iXpBxs90ZimTFHobmqvOaTtuJHJgHPOR.jpg" alt="User">
     </div>
-    <div class="user-card">
-      <img class="profile-img" src="https://cdni.iconscout.com/illustration/premium/thumb/female-user-image-8110250-6515859.png?f=webp" alt="">
-      <div class="user-details">
-        <h3>Yusuf Khan</h3>
-        <p>Backend Developer</p>
-      </div>
+  </div>
+
+  <div class="project-card">
+    <h3>Startup Idea Incubation Tracker</h3>
+    <p>Entrepreneurship students collaborate to build a task board and pitch deck manager.</p>
+    <div class="participants">
+      <img src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359554_640.png" alt="User">
+      <img src="https://cdni.iconscout.com/illustration/premium/thumb/female-user-image-8110250-6515859.png?f=webp" alt="User">
     </div>
+  </div>
 
-    <h2>Filters</h2>
-    <select class="dropdown">
-      <option value="">Select Role</option>
-      <option>Developer</option>
-      <option>Designer</option>
-      <option>Analyst</option>
-    </select>
-    <button class="filter-btn">Apply Filter</button>
-  </section>
-
-  <!-- Right Panel -->
-  <section class="content-section">
-    <h2>Dashboard Overview</h2>
-    <div class="chart-container">
-      <canvas id="overviewChart"></canvas>
+  <div class="project-card">
+    <h3>Community Health Awareness Campaign</h3>
+    <p>Medical and law students raise awareness on public health rights and preventive care.</p>
+    <div class="participants">
+      <img src="https://t3.ftcdn.net/jpg/07/64/40/98/360_F_764409867_iXpBxs90ZimTFHobmqvOaTtuJHJgHPOR.jpg" alt="User">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgyshmoLfHlwl34SkVpkVb4a53cey9DCzYQw&s" alt="User">
     </div>
+  </div>
 
-    <h2>Recent Activities</h2>
-    <ul class="activity-log">
-      <li><i class="fas fa-bell"></i> You were assigned to "CollabSphere Redesign"</li>
-      <li><i class="fas fa-bell"></i> Anjali completed "Homepage wireframe"</li>
-      <li><i class="fas fa-bell"></i> Rohit joined "Frontend team"</li>
-    </ul>
-
-    <h2>Projects</h2>
-    <table>
-      <tr>
-        <th>Project</th>
-        <th>Deadline</th>
-        <th>Status</th>
-      </tr>
-      <tr>
-        <td>UI Redesign</td>
-        <td>2025-05-10</td>
-        <td>Ongoing</td>
-      </tr>
-      <tr>
-        <td>Backend API</td>
-        <td>2025-06-01</td>
-        <td>Completed</td>
-      </tr>
-      <tr>
-        <td>Testing Phase</td>
-        <td>2025-07-15</td>
-        <td>Upcoming</td>
-      </tr>
-    </table>
-
-    <h2>Collaboration Details</h2>
-    <table>
-      <tr>
-        <th>Team</th>
-        <th>Members</th>
-        <th>Tasks</th>
-      </tr>
-      <tr>
-        <td>Frontend</td>
-        <td>Rohit, Anjali</td>
-        <td>6</td>
-      </tr>
-      <tr>
-        <td>Backend</td>
-        <td>Yusuf</td>
-        <td>3</td>
-      </tr>
-    </table>
-  </section>
+  <div class="project-card">
+    <h3>Medicine Expiry Alert App</h3>
+    <p>A collaboration of pharmacy, medical, and tech students to reduce medication waste with reminders.</p>
+    <div class="participants">
+      <img src="https://as1.ftcdn.net/v2/jpg/05/79/55/26/1000_F_579552668_sZD51Sjmi89GhGqyF27pZcrqyi7cEYBH.jpg" alt="User">
+      <img src="https://st2.depositphotos.com/1104517/11965/v/950/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg" alt="User">
+      <img src="https://cdni.iconscout.com/illustration/premium/thumb/female-user-image-8110250-6515859.png?f=webp" alt="User">
+    </div>
+  </div>
 </div>
 
-<footer>
-  &copy; 2025 CollabSphere. All rights reserved.
-</footer>
-
-<script>
-  const ctx = document.getElementById('overviewChart').getContext('2d');
-  const overviewChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-      labels: ['Ongoing', 'Completed', 'Upcoming'],
-      datasets: [{
-        label: 'Project Stats',
-        data: [50, 30, 20],
-        backgroundColor: ['#4e73df', '#1cc88a', '#f6c23e'],
-      }]
-    },
-    options: {
-      responsive: true
-    }
-  });
-</script>
-
+  </div>  <footer>
+    <p>&copy; 2025 CollabSphere. All Rights Reserved.</p>
+  </footer>
 </body>
 </html>
