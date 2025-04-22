@@ -1,26 +1,317 @@
-<!DOCTYPE html>
+\<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Career Insights | CollabSphere</title>
+  <title>CollabSphere Dashboard</title>
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #ffffff;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    nav a {
+      margin: 0 12px;
+      color: #333;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .dashboard {
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 2rem;
+    }
+
+    .user-section, .content-section {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+    }
+
+    .profile-img {
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      margin-right: 1rem;
+    }
+
+    .user-card {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.2rem;
+    }
+
+    .user-details h3 {
+      margin: 0;
+    }
+
+    h2 {
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 0.5rem;
+    }
+
+    .chart-container {
+      width: 100%;
+      height: 300px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    table th, table td {
+      border: 1px solid #ddd;
+      padding: 0.75rem;
+      text-align: center;
+    }
+
+    .dropdown, .filter-btn {
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      border: 1px solid #aaa;
+      border-radius: 6px;
+    }
+
+    .activity-log li {
+      margin-bottom: 10px;
+      list-style: none;
+    }
+
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.9rem;
+      padding: 1rem;
+      background: #eee;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <img src="assets/images/logo.png" class="logo" alt="CollabSphere Logo">
-    <nav>
-      <a href="dashboard.html">Dashboard</a>
-      <a href="resources.html">Resources</a>
-    </nav>
-  </header>
 
-  <main>
-    <h2>Career Trends & Guidance</h2>
-    <p>Discover skills in demand, trending job roles, and certifications.</p>
-  </main>
+<header>
+  <img src="assets/images/logo.png" alt="CollabSphere" height="40">
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="profile.html">Profile</a>
+    <a href="workspace.html">Workspace</a>
+    <a href="resources.html">Resources</a>
+    <a href="insights.html">Insights</a>
+    <a href="assistance.html">Assistance</a>
+    <a href="messages.html">Messages</a>
+    <a href="settings.html">Settings</a>
+  </nav>
+</header>
 
-  <footer>
-    <p>&copy; 2025 CollabSphere</p>
-  </footer>
+<div class="dashboard">
+  <!-- Left Panel -->
+  <section class="user-section">
+    <h2>Active Users</h2>
+
+    <div class="user-card">
+      <img class="profile-img" src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359554_640.png" alt="">
+      <div class="user-details">
+        <h3>Rohit Sharma</h3>
+        <p>UI/UX Designer</p>
+      </div>
+    </div>
+    <div class="user-card">
+      <img class="profile-img" src="https://st2.depositphotos.com/1104517/11965/v/950/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg" alt="">
+      <div class="user-details">
+        <h3>Anjali Mehra</h3>
+        <p>Frontend Developer</p>
+      </div>
+    </div>
+    <div class="user-card">
+      <img class="profile-img" src="https://cdni.iconscout.com/illustration/premium/thumb/female-user-image-8110250-6515859.png?f=webp" alt="">
+      <div class="user-details">
+        <h3>Yusuf Khan</h3>
+        <p>Backend Developer</p>
+      </div>
+    </div>
+
+    <h2>Filters</h2>
+    <select class="dropdown">
+      <option value="">Select Role</option>
+      <option>Developer</option>
+      <option>Designer</option>
+      <option>Analyst</option>
+    </select>
+    <button class="filter-btn">Apply Filter</button>
+  </section>
+
+  <!-- Right Panel -->
+  <section class="content-section">
+    <h2>Dashboard Overview</h2>
+    <div class="chart-container">
+      <canvas id="overviewChart"></canvas>
+    </div>
+
+    <h2>Recent Activities</h2>
+    <ul class="activity-log">
+      <li><i class="fas fa-bell"></i> You were assigned to "CollabSphere Redesign"</li>
+      <li><i class="fas fa-bell"></i> Anjali completed "Homepage wireframe"</li>
+      <li><i class="fas fa-bell"></i> Rohit joined "Frontend team"</li>
+    </ul>
+
+    <h2>Projects</h2>
+    <table>
+      <tr>
+        <th>Project</th>
+        <th>Deadline</th>
+        <th>Status</th>
+      </tr>
+      <tr>
+        <td>UI Redesign</td>
+        <td>2025-05-10</td>
+        <td>Ongoing</td>
+      </tr>
+      <tr>
+        <td>Backend API</td>
+        <td>2025-06-01</td>
+        <td>Completed</td>
+      </tr>
+      <tr>
+        <td>Testing Phase</td>
+        <td>2025-07-15</td>
+        <td>Upcoming</td>
+      </tr>
+    </table>
+
+    <h2>Collaboration Details</h2>
+    <table>
+      <tr>
+        <th>Team</th>
+        <th>Members</th>
+        <th>Tasks</th>
+      </tr>
+      <tr>
+        <td>Frontend</td>
+        <td>Rohit, Anjali</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td>Backend</td>
+        <td>Yusuf</td>
+        <td>3</td>
+      </tr>
+    </table>
+
+    <!-- Entrepreneurs and Business Students Section -->
+    <h2>Entrepreneurs and Business Students</h2>
+    <div class="user-card">
+      <img class="profile-img" src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359554_640.png" alt="">
+      <div class="user-details">
+        <h3>Amit Gupta</h3>
+        <p>Business Strategist</p>
+      </div>
+    </div>
+    <div class="user-card">
+      <img class="profile-img" src="https://st2.depositphotos.com/1104517/11965/v/950/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg" alt="">
+      <div class="user-details">
+        <h3>Simran Kaur</h3>
+        <p>Entrepreneur</p>
+      </div>
+    </div>
+    <div class="chart-container">
+      <canvas id="businessChart"></canvas>
+    </div>
+
+    <!-- Medical or Law Students Section -->
+    <h2>Medical or Law Students</h2>
+    <div class="user-card">
+      <img class="profile-img" src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359554_640.png" alt="">
+      <div class="user-details">
+        <h3>Dr. Neha Patel</h3>
+        <p>Medical Student</p>
+      </div>
+    </div>
+    <div class="user-card">
+      <img class="profile-img" src="https://st2.depositphotos.com/1104517/11965/v/950/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg" alt="">
+      <div class="user-details">
+        <h3>Ravi Sethi</h3>
+        <p>Law Student</p>
+      </div>
+    </div>
+    <div class="chart-container">
+      <canvas id="medicalLawChart"></canvas>
+    </div>
+  </section>
+</div>
+
+<footer>
+  &copy; 2025 CollabSphere. All rights reserved.
+</footer>
+
+<script>
+  const ctx = document.getElementById('overviewChart').getContext('2d');
+  const overviewChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: ['Ongoing', 'Completed', 'Upcoming'],
+      datasets: [{
+        label: 'Project Stats',
+        data: [50, 30, 20],
+        backgroundColor: ['#4e73df', '#1cc88a', '#f6c23e'],
+      }]
+    },
+    options: {
+      responsive: true
+    }
+  });
+
+  const businessCtx = document.getElementById('businessChart').getContext('2d');
+  const businessChart = new Chart(businessCtx, {
+    type: 'pie',
+    data: {
+      labels: ['Ongoing', 'Completed', 'Upcoming'],
+      datasets: [{
+        label: 'Business Projects',
+        data: [40, 40, 20],
+        backgroundColor: ['#ff5733', '#33ff57', '#3357ff'],
+      }]
+    },
+    options: {
+      responsive: true
+    }
+  });
+
+  const medicalLawCtx = document.getElementById('medicalLawChart').getContext('2d');
+  const medicalLawChart = new Chart(medicalLawCtx, {
+    type: 'pie',
+    data: {
+      labels: ['Ongoing', 'Completed', 'Upcoming'],
+      datasets: [{
+        label: 'Medical/Law Projects',
+        data: [60, 25, 15],
+        backgroundColor: ['#ffcc00', '#28a745', '#17a2b8'],
+      }]
+    },
+    options: {
+      responsive: true
+    }
+  });
+</script>
+
 </body>
 </html>
