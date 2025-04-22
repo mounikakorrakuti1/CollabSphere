@@ -1,134 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - CollabSphere</title>
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/responsive.css">
-  <script src="assets/js/main.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CollabSphere Dashboard</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        .dashboard-container {
+            display: flex;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            color: white;
+            height: 100vh;
+            padding-top: 20px;
+        }
+
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .sidebar-header h2 {
+            font-size: 24px;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar-nav li {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .sidebar-nav li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+        }
+
+        .sidebar-nav li a:hover {
+            background-color: #34495e;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-profile img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .user-info p {
+            margin: 0;
+        }
+
+        .user-role {
+            font-size: 14px;
+            color: #888;
+        }
+
+        /* Dashboard Overview */
+        .dashboard-overview {
+            display: flex;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            flex: 1;
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #2c3e50;
+        }
+
+        .card ul {
+            list-style: none;
+        }
+
+        .card ul li {
+            margin-bottom: 10px;
+        }
+
+        /* Quick Access Links */
+        .quick-access {
+            margin-top: 30px;
+        }
+
+        .quick-access a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .quick-access a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="logo-container">
-      <img src="assets/images/logo.png" alt="CollabSphere Logo" class="logo">
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="profile.html">Profile</a>
-        <a href="projects.html">Projects</a>
-        <a href="collaboration.html">Collaboration</a>
-        <a href="resources.html">Resources</a>
-        <a href="insights.html">Insights</a>
-        <a href="messages.html">Messages</a>
-        <a href="settings.html">Settings</a>
-      </nav>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>CollabSphere</h2>
+            </div>
+            <ul class="sidebar-nav">
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Projects</a></li>
+                <li><a href="#">Teams</a></li>
+                <li><a href="#">Settings</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <div class="user-profile">
+                    <img src="profile.jpg" alt="Profile Picture">
+                    <div class="user-info">
+                        <p class="user-name">John Doe</p>
+                        <p class="user-role">Admin</p>
+                    </div>
+                </div>
+            </header>
+
+            <section class="dashboard-overview">
+                <div class="card">
+                    <h3>Recent Activities</h3>
+                    <ul>
+                        <li>Joined a new project - "AI Development"</li>
+                        <li>Completed task - "UI Update for Dashboard"</li>
+                        <li>Started following a new team</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Upcoming Events</h3>
+                    <ul>
+                        <li>Team meeting: 3:00 PM</li>
+                        <li>Code review: 10:00 AM</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="quick-access">
+                <div class="card">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Create New Project</a></li>
+                        <li><a href="#">View Team Members</a></li>
+                    </ul>
+                </div>
+            </section>
+        </main>
     </div>
-  </header>
-
-  <main>
-    <section class="dashboard-container">
-      <div class="profile-summary">
-        <div class="user-profile">
-          <img src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359554_640.png" alt="John Doe" class="profile-img">
-          <div class="user-details">
-            <h2>John Doe</h2>
-            <p>Student</p>
-          </div>
-        </div>
-
-        <div class="overview">
-          <h3>Overview</h3>
-          <div class="pie-chart">
-            <canvas id="overviewChart"></canvas>
-          </div>
-          <div class="status-bar">
-            <div class="status-item">
-              <p>Project</p>
-              <p>50%</p>
-            </div>
-            <div class="status-item">
-              <p>In Progress</p>
-              <p>50%</p>
-            </div>
-            <div class="status-item">
-              <p>Not Started</p>
-              <p>25%</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="team-activity">
-        <h3>Team Activity</h3>
-        <ul>
-          <li><span class="activity-icon"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgyshmoLfHlwl34SkVpkVb4a53cey9DCzYQw&s" alt="Activity Icon"></span> Alex Johnson commented on a task</li>
-          <li><span class="activity-icon"><img src="https://st2.depositphotos.com/1104517/11965/v/950/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg" alt="Activity Icon"></span> You were assigned a new task</li>
-          <li><span class="activity-icon"><img src="https://as1.ftcdn.net/v2/jpg/05/79/55/26/1000_F_579552668_sZD51Sjmi89GhGqyF27pZcrqyi7cEYBH.jpg" alt="Activity Icon"></span> Emily Smith joined a group</li>
-        </ul>
-      </div>
-
-      <div class="projects">
-        <h3>Projects</h3>
-        <table>
-          <tr>
-            <th>Project</th>
-            <th>Deadline</th>
-            <th>Status</th>
-          </tr>
-          <tr>
-            <td>Project A</td>
-            <td>May 20, 2025</td>
-            <td>In Progress</td>
-          </tr>
-          <tr>
-            <td>Project B</td>
-            <td>June 15, 2025</td>
-            <td>Completed</td>
-          </tr>
-          <tr>
-            <td>Project C</td>
-            <td>July 3, 2025</td>
-            <td>Not Started</td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="recommendations">
-        <h3>Recommendations</h3>
-        <ul>
-          <li>Join "AI Research Group"</li>
-          <li>Complete "Database Optimization"</li>
-          <li>Explore "UI/UX Design Trends"</li>
-        </ul>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; 2025 CollabSphere. All Rights Reserved.</p>
-  </footer>
-
-  <script>
-    const ctx = document.getElementById('overviewChart').getContext('2d');
-    const overviewChart = new Chart(ctx, {
-      type: 'pie',
-      data: {
-        labels: ['Project', 'In Progress', 'Not Started'],
-        datasets: [{
-          label: 'Project Overview',
-          data: [50, 50, 25],
-          backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'top',
-          },
-        },
-      },
-    });
-  </script>
 </body>
 </html>
