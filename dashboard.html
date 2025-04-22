@@ -2,30 +2,133 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Dashboard | CollabSphere</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - CollabSphere</title>
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <script src="assets/js/main.js" defer></script>
 </head>
 <body>
   <header>
-    <img src="assets/images/logo.png" class="logo" alt="CollabSphere Logo">
-    <nav>
-      <a href="workspace.html">Workspace</a>
-      <a href="project.html">Projects</a>
-      <a href="resources.html">Resources</a>
-      <a href="profile.html">Profile</a>
-    </nav>
+    <div class="logo-container">
+      <img src="assets/images/logo.png" alt="CollabSphere Logo" class="logo">
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="profile.html">Profile</a>
+        <a href="projects.html">Projects</a>
+        <a href="collaboration.html">Collaboration</a>
+        <a href="resources.html">Resources</a>
+        <a href="insights.html">Insights</a>
+        <a href="messages.html">Messages</a>
+        <a href="settings.html">Settings</a>
+      </nav>
+    </div>
   </header>
 
   <main>
-    <h2>Welcome, [Student Name]</h2>
-    <p>Your recent activities and notifications will show up here.</p>
-    <div class="dashboard-widgets">
-      <!-- Cards for updates, tasks, insights -->
-    </div>
+    <section class="dashboard-container">
+      <div class="profile-summary">
+        <div class="user-profile">
+          <img src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359554_640.png" alt="John Doe" class="profile-img">
+          <div class="user-details">
+            <h2>John Doe</h2>
+            <p>Student</p>
+          </div>
+        </div>
+
+        <div class="overview">
+          <h3>Overview</h3>
+          <div class="pie-chart">
+            <canvas id="overviewChart"></canvas>
+          </div>
+          <div class="status-bar">
+            <div class="status-item">
+              <p>Project</p>
+              <p>50%</p>
+            </div>
+            <div class="status-item">
+              <p>In Progress</p>
+              <p>50%</p>
+            </div>
+            <div class="status-item">
+              <p>Not Started</p>
+              <p>25%</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-activity">
+        <h3>Team Activity</h3>
+        <ul>
+          <li><span class="activity-icon"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgyshmoLfHlwl34SkVpkVb4a53cey9DCzYQw&s" alt="Activity Icon"></span> Alex Johnson commented on a task</li>
+          <li><span class="activity-icon"><img src="https://st2.depositphotos.com/1104517/11965/v/950/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg" alt="Activity Icon"></span> You were assigned a new task</li>
+          <li><span class="activity-icon"><img src="https://as1.ftcdn.net/v2/jpg/05/79/55/26/1000_F_579552668_sZD51Sjmi89GhGqyF27pZcrqyi7cEYBH.jpg" alt="Activity Icon"></span> Emily Smith joined a group</li>
+        </ul>
+      </div>
+
+      <div class="projects">
+        <h3>Projects</h3>
+        <table>
+          <tr>
+            <th>Project</th>
+            <th>Deadline</th>
+            <th>Status</th>
+          </tr>
+          <tr>
+            <td>Project A</td>
+            <td>May 20, 2025</td>
+            <td>In Progress</td>
+          </tr>
+          <tr>
+            <td>Project B</td>
+            <td>June 15, 2025</td>
+            <td>Completed</td>
+          </tr>
+          <tr>
+            <td>Project C</td>
+            <td>July 3, 2025</td>
+            <td>Not Started</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="recommendations">
+        <h3>Recommendations</h3>
+        <ul>
+          <li>Join "AI Research Group"</li>
+          <li>Complete "Database Optimization"</li>
+          <li>Explore "UI/UX Design Trends"</li>
+        </ul>
+      </div>
+    </section>
   </main>
 
   <footer>
-    <p>&copy; 2025 CollabSphere</p>
+    <p>&copy; 2025 CollabSphere. All Rights Reserved.</p>
   </footer>
+
+  <script>
+    const ctx = document.getElementById('overviewChart').getContext('2d');
+    const overviewChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ['Project', 'In Progress', 'Not Started'],
+        datasets: [{
+          label: 'Project Overview',
+          data: [50, 50, 25],
+          backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+        },
+      },
+    });
+  </script>
 </body>
 </html>
