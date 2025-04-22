@@ -2,26 +2,141 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Workspace | CollabSphere</title>
-  <link rel="stylesheet" href="assets/css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CollabSphere Workspace</title>
+  <link rel="stylesheet" href="responsive.css">
+  <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqmF9hr_V4JFRXf0zNIqUBPaZuAh3Rxzc5mQ&s">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f4f4;
+    }
+    header {
+      background: #0c1f4b;
+      color: #fff;
+      padding: 1em;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header img {
+      height: 40px;
+    }
+    .container {
+      padding: 1em;
+    }
+    .tools {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5em;
+    }
+    .tool-box {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 1em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .tool-box img {
+      height: 60px;
+      width: 60px;
+      margin-bottom: 0.5em;
+    }
+    .tool-box h3 {
+      margin: 0.5em 0;
+    }
+    .tool-box button {
+      margin-top: 1em;
+      padding: 0.5em 1em;
+      background: #0c1f4b;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .tool-box button:hover {
+      background: #163572;
+    }
+    footer {
+      text-align: center;
+      padding: 1em;
+      color: #888;
+    }
+  </style>
 </head>
 <body>
   <header>
-    <img src="assets/images/logo.png" class="logo" alt="CollabSphere Logo">
-    <nav>
-      <a href="dashboard.html">Dashboard</a>
-      <a href="project.html">Projects</a>
-    </nav>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqmF9hr_V4JFRXf0zNIqUBPaZuAh3Rxzc5mQ&s" alt="Logo">
+    <h1>CollabSphere Workspace</h1>
   </header>
 
-  <main>
-    <h2>Real-time Collaboration Space</h2>
-    <p>Chat, edit code, share documents live with your team.</p>
-    <!-- Add textarea, chat box, etc. -->
-  </main>
+  <div class="container">
+    <div class="tools">
+      <div class="tool-box">
+        <img src="https://static.vecteezy.com/system/resources/previews/047/299/947/non_2x/board-icon-symbol-design-illustration-vector.jpg" alt="Whiteboard">
+        <h3>Collaborative Whiteboard</h3>
+        <p>Sketch ideas, flowcharts, or concepts with teammates in a virtual whiteboard.</p>
+        <button>Open Whiteboard</button>
+      </div>
+    <!-- Code Editor Section -->
+<section class="code-editor-section">
+  <h2>🧑‍💻 Code Editor</h2>
+  <div class="editor-container">
+    <input type="text" placeholder="Filename (e.g., script.js)" class="filename-input" />
+    <textarea class="code-editor" placeholder="// Start coding here..."></textarea>
+    <div class="editor-buttons">
+      <button onclick="saveCode()">💾 Save</button>
+      <button onclick="runCode()">▶️ Run</button>
+    </div>
+  </div>
+</section>
+
+      <div class="tool-box">
+        <img src="https://cdn-icons-png.flaticon.com/512/147/147142.png" alt="Chat">
+        <h3>Group Chat</h3>
+        <p>Discuss, brainstorm, and exchange quick thoughts with your project group.</p>
+        <button>Join Chat</button>
+      </div>
+
+      <div class="tool-box">
+        <img src="https://icons.veryicon.com/thumbnails/file-type/file-type-icon-2.png" alt="Files">
+        <h3>File Upload</h3>
+        <p>Upload project files, presentations, and study resources.</p>
+        <button>Upload File</button>
+      </div>
+
+      <div class="tool-box">
+        <img src="https://img.freepik.com/premium-photo/colorful-sticky-notes-blue-background-space-text_106006-8782.jpg" alt="Sticky Notes">
+        <h3>Sticky Notes</h3>
+        <p>Pin quick notes, ideas, or tasks for easy reminders.</p>
+        <button>Open Notes</button>
+      </div>
+
+      <div class="tool-box">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Schedule_or_Calendar_Flat_Icon.svg/1024px-Schedule_or_Calendar_Flat_Icon.svg.png" alt="Calendar">
+        <h3>Project Calendar</h3>
+        <p>View deadlines, upcoming meetings, and task schedules.</p>
+        <button>View Calendar</button>
+      </div>
+
+      <div class="tool-box">
+        <img src="https://web.dev/static/articles/building/a-theme-switch-component/image/thumbnail.png" alt="Theme Switch">
+        <h3>Dark Mode</h3>
+        <p>Switch to a dark theme for a comfortable working environment.</p>
+        <button>Toggle Mode</button>
+      </div>
+    </div>
+  </div>
 
   <footer>
-    <p>&copy; 2025 CollabSphere</p>
+    &copy; 2025 CollabSphere. All Rights Reserved.
   </footer>
+
+  <script src="main.js"></script>
 </body>
 </html>
+
