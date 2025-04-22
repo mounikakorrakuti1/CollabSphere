@@ -1,46 +1,431 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Messages | CollabSphere</title>
-  <link rel="stylesheet" href="assets/css/style.css">
-</head>
-<body>
-  <header>
-    <img src="assets/images/logo.png" class="logo" alt="CollabSphere Logo">
-    <nav>
-      <a href="dashboard.html">Dashboard</a>
-      <a href="profile.html">Profile</a>
-    </nav>
+<html class="scroll-smooth" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   CollabSphere Messages
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: "Inter", sans-serif;
+      background-color: #f9fafb;
+      color: #0c234b;
+      transition: background-color 0.3s, color 0.3s;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .dark body {
+      background-color: #0c234b;
+      color: #e0e7ff;
+    }
+    /* Scrollbar for sidebar and chat */
+    .scrollbar-thin::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+      background-color: #0c234b;
+      border-radius: 3px;
+    }
+    .dark .scrollbar-thin::-webkit-scrollbar-thumb {
+      background-color: #e0e7ff;
+    }
+    /* Sidebar */
+    #sidebar {
+      background-color: white;
+      border-right: 1.5px solid #0c234b;
+      color: #0c234b;
+    }
+    .dark #sidebar {
+      background-color: #142a5c;
+      border-color: #e0e7ff;
+      color: #e0e7ff;
+    }
+    /* Chat header */
+    #chatHeader {
+      border-bottom: 1.5px solid #0c234b;
+      background-color: white;
+      color: #0c234b;
+    }
+    .dark #chatHeader {
+      border-color: #e0e7ff;
+      background-color: #142a5c;
+      color: #e0e7ff;
+    }
+    /* Chat messages area */
+    #chatMessages {
+      background-color: #f9fafb;
+      color: #0c234b;
+    }
+    .dark #chatMessages {
+      background-color: #0c234b;
+      color: #e0e7ff;
+    }
+    /* Chat bubbles */
+    .bubble-left {
+      background-color: white;
+      color: #0c234b;
+      border-radius: 0.75rem 0.75rem 0.75rem 0;
+      box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
+    }
+    .dark .bubble-left {
+      background-color: #1e3a8a;
+      color: #dbeafe;
+      box-shadow: 0 1px 3px rgb(255 255 255 / 0.1);
+    }
+    .bubble-right {
+      background-color: #0c234b;
+      color: white;
+      border-radius: 0.75rem 0.75rem 0 0.75rem;
+      box-shadow: 0 1px 3px rgb(0 0 0 / 0.2);
+    }
+    .dark .bubble-right {
+      background-color: #2563eb;
+      color: white;
+      box-shadow: 0 1px 3px rgb(255 255 255 / 0.2);
+    }
+    /* Status dots */
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 9999px;
+      display: inline-block;
+      margin-right: 6px;
+    }
+    .status-online {
+      background-color: #22c55e;
+    }
+    .status-offline {
+      background-color: #6b7280;
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      #sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 16rem;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: 40;
+      }
+      #sidebar.open {
+        transform: translateX(0);
+      }
+      #chatWindow {
+        flex: 1;
+        display: none;
+      }
+      #chatWindow.open {
+        display: flex;
+        flex-direction: column;
+      }
+      #hamburgerBtn {
+        display: block;
+      }
+    }
+    @media (min-width: 769px) {
+      #hamburgerBtn {
+        display: none;
+      }
+      #sidebar {
+        position: relative;
+        transform: none !important;
+        width: 20rem;
+        flex-shrink: 0;
+      }
+      #chatWindow {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  </style>
+ </head>
+ <body>
+  <!-- Header with hamburger and dark mode toggle -->
+  <header class="bg-[#0c234b] flex items-center justify-between px-4 py-3 sticky top-0 z-50">
+   <button aria-label="Toggle sidebar" class="text-white text-2xl focus:outline-none" id="hamburgerBtn">
+    <i class="fas fa-bars">
+    </i>
+   </button>
+   <h1 class="text-white font-semibold text-lg select-none">
+    CollabSphere Messages
+   </h1>
+   <button aria-label="Toggle dark mode" class="text-white border border-white rounded px-3 py-1 hover:bg-white hover:text-[#0c234b] transition" id="darkModeToggle">
+    Dark Mode
+   </button>
   </header>
-
-  <main>
-    <h2>Direct 2 Messages</h2>
-    <section class="chat-list">
-      <p><strong>Recent Chats:</strong></p>
-      <!-- List of contacts -->
-      <ul>
-        <li><a href="#">John (Project AI)</a></li>
-        <li><a href="#">Sneha (Hackathon Team)</a></li>
-      </ul>
-    </section>
-
-    <section class="chat-box">
-      <p><strong>Conversation:</strong></p>
-      <!-- Messages area -->
-      <div class="messages">
-        <p><strong>You:</strong> Hey, did you upload the report?</p>
-        <p><strong>Sneha:</strong> Yes, just now!</p>
+  <div class="flex h-[calc(100vh-56px)]">
+   <!-- Sidebar -->
+   <aside class="flex flex-col overflow-y-auto scrollbar-thin" id="sidebar">
+    <h2 class="font-semibold text-xl p-4 border-b border-[#0c234b] dark:border-[#e0e7ff] select-none">
+     Conversations
+    </h2>
+    <ul class="divide-y divide-[#0c234b] dark:divide-[#e0e7ff]">
+     <li class="flex items-center p-4 cursor-pointer hover:bg-gray-100 dark:hover:bg-[#1e3a8a]">
+      <img alt="User avatar" class="w-10 h-10 rounded-full mr-3" height="40" src="https://storage.googleapis.com/a1aa/image/4408f8af-5bb3-45aa-7c8e-7884a1127333.jpg" width="40"/>
+      <div class="flex-1 min-w-0">
+       <div class="flex justify-between items-center">
+        <p class="font-semibold truncate">
+         Alex Johnson
+        </p>
+        <p class="text-xs text-gray-500 dark:text-gray-400">
+         2h ago
+        </p>
+       </div>
+       <p class="text-sm text-gray-600 dark:text-gray-300 truncate">
+        Hey, did you check the latest update?
+       </p>
       </div>
-      <form>
-        <input type="text" placeholder="Type your message...">
-        <button type="submit">Send</button>
-      </form>
-    </section>
-  </main>
+     </li>
+     <li class="flex items-center p-4 cursor-pointer hover:bg-gray-100 dark:hover:bg-[#1e3a8a]">
+      <img alt="Group avatar" class="w-10 h-10 rounded-full mr-3" height="40" src="https://storage.googleapis.com/a1aa/image/2678c28d-7b34-49fb-ba9c-a2ca31713a82.jpg" width="40"/>
+      <div class="flex-1 min-w-0">
+       <div class="flex justify-between items-center">
+        <p class="font-semibold truncate">
+         Smart Waste App
+        </p>
+        <p class="text-xs text-gray-500 dark:text-gray-400">
+         1d ago
+        </p>
+       </div>
+       <p class="text-sm text-gray-600 dark:text-gray-300 truncate">
+        Project meeting rescheduled to tomorrow.
+       </p>
+      </div>
+     </li>
+     <li class="flex items-center p-4 cursor-pointer hover:bg-gray-100 dark:hover:bg-[#1e3a8a]">
+      <img alt="User avatar" class="w-10 h-10 rounded-full mr-3" height="40" src="https://storage.googleapis.com/a1aa/image/4408f8af-5bb3-45aa-7c8e-7884a1127333.jpg" width="40"/>
+      <div class="flex-1 min-w-0">
+       <div class="flex justify-between items-center">
+        <p class="font-semibold truncate">
+         Sam Lee
+        </p>
+        <p class="text-xs text-gray-500 dark:text-gray-400">
+         3d ago
+        </p>
+       </div>
+       <p class="text-sm text-gray-600 dark:text-gray-300 truncate">
+        Can you review the API docs?
+       </p>
+      </div>
+     </li>
+     <li class="flex items-center p-4 cursor-pointer hover:bg-gray-100 dark:hover:bg-[#1e3a8a]">
+      <img alt="User avatar" class="w-10 h-10 rounded-full mr-3" height="40" src="https://storage.googleapis.com/a1aa/image/4408f8af-5bb3-45aa-7c8e-7884a1127333.jpg" width="40"/>
+      <div class="flex-1 min-w-0">
+       <div class="flex justify-between items-center">
+        <p class="font-semibold truncate">
+         Design Team
+        </p>
+        <p class="text-xs text-gray-500 dark:text-gray-400">
+         5d ago
+        </p>
+       </div>
+       <p class="text-sm text-gray-600 dark:text-gray-300 truncate">
+        New UI mockups are ready for review.
+       </p>
+      </div>
+     </li>
+     <li class="flex items-center p-4 cursor-pointer hover:bg-gray-100 dark:hover:bg-[#1e3a8a]">
+      <img alt="User avatar" class="w-10 h-10 rounded-full mr-3" height="40" src="https://storage.googleapis.com/a1aa/image/4408f8af-5bb3-45aa-7c8e-7884a1127333.jpg" width="40"/>
+      <div class="flex-1 min-w-0">
+       <div class="flex justify-between items-center">
+        <p class="font-semibold truncate">
+         Marketing
+        </p>
+        <p class="text-xs text-gray-500 dark:text-gray-400">
+         1w ago
+        </p>
+       </div>
+       <p class="text-sm text-gray-600 dark:text-gray-300 truncate">
+        Campaign launch scheduled next week.
+       </p>
+      </div>
+     </li>
+    </ul>
+   </aside>
+   <!-- Chat Window -->
+   <section class="flex flex-col flex-1" id="chatWindow">
+    <!-- Chat Header -->
+    <header class="flex items-center p-4" id="chatHeader">
+     <div class="relative">
+      <img alt="Group avatar" class="w-12 h-12 rounded-full" height="48" src="https://storage.googleapis.com/a1aa/image/2678c28d-7b34-49fb-ba9c-a2ca31713a82.jpg" width="48"/>
+      <div class="absolute -bottom-1 -right-1 flex -space-x-2">
+       <img alt="User avatar" class="w-6 h-6 rounded-full border-2 border-white dark:border-[#142a5c]" height="24" src="https://storage.googleapis.com/a1aa/image/4408f8af-5bb3-45aa-7c8e-7884a1127333.jpg" width="24"/>
+       <img alt="User avatar" class="w-6 h-6 rounded-full border-2 border-white dark:border-[#142a5c]" height="24" src="https://storage.googleapis.com/a1aa/image/4408f8af-5bb3-45aa-7c8e-7884a1127333.jpg" width="24"/>
+       <img alt="User avatar" class="w-6 h-6 rounded-full border-2 border-white dark:border-[#142a5c]" height="24" src="https://storage.googleapis.com/a1aa/image/4408f8af-5bb3-45aa-7c8e-7884a1127333.jpg" width="24"/>
+      </div>
+     </div>
+     <div class="ml-4 flex-1 min-w-0">
+      <p class="font-semibold text-lg truncate">
+       Smart Waste App
+      </p>
+      <p class="text-sm text-gray-600 dark:text-gray-300 truncate">
+       <span class="inline-flex items-center">
+        <span class="status-dot status-online mr-2">
+        </span>
+        Online
+       </span>
+       <span class="ml-4 inline-flex items-center">
+        <span class="status-dot status-offline mr-2">
+        </span>
+        Last seen at 9:30 PM
+       </span>
+      </p>
+      <p class="mt-1 text-xs text-gray-500 dark:text-gray-400 select-none">
+       Project: Smart Waste App
+      </p>
+     </div>
+    </header>
+    <!-- Messages Area -->
+    <div class="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin" id="chatMessages">
+     <!-- Others' message -->
+     <div class="flex items-start space-x-3 max-w-xs">
+      <img alt="User avatar" class="w-8 h-8 rounded-full mt-1" height="32" src="https://storage.googleapis.com/a1aa/image/4408f8af-5bb3-45aa-7c8e-7884a1127333.jpg" width="32"/>
+      <div>
+       <div class="bubble-left px-4 py-2 text-sm relative">
+        Hey team, the deadline is approaching fast.
+        <time class="block text-xs text-gray-400 mt-1">
+         2:15 PM
+        </time>
+       </div>
+      </div>
+     </div>
+     <!-- Your message -->
+     <div class="flex items-start space-x-3 max-w-xs ml-auto flex-row-reverse">
+      <img alt="Your avatar" class="w-8 h-8 rounded-full mt-1" height="32" src="https://storage.googleapis.com/a1aa/image/f77f0348-3431-4f01-dc21-1f5dffc2a00c.jpg" width="32"/>
+      <div>
+       <div class="bubble-right px-4 py-2 text-sm relative">
+        Got it! I'll update the task board.
+        <time class="block text-xs text-gray-300 mt-1 text-right">
+         2:17 PM
+        </time>
+       </div>
+      </div>
+     </div>
+     <!-- Others' message -->
+     <div class="flex items-start space-x-3 max-w-xs">
+      <img alt="User avatar" class="w-8 h-8 rounded-full mt-1" height="32" src="https://storage.googleapis.com/a1aa/image/4408f8af-5bb3-45aa-7c8e-7884a1127333.jpg" width="32"/>
+      <div>
+       <div class="bubble-left px-4 py-2 text-sm relative">
+        Also, don't forget to review the latest API docs.
+        <time class="block text-xs text-gray-400 mt-1">
+         2:20 PM
+        </time>
+       </div>
+      </div>
+     </div>
+    </div>
+    <!-- Typing status -->
+    <div class="px-4 py-1 text-sm text-gray-600 dark:text-gray-300 select-none">
+     <span class="inline-flex items-center">
+      <span class="status-dot status-online mr-2 animate-pulse">
+      </span>
+      Typing...
+     </span>
+    </div>
+    <!-- Message Input Box -->
+    <form class="flex items-center p-4 border-t border-[#0c234b] dark:border-[#e0e7ff] bg-white dark:bg-[#142a5c]" id="messageForm">
+     <button aria-label="Attach file" class="text-[#0c234b] dark:text-[#e0e7ff] hover:text-[#0a1a3a] dark:hover:text-[#c7d2fe] mr-3 focus:outline-none" type="button">
+      <i class="fas fa-paperclip fa-lg">
+      </i>
+     </button>
+     <textarea aria-label="Message input" class="flex-1 resize-none rounded-full border border-[#0c234b] dark:border-[#e0e7ff] px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0c234b] dark:focus:ring-[#e0e7ff] dark:bg-[#1e3a8a] dark:text-[#e0e7ff]" id="messageInput" placeholder="Type a message..." rows="1"></textarea>
+     <button aria-label="Send message" class="ml-3 bg-[#0c234b] dark:bg-[#2563eb] text-white rounded-full p-2 hover:bg-[#0a1a3a] dark:hover:bg-[#3b82f6] transition focus:outline-none" type="submit">
+      <i class="fas fa-paper-plane">
+      </i>
+     </button>
+    </form>
+   </section>
+  </div>
+  <script>
+   // Dark mode toggle with localStorage
+    const darkModeToggle = document.getElementById("darkModeToggle");
+    const htmlEl = document.documentElement;
 
-  <footer>
-    <p>&copy; 2025 CollabSphere</p>
-  </footer>
-</body>
+    function setDarkMode(enabled) {
+      if (enabled) {
+        htmlEl.classList.add("dark");
+        darkModeToggle.textContent = "Light Mode";
+        localStorage.setItem("darkMode", "true");
+      } else {
+        htmlEl.classList.remove("dark");
+        darkModeToggle.textContent = "Dark Mode";
+        localStorage.setItem("darkMode", "false");
+      }
+    }
+
+    darkModeToggle.addEventListener("click", () => {
+      setDarkMode(!htmlEl.classList.contains("dark"));
+    });
+
+    // Initialize dark mode from localStorage
+    if (localStorage.getItem("darkMode") === "true") {
+      setDarkMode(true);
+    } else {
+      setDarkMode(false);
+    }
+
+    // Responsive sidebar toggle
+    const hamburgerBtn = document.getElementById("hamburgerBtn");
+    const sidebar = document.getElementById("sidebar");
+    const chatWindow = document.getElementById("chatWindow");
+
+    hamburgerBtn.addEventListener("click", () => {
+      if (sidebar.classList.contains("open")) {
+        sidebar.classList.remove("open");
+        chatWindow.classList.add("open");
+      } else {
+        sidebar.classList.add("open");
+        chatWindow.classList.remove("open");
+      }
+    });
+
+    // On desktop, show both
+    function checkWindowSize() {
+      if (window.innerWidth >= 769) {
+        sidebar.classList.add("open");
+        chatWindow.classList.add("open");
+      } else {
+        sidebar.classList.remove("open");
+        chatWindow.classList.add("open");
+      }
+    }
+    window.addEventListener("resize", checkWindowSize);
+    checkWindowSize();
+
+    // Message form submit (static)
+    const messageForm = document.getElementById("messageForm");
+    const messageInput = document.getElementById("messageInput");
+    const chatMessages = document.getElementById("chatMessages");
+
+    messageForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const text = messageInput.value.trim();
+      if (!text) return;
+      // Append message bubble (right aligned)
+      const msgDiv = document.createElement("div");
+      msgDiv.className = "flex items-start space-x-3 max-w-xs ml-auto flex-row-reverse";
+      msgDiv.innerHTML = `
+        <img src="https://placehold.co/32x32/png" alt="Your avatar" class="w-8 h-8 rounded-full mt-1" />
+        <div>
+          <div class="bubble-right px-4 py-2 text-sm relative">
+            ${text}
+            <time class="block text-xs text-gray-300 mt-1 text-right">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</time>
+          </div>
+        </div>
+      `;
+      chatMessages.appendChild(msgDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      messageInput.value = "";
+      messageInput.focus();
+    });
+  </script>
+ </body>
 </html>
