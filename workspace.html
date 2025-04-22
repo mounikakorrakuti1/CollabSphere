@@ -3,139 +3,566 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CollabSphere Workspace</title>
+  <title>Spinex Project | CollabSphere</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="responsive.css">
   <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqmF9hr_V4JFRXf0zNIqUBPaZuAh3Rxzc5mQ&s">
   <style>
+    :root {
+      --primary: #0c1f4b;
+      --primary-light: #163572;
+      --secondary: #4a6fdc;
+      --accent: #ff6b6b;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --gray: #6c757d;
+    }
+    
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
       background: #f4f4f4;
+      color: var(--dark);
+      line-height: 1.6;
     }
+    
     header {
-      background: #0c1f4b;
+      background: var(--primary);
       color: #fff;
       padding: 1em;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: relative;
     }
+    
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5em;
+    }
+    
+    .notification-bell {
+      position: relative;
+      cursor: pointer;
+      font-size: 1.2em;
+      color: white;
+    }
+    
+    .notification-bell .badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      font-size: 0.7em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .notification-dropdown {
+      position: absolute;
+      top: 100%;
+      right: 1em;
+      background: white;
+      width: 350px;
+      max-height: 400px;
+      overflow-y: auto;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      z-index: 100;
+      display: none;
+      color: var(--dark);
+    }
+    
+    .notification-dropdown.show {
+      display: block;
+    }
+    
+    .notification-header {
+      padding: 1em;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .notification-item {
+      padding: 1em;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    
+    .notification-item:hover {
+      background: #f8f9fa;
+    }
+    
+    .notification-item.unread {
+      background: #f0f4ff;
+    }
+    
+    .notification-item .time {
+      font-size: 0.8em;
+      color: var(--gray);
+      margin-top: 0.5em;
+    }
+    
+    .notification-item .message {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8em;
+    }
+    
+    .notification-item .icon {
+      color: var(--secondary);
+      font-size: 1.2em;
+      margin-top: 0.2em;
+    }
+    
+    .project-header {
+      background: white;
+      padding: 1.5em;
+      margin-bottom: 1em;
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .project-info h2 {
+      margin: 0;
+      color: var(--primary);
+      font-size: 1.8em;
+    }
+    
+    .project-info p {
+      margin: 0.5em 0 0;
+      color: var(--gray);
+    }
+    
+    .project-meta {
+      display: flex;
+      gap: 1.5em;
+    }
+    
+    .meta-item {
+      text-align: center;
+    }
+    
+    .meta-item .value {
+      font-weight: bold;
+      color: var(--primary);
+      font-size: 1.2em;
+    }
+    
+    .meta-item .label {
+      font-size: 0.9em;
+      color: var(--gray);
+    }
+    
     header img {
       height: 40px;
     }
+    
     .container {
       padding: 1em;
+      max-width: 1400px;
+      margin: 0 auto;
     }
+    
+    .section-title {
+      color: var(--primary);
+      border-bottom: 2px solid var(--secondary);
+      padding-bottom: 0.5em;
+      margin: 1.5em 0 1em;
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+    
     .tools {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 1.5em;
     }
+    
     .tool-box {
       background: white;
       border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      padding: 1em;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+      padding: 1.5em;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border-top: 4px solid var(--secondary);
     }
+    
+    .tool-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
     .tool-box img {
-      height: 60px;
-      width: 60px;
+      height: 70px;
+      width: 70px;
       margin-bottom: 0.5em;
+      object-fit: contain;
     }
+    
     .tool-box h3 {
       margin: 0.5em 0;
+      color: var(--primary);
     }
+    
+    .tool-box p {
+      color: var(--gray);
+      font-size: 0.95em;
+      margin: 0.5em 0;
+    }
+    
     .tool-box button {
       margin-top: 1em;
-      padding: 0.5em 1em;
-      background: #0c1f4b;
+      padding: 0.6em 1.2em;
+      background: var(--primary);
       color: white;
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      font-weight: 500;
+      transition: background 0.2s;
+      width: 100%;
+      max-width: 200px;
     }
+    
     .tool-box button:hover {
-      background: #163572;
+      background: var(--primary-light);
     }
+    
+    .tool-box .recent-activity {
+      font-size: 0.8em;
+      color: var(--gray);
+      margin-top: 0.5em;
+      font-style: italic;
+    }
+    
+    /* Code Editor Styles */
+    .editor-container {
+      background: #1e1e1e;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-top: 1em;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .filename-input {
+      width: 100%;
+      padding: 0.8em;
+      border: none;
+      background: #252526;
+      color: #d4d4d4;
+      font-family: monospace;
+      border-bottom: 1px solid #333;
+    }
+    
+    .code-editor {
+      width: 100%;
+      height: 300px;
+      padding: 1em;
+      border: none;
+      background: #1e1e1e;
+      color: #d4d4d4;
+      font-family: 'Consolas', 'Courier New', monospace;
+      resize: vertical;
+      line-height: 1.5;
+      tab-size: 2;
+    }
+    
+    .editor-buttons {
+      display: flex;
+      gap: 0.5em;
+      padding: 0.8em;
+      background: #252526;
+    }
+    
+    .editor-buttons button {
+      padding: 0.5em 1em;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      font-weight: 500;
+    }
+    
+    .editor-buttons button:first-child {
+      background: #007acc;
+      color: white;
+    }
+    
+    .editor-buttons button:last-child {
+      background: #4CAF50;
+      color: white;
+    }
+    
     footer {
       text-align: center;
-      padding: 1em;
-      color: #888;
+      padding: 2em 1em;
+      color: var(--gray);
+      margin-top: 2em;
+      border-top: 1px solid #eee;
+    }
+    
+    @media (max-width: 768px) {
+      .project-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 1em;
+      }
+      
+      .project-meta {
+        width: 100%;
+        justify-content: space-around;
+      }
+      
+      .tools {
+        grid-template-columns: 1fr;
+      }
+      
+      .notification-dropdown {
+        width: 280px;
+        right: 0.5em;
+      }
     }
   </style>
 </head>
 <body>
   <header>
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqmF9hr_V4JFRXf0zNIqUBPaZuAh3Rxzc5mQ&s" alt="Logo">
+    <div class="logo-container">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqmF9hr_V4JFRXf0zNIqUBPaZuAh3Rxzc5mQ&s" alt="CollabSphere Logo">
+    </div>
     <h1>CollabSphere Workspace</h1>
+    <div class="header-right">
+      <button style="background: transparent; border: 1px solid white; padding: 0.5em 1em; border-radius: 5px; color: white;">Switch Project</button>
+      <div class="notification-bell" id="notificationBell">
+        <i class="fas fa-bell"></i>
+        <span class="badge">3</span>
+        <div class="notification-dropdown" id="notificationDropdown">
+          <div class="notification-header">
+            <strong>Notifications</strong>
+            <small>Mark all as read</small>
+          </div>
+          <div class="notification-item unread">
+            <div class="message">
+              <div class="icon"><i class="fas fa-comment-alt"></i></div>
+              <div>
+                <div><strong>Alex</strong> mentioned you in a comment on SpineX prototype</div>
+                <div class="time">10 minutes ago</div>
+              </div>
+            </div>
+          </div>
+          <div class="notification-item unread">
+            <div class="message">
+              <div class="icon"><i class="fas fa-tasks"></i></div>
+              <div>
+                <div>Your task <strong>"Sensor calibration"</strong> is due tomorrow</div>
+                <div class="time">1 hour ago</div>
+              </div>
+            </div>
+          </div>
+          <div class="notification-item">
+            <div class="message">
+              <div class="icon"><i class="fas fa-file-upload"></i></div>
+              <div>
+                <div><strong>Sam</strong> uploaded new test results to SpineX project</div>
+                <div class="time">3 hours ago</div>
+              </div>
+            </div>
+          </div>
+          <div class="notification-item">
+            <div class="message">
+              <div class="icon"><i class="fas fa-calendar-check"></i></div>
+              <div>
+                <div>Team meeting scheduled for <strong>Friday 2PM</strong></div>
+                <div class="time">Yesterday</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </header>
 
   <div class="container">
+    <div class="project-header">
+      <div class="project-info">
+        <h2>SpineX Project</h2>
+        <p>Developing next-gen spinal health monitoring system | Last updated: Today</p>
+      </div>
+      <div class="project-meta">
+        <div class="meta-item">
+          <div class="value">12</div>
+          <div class="label">Team Members</div>
+        </div>
+        <div class="meta-item">
+          <div class="value">23</div>
+          <div class="label">Active Tasks</div>
+        </div>
+        <div class="meta-item">
+          <div class="value">May 15</div>
+          <div class="label">Deadline</div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-title">📌 Project Tools</h2>
+    
     <div class="tools">
       <div class="tool-box">
         <img src="https://static.vecteezy.com/system/resources/previews/047/299/947/non_2x/board-icon-symbol-design-illustration-vector.jpg" alt="Whiteboard">
         <h3>Collaborative Whiteboard</h3>
         <p>Sketch ideas, flowcharts, or concepts with teammates in a virtual whiteboard.</p>
+        <div class="recent-activity">Last updated: 2 hours ago by Alex</div>
         <button>Open Whiteboard</button>
       </div>
-<!-- Code Editor Section -->
-<section class="code-editor-section">
-  <h2>🧑‍💻 Code Editor</h2>
-  <div class="editor-container">
-    <input type="text" placeholder="Filename (e.g., script.js)" class="filename-input" />
-    <textarea class="code-editor" placeholder="// Start coding here..."></textarea>
-    <div class="editor-buttons">
-      <button onclick="saveCode()">💾 Save</button>
-      <button onclick="runCode()">▶️ Run</button>
-    </div>
-  </div>
-</section>
 
       <div class="tool-box">
         <img src="https://cdn-icons-png.flaticon.com/512/147/147142.png" alt="Chat">
         <h3>Group Chat</h3>
         <p>Discuss, brainstorm, and exchange quick thoughts with your project group.</p>
+        <div class="recent-activity">3 new messages</div>
         <button>Join Chat</button>
       </div>
 
       <div class="tool-box">
         <img src="https://icons.veryicon.com/thumbnails/file-type/file-type-icon-2.png" alt="Files">
-        <h3>File Upload</h3>
-        <p>Upload project files, presentations, and study resources.</p>
-        <button>Upload File</button>
+        <h3>File Repository</h3>
+        <p>Upload and manage project files, presentations, and study resources.</p>
+        <div class="recent-activity">17 files uploaded</div>
+        <button>View Files</button>
       </div>
 
       <div class="tool-box">
         <img src="https://img.freepik.com/premium-photo/colorful-sticky-notes-blue-background-space-text_106006-8782.jpg" alt="Sticky Notes">
-        <h3>Sticky Notes</h3>
+        <h3>Project Notes</h3>
         <p>Pin quick notes, ideas, or tasks for easy reminders.</p>
+        <div class="recent-activity">5 active notes</div>
         <button>Open Notes</button>
       </div>
 
       <div class="tool-box">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Schedule_or_Calendar_Flat_Icon.svg/1024px-Schedule_or_Calendar_Flat_Icon.svg.png" alt="Calendar">
-        <h3>Project Calendar</h3>
+        <h3>Project Timeline</h3>
         <p>View deadlines, upcoming meetings, and task schedules.</p>
+        <div class="recent-activity">3 events this week</div>
         <button>View Calendar</button>
       </div>
 
       <div class="tool-box">
-        <img src="https://web.dev/static/articles/building/a-theme-switch-component/image/thumbnail.png" alt="Theme Switch">
-        <h3>Dark Mode</h3>
-        <p>Switch to a dark theme for a comfortable working environment.</p>
-        <button>Toggle Mode</button>
+        <img src="https://cdn-icons-png.flaticon.com/512/2933/2933245.png" alt="Tasks">
+        <h3>Task Board</h3>
+        <p>Track project tasks, assignments, and progress.</p>
+        <div class="recent-activity">5 tasks due today</div>
+        <button>View Tasks</button>
+      </div>
+    </div>
+
+    <h2 class="section-title">💻 Development Tools</h2>
+    
+    <div class="tools">
+      <div class="tool-box">
+        <img src="https://cdn-icons-png.flaticon.com/512/6132/6132222.png" alt="Code">
+        <h3>Code Editor</h3>
+        <p>Collaborative coding environment with real-time editing.</p>
+        <div class="recent-activity">Last edited: Today by Sam</div>
+        <button>Open Editor</button>
+      </div>
+
+      <div class="tool-box">
+        <img src="https://cdn-icons-png.flaticon.com/512/1055/1055687.png" alt="API">
+        <h3>API Testing</h3>
+        <p>Test and debug your project APIs with the team.</p>
+        <div class="recent-activity">12 test cases</div>
+        <button>Open Tester</button>
+      </div>
+
+      <div class="tool-box">
+        <img src="https://cdn-icons-png.flaticon.com/512/2282/2282188.png" alt="Database">
+        <h3>Database Explorer</h3>
+        <p>View and query your project database.</p>
+        <div class="recent-activity">Connected to SpineX_DB</div>
+        <button>Open Explorer</button>
+      </div>
+    </div>
+
+    <!-- Code Editor Section -->
+    <h2 class="section-title">✏️ Quick Code Editor</h2>
+    <div class="editor-container">
+      <input type="text" placeholder="Filename (e.g., spinex-sensor.js)" class="filename-input" />
+      <textarea class="code-editor" placeholder="// Start coding here...">// SpineX Sensor Initialization
+const sensor = new SpineSensor({
+  samplingRate: 100, // Hz
+  sensitivity: 0.01, // g
+  range: '±8g'
+});
+
+function monitorPosture() {
+  // Implementation for posture monitoring
+  const data = sensor.read();
+  analyzeSpinalPosition(data);
+}</textarea>
+      <div class="editor-buttons">
+        <button onclick="saveCode()">💾 Save to Project</button>
+        <button onclick="runCode()">▶️ Run Code</button>
       </div>
     </div>
   </div>
 
   <footer>
-    &copy; 2025 CollabSphere. All Rights Reserved.
+    <p>&copy; 2025 CollabSphere. All Rights Reserved.</p>
+    <p style="font-size: 0.9em; margin-top: 0.5em;">Currently viewing: SpineX Project | Last sync: Just now</p>
   </footer>
 
   <script src="main.js"></script>
+  <script>
+    function saveCode() {
+      alert('Code saved to SpineX project repository');
+    }
+    
+    function runCode() {
+      alert('Executing code in sandbox environment...');
+    }
+    
+    // Notification bell functionality
+    const notificationBell = document.getElementById('notificationBell');
+    const notificationDropdown = document.getElementById('notificationDropdown');
+    
+    notificationBell.addEventListener('click', function(e) {
+      e.stopPropagation();
+      notificationDropdown.classList.toggle('show');
+      
+      // Mark notifications as read when dropdown is opened
+      if (notificationDropdown.classList.contains('show')) {
+        document.querySelectorAll('.notification-item.unread').forEach(item => {
+          item.classList.remove('unread');
+        });
+        document.querySelector('.notification-bell .badge').textContent = '0';
+      }
+    });
+    
+    // Close dropdown when clicking elsewhere
+    document.addEventListener('click', function() {
+      notificationDropdown.classList.remove('show');
+    });
+  </script>
 </body>
 </html>
