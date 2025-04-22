@@ -2,26 +2,303 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Workspace | CollabSphere</title>
-  <link rel="stylesheet" href="assets/css/style.css">
+  <title>Student Workspace</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #e6f0fa;
+    }
+
+    header {
+      background: #fff;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      font-size: 24px;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: black;
+      font-weight: 500;
+    }
+
+    .profile-icon {
+      width: 30px;
+      height: 30px;
+      background: #333;
+      border-radius: 50%;
+    }
+
+    .container {
+      padding: 40px;
+    }
+
+    .title {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .main-section {
+      display: flex;
+      gap: 40px;
+    }
+
+    .sidebar {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      width: 180px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .sidebar div {
+      background: #f2f2f2;
+      padding: 10px 15px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      font-weight: 500;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .project-board {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      flex: 1;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      position: relative;
+    }
+
+    .task-columns {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .task-column {
+      width: 30%;
+    }
+
+    .task-column h4 {
+      margin-bottom: 10px;
+    }
+
+    .task {
+      background-color: #fdf3c4;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+    }
+
+    .in-progress {
+      background-color: #dbeafe;
+    }
+
+    .completed {
+      background-color: #d1fae5;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    textarea, input[type="text"], input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 8px 12px;
+      border: none;
+      background-color: #4f46e5;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .note-item, .file-item, .chat-message {
+      background: #f0f4f8;
+      padding: 8px;
+      border-radius: 6px;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .note-item input[type="text"] {
+      width: 70%;
+      margin-right: 10px;
+    }
+
+    .chat-sender {
+      font-weight: bold;
+      margin-right: 5px;
+    }
+  </style>
 </head>
 <body>
   <header>
-    <img src="assets/images/logo.png" class="logo" alt="CollabSphere Logo">
+    <h1>Workspace</h1>
     <nav>
-      <a href="dashboard.html">Dashboard</a>
-      <a href="project.html">Projects</a>
+      <a href="#" onclick="showSection('profile')">Profile</a>
+      <a href="#" onclick="showSection('project')">Projects</a>
+      <a href="#" onclick="showSection('calendar')">Calendar</a>
     </nav>
+    <div class="profile-icon"></div>
   </header>
 
-  <main>
-    <h2>Real-time Collaboration Space</h2>
-    <p>Chat, edit code, share documents live with your team.</p>
-    <!-- Add textarea, chat box, etc. -->
-  </main>
+  <div class="container">
+    <div class="title">Student Workspace</div>
+    <div class="subtitle">Work together with your classmates</div>
 
-  <footer>
-    <p>&copy; 2025 CollabSphere</p>
-  </footer>
+    <div class="main-section">
+      <div class="sidebar">
+        <div onclick="showSection('project')">Group Project</div>
+        <div onclick="showSection('notes')">Notes</div>
+        <div onclick="showSection('files')">Files</div>
+        <div onclick="showSection('chat')">Chat</div>
+        <div onclick="showSection('profile')">Profile</div>
+      </div>
+
+      <div class="project-board">
+        <div id="project">
+          <h3>Group Project</h3>
+          <div class="task-columns">
+            <div class="task-column">
+              <h4>To Do</h4>
+              <div class="task">Task 1</div>
+              <div class="task">Task 2</div>
+            </div>
+            <div class="task-column">
+              <h4>In Progress</h4>
+              <div class="task in-progress">Task 3</div>
+            </div>
+            <div class="task-column">
+              <h4>Completed</h4>
+              <div class="task completed">Task 4</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="notes" class="hidden">
+          <h3>Notes</h3>
+          <input type="text" id="noteInput" placeholder="Write a note...">
+          <button onclick="addNote()">Add Note</button>
+          <ul id="noteList"></ul>
+        </div>
+
+        <div id="files" class="hidden">
+          <h3>Files</h3>
+          <input type="file" id="fileUpload">
+          <button onclick="uploadFile()">Upload</button>
+          <ul id="fileList"></ul>
+        </div>
+
+        <div id="chat" class="hidden">
+          <h3>Chat</h3>
+          <input type="text" id="chatInput" placeholder="Type your message...">
+          <button onclick="sendChat()">Send</button>
+          <ul id="chatBox"></ul>
+        </div>
+
+        <div id="profile" class="hidden">
+          <h3>Profile</h3>
+          <input type="text" id="profileName" placeholder="Enter your name or ID">
+          <button onclick="saveProfile()">Save</button>
+          <p id="savedNameDisplay"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showSection(section) {
+      ['project', 'notes', 'files', 'chat', 'profile'].forEach(id => {
+        document.getElementById(id).classList.add('hidden');
+      });
+      document.getElementById(section).classList.remove('hidden');
+    }
+
+    function saveProfile() {
+      const name = document.getElementById('profileName').value.trim();
+      if (name) {
+        localStorage.setItem('username', name);
+        document.getElementById('savedNameDisplay').textContent = `Saved as: ${name}`;
+      }
+    }
+
+    function getProfileName() {
+      return localStorage.getItem('username') || 'Anonymous';
+    }
+
+    function addNote() {
+      const input = document.getElementById('noteInput');
+      const text = input.value.trim();
+      if (text) {
+        const li = document.createElement('li');
+        li.className = 'note-item';
+        li.innerHTML = `<input type="text" value="${text}" onchange="updateNote(this)"> <button onclick="deleteItem(this)">Delete</button>`;
+        document.getElementById('noteList').appendChild(li);
+        input.value = '';
+      }
+    }
+
+    function updateNote(input) {
+      // updated via input directly
+    }
+
+    function deleteItem(btn) {
+      btn.parentElement.remove();
+    }
+
+    function uploadFile() {
+      const fileInput = document.getElementById('fileUpload');
+      const file = fileInput.files[0];
+      if (file) {
+        const li = document.createElement('li');
+        li.className = 'file-item';
+        li.innerHTML = `${file.name} <button onclick="deleteItem(this)">Delete</button>`;
+        document.getElementById('fileList').appendChild(li);
+        fileInput.value = '';
+      }
+    }
+
+    function sendChat() {
+      const sender = getProfileName();
+      const input = document.getElementById('chatInput');
+      const message = input.value.trim();
+      if (message) {
+        const li = document.createElement('li');
+        li.className = 'chat-message';
+        li.innerHTML = `<span class='chat-sender'>${sender}:</span> ${message}`;
+        document.getElementById('chatBox').appendChild(li);
+        input.value = '';
+      }
+    }
+  </script>
 </body>
 </html>
