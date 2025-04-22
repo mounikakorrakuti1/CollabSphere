@@ -1,155 +1,159 @@
 <!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CollabSphere Dashboard</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    .user-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-right: 5px;
-    }
-    .project-card {
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-    .modal-content {
-      border-radius: 10px;
-    }
+    body { background-color: #f8f9fa; font-family: 'Segoe UI', sans-serif; }
+    .project-card { cursor: pointer; transition: 0.3s; }
+    .project-card:hover { transform: scale(1.02); box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    .profile-img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+    .modal-img { width: 60px; height: 60px; border-radius: 50%; margin: 0 5px; }
   </style>
 </head>
-<body class="bg-light p-4">
-  <div class="container">
-    <h2 class="mb-4 text-center">Project Dashboard</h2><!-- Filter -->
-<div class="mb-3">
-  <label for="domainFilter" class="form-label">Filter by Domain:</label>
-  <select class="form-select" id="domainFilter">
-    <option value="all">All</option>
-    <option value="Tech">Tech</option>
-    <option value="Medical">Medical</option>
-    <option value="Law">Law</option>
-    <option value="Pharmacy">Pharmacy</option>
-    <option value="Entrepreneurship">Entrepreneurship</option>
-  </select>
-</div>
-
-<div id="projectContainer"></div>
-
-  </div>  <!-- Modal Template -->  <div class="modal fade" id="projectModal" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content p-3">
-        <div class="modal-header">
-          <h5 class="modal-title" id="projectTitle">Project Details</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <canvas id="progressChart" height="100"></canvas>
-          <table class="table table-striped mt-4">
-            <thead><tr><th>Task</th><th>Status</th><th>Deadline</th></tr></thead>
-            <tbody id="taskTable"></tbody>
-          </table>
-        </div>
+<body>
+<div class="container py-5">
+  <h2 class="text-center mb-4">Active Projects</h2>
+  <div class="row g-4" id="projectGrid"></div>
+</div><!-- Modal --><div class="modal fade" id="projectModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitle">Project Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p id="modalDescription"></p>
+        <div class="d-flex mb-3" id="modalTeam"></div>
+        <canvas id="projectChart" height="100"></canvas>
+        <table class="table table-bordered mt-4">
+          <thead><tr><th>Task</th><th>Status</th><th>Deadline</th></tr></thead>
+          <tbody id="projectTable"></tbody>
+        </table>
       </div>
     </div>
-  </div>  <script>
-    const projects = [
-      {
-        title: "Smart Waste Tracker",
-        domain: "Tech",
-        users: ["https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359554_640.png", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgyshmoLfHlwl34SkVpkVb4a53cey9DCzYQw&s"],
-        progress: [60, 40],
-        tasks: [
-          {name: "Sensor setup", status: "Done", deadline: "2025-04-20"},
-          {name: "Backend API", status: "Pending", deadline: "2025-04-27"}
-        ]
-      },
-      {
-        title: "AI Health Diagnosis",
-        domain: "Medical",
-        users: ["https://st2.depositphotos.com/1104517/11965/v/950/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg", "https://t3.ftcdn.net/jpg/07/64/40/98/360_F_764409867_iXpBxs90ZimTFHobmqvOaTtuJHJgHPOR.jpg"],
-        progress: [75, 25],
-        tasks: [
-          {name: "Patient data analysis", status: "In Progress", deadline: "2025-04-28"},
-          {name: "AI model testing", status: "Pending", deadline: "2025-05-02"}
-        ]
-      },
-      {
-        title: "Legal Case Automation",
-        domain: "Law",
-        users: ["https://cdni.iconscout.com/illustration/premium/thumb/female-user-image-8110250-6515859.png?f=webp"],
-        progress: [45, 55],
-        tasks: [
-          {name: "Document scan parser", status: "Done", deadline: "2025-04-22"},
-          {name: "Case analyzer UI", status: "In Progress", deadline: "2025-04-30"}
-        ]
-      },
-      {
-        title: "Pharma Inventory System",
-        domain: "Pharmacy",
-        users: ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgyshmoLfHlwl34SkVpkVb4a53cey9DCzYQw&s", "https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359554_640.png"],
-        progress: [80, 20],
-        tasks: [
-          {name: "Inventory module", status: "Done", deadline: "2025-04-21"},
-          {name: "Supplier integration", status: "In Progress", deadline: "2025-05-05"}
-        ]
-      },
-      {
-        title: "Startup Collab Hub",
-        domain: "Entrepreneurship",
-        users: ["https://t3.ftcdn.net/jpg/07/64/40/98/360_F_764409867_iXpBxs90ZimTFHobmqvOaTtuJHJgHPOR.jpg"],
-        progress: [55, 45],
-        tasks: [
-          {name: "Market survey", status: "Done", deadline: "2025-04-10"},
-          {name: "Business model", status: "In Progress", deadline: "2025-04-30"}
-        ]
-      }
-    ];
+  </div>
+</div><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script><script>
+const projects = [
+  {
+    title: 'Smart Health Monitoring',
+    domain: 'Medical',
+    description: 'A wearable that tracks vitals and shares reports with doctors instantly.',
+    team: [
+      'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359554_640.png',
+      'https://cdni.iconscout.com/illustration/premium/thumb/female-user-image-8110250-6515859.png?f=webp'
+    ],
+    chart: [65, 25, 10],
+    table: [
+      ['Sensor Integration', 'Completed', '2025-04-10'],
+      ['Mobile App UI', 'In Progress', '2025-04-20'],
+      ['Database Linkage', 'Pending', '2025-05-01']
+    ]
+  },
+  {
+    title: 'LegalEase Chatbot',
+    domain: 'Law',
+    description: 'An AI-powered chatbot for helping users understand legal procedures.',
+    team: [
+      'https://t3.ftcdn.net/jpg/07/64/40/98/360_F_764409867_iXpBxs90ZimTFHobmqvOaTtuJHJgHPOR.jpg',
+      'https://st2.depositphotos.com/1104517/11965/v/950/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg'
+    ],
+    chart: [30, 50, 20],
+    table: [
+      ['Intent Mapping', 'Completed', '2025-04-01'],
+      ['Language Training', 'In Progress', '2025-04-25'],
+      ['User Feedback Model', 'Pending', '2025-05-05']
+    ]
+  },
+  {
+    title: 'Pharma TrackX',
+    domain: 'Pharmacy',
+    description: 'A platform to trace medicine supply chains from lab to pharmacy.',
+    team: [
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgyshmoLfHlwl34SkVpkVb4a53cey9DCzYQw&s',
+      'https://as1.ftcdn.net/v2/jpg/05/79/55/26/1000_F_579552668_sZD51Sjmi89GhGqyF27pZcrqyi7cEYBH.jpg'
+    ],
+    chart: [45, 35, 20],
+    table: [
+      ['Supplier Mapping', 'Completed', '2025-03-30'],
+      ['Mobile Dashboard', 'In Progress', '2025-04-15'],
+      ['Regulatory Sync', 'Pending', '2025-05-10']
+    ]
+  },
+  {
+    title: 'Startup Incubator Hub',
+    domain: 'Entrepreneurship',
+    description: 'A space for students to pitch, get feedback, and build their startups.',
+    team: [
+      'https://st2.depositphotos.com/1104517/11965/v/950/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg'
+    ],
+    chart: [20, 60, 20],
+    table: [
+      ['Mentor Onboarding', 'Completed', '2025-04-05'],
+      ['Pitch Portal Dev', 'In Progress', '2025-04-22'],
+      ['Funding Board', 'Pending', '2025-05-12']
+    ]
+  },
+  {
+    title: 'Mental Health Companion',
+    domain: 'Counseling',
+    description: 'A platform offering AI-assisted emotional support and resources.',
+    team: [
+      'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359554_640.png',
+      'https://cdni.iconscout.com/illustration/premium/thumb/female-user-image-8110250-6515859.png?f=webp'
+    ],
+    chart: [55, 30, 15],
+    table: [
+      ['AI Training', 'Completed', '2025-04-08'],
+      ['Resource Curation', 'In Progress', '2025-04-20'],
+      ['Helpline Integration', 'Pending', '2025-05-02']
+    ]
+  }
+];
 
-    const container = document.getElementById("projectContainer");
-    const filter = document.getElementById("domainFilter");
-    const modal = new bootstrap.Modal(document.getElementById("projectModal"));
+const grid = document.getElementById('projectGrid');
+projects.forEach((p, i) => {
+  const card = document.createElement('div');
+  card.className = 'col-md-6 col-lg-4';
+  card.innerHTML = `
+    <div class="card project-card p-3" data-index="${i}" data-bs-toggle="modal" data-bs-target="#projectModal">
+      <h5>${p.title}</h5>
+      <p class="text-muted">Domain: ${p.domain}</p>
+      <div class="d-flex">${p.team.map(url => <img src="${url}" class="profile-img me-2">).join('')}</div>
+    </div>`;
+  grid.appendChild(card);
+});
 
-    function renderProjects() {
-      const selected = filter.value;
-      container.innerHTML = "";
-      projects.filter(p => selected === "all" || p.domain === selected).forEach((p, i) => {
-        const card = document.createElement("div");
-        card.className = "project-card bg-white";
-        card.innerHTML = `
-          <h4>${p.title} <span class="badge bg-secondary">${p.domain}</span></h4>
-          <div class="d-flex my-2">${p.users.map(u => <img src="${u}" class="user-avatar">).join('')}</div>
-          <button class="btn btn-outline-primary" onclick="showDetails(${i})">View Details</button>
-        `;
-        container.appendChild(card);
-      });
-    }
+const modal = new bootstrap.Modal(document.getElementById('projectModal'));
+let chartInstance = null;
+document.querySelectorAll('.project-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const data = projects[card.dataset.index];
+    document.getElementById('modalTitle').textContent = data.title;
+    document.getElementById('modalDescription').textContent = data.description;
+    document.getElementById('modalTeam').innerHTML = data.team.map(url => <img src="${url}" class="modal-img">).join('');
 
-    filter.addEventListener("change", renderProjects);
-    renderProjects();
+    // Chart
+    const ctx = document.getElementById('projectChart').getContext('2d');
+    if (chartInstance) chartInstance.destroy();
+    chartInstance = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Completed', 'In Progress', 'Pending'],
+        datasets: [{
+          data: data.chart,
+          backgroundColor: ['#198754', '#ffc107', '#dc3545']
+        }]
+      },
+      options: { responsive: true, maintainAspectRatio: false }
+    });
 
-    function showDetails(index) {
-      const p = projects[index];
-      document.getElementById("projectTitle").innerText = p.title;
-      document.getElementById("taskTable").innerHTML = p.tasks.map(t => <tr><td>${t.name}</td><td>${t.status}</td><td>${t.deadline}</td></tr>).join('');
-      const ctx = document.getElementById("progressChart").getContext("2d");
-      if (window.currentChart) window.currentChart.destroy();
-      window.currentChart = new Chart(ctx, {
-        type: 'pie',
-        data: {
-          labels: ["Complete", "Remaining"],
-          datasets: [{
-            data: p.progress,
-            backgroundColor: ["#198754", "#ffc107"]
-          }]
-        },
-        options: { responsive: true }
-      });
-      modal.show();
-    }
-  </script>  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script></body>
+    // Table
+    document.getElementById('projectTable').innerHTML =
+      data.table.map(row => <tr>${row.map(col => `<td>${col}</td>).join('')}</tr>`).join('');
+  });
+});
+</script></body>
 </html>
