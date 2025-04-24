@@ -4,16 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         header nav a {
-  color: white;
-  margin-right: 1rem;
-  text-decoration: none;
-}
+            color: white;
+            margin-right: 1rem;
+            text-decoration: none;
+        }
 
-header nav a:hover {
-  text-decoration: underline;
-}
+        header nav a:hover {
+            text-decoration: underline;
+        }
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -27,7 +29,22 @@ header nav a:hover {
             background: #007bff;
             color: white;
             padding: 20px;
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5em;
         }
 
         h1, h2 {
@@ -37,41 +54,49 @@ header nav a:hover {
         .project-card {
             background: white;
             border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 15px;
-            margin: 15px; /* Increased margin for better spacing */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             position: relative;
-            width: 300px; /* Set a fixed width for better alignment */
-            text-align: center; /* Center align text */
+            width: 300px;
+            text-align: center;
             display: flex;
-            flex-direction: column; /* Stack elements vertically */
-            align-items: center; /* Center align items */
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .project-card img {
-            width: 100%; /* Responsive image */
-            height: auto; /* Maintain aspect ratio */
+            width: 100%;
+            height: auto;
             border-radius: 5px;
-            max-height: 150px; /* Limit height for uniformity */
-            margin-bottom: 10px; /* Space below image */
+            max-height: 150px;
+            margin-bottom: 15px;
+            object-fit: cover;
         }
 
         .status.badge {
             background: #28a745;
             color: white;
-            padding: 5px;
+            padding: 5px 10px;
             border-radius: 3px;
             position: absolute;
             top: 10px;
             right: 10px;
+            font-size: 0.8em;
         }
 
         #projects-grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            padding: 20px; /* Add padding around the grid */
+            padding: 20px;
         }
 
         footer {
@@ -79,6 +104,7 @@ header nav a:hover {
             padding: 20px;
             background: #007bff;
             color: white;
+            margin-top: 20px;
         }
 
         /* Dark Theme Styles */
@@ -96,23 +122,82 @@ header nav a:hover {
             background: #5cb85c;
         }
 
-        /* Highlighted Project Headings */
+        .dark-theme .project-card h3 {
+            color: #4da6ff;
+        }
+
+        /* Project heading styles */
         .project-card h3 {
             font-weight: bold;
-            font-size: 1.2em; /* Increased font size for headings */
-            color: #007bff; /* Highlight color for headings */
-            margin-bottom: 10px; /* Space below heading */
+            font-size: 1.2em;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        .project-card p {
+            margin: 8px 0;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .dark-theme .project-card p {
+            color: #ccc;
+        }
+
+        .section-title {
+            width: 100%;
+            text-align: center;
+            margin: 20px 0;
+            color: #007bff;
+            font-size: 1.5em;
+        }
+
+        .dark-theme .section-title {
+            color: #4da6ff;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .project-card {
+                width: 100%;
+                max-width: 350px;
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Projects</h1>
-        <button id="theme-toggle">Toggle Dark/Light Theme</button>
+        <div class="header-content">
+            <h1>Projects</h1>
+            <nav>
+                <a href="#"><i class="fas fa-project-diagram"></i> Projects</a>
+                <a href="#"><i class="fas fa-users"></i> Team</a>
+                <a href="#"><i class="fas fa-calendar"></i> Timeline</a>
+            </nav>
+        </div>
+        <div class="header-right">
+            <a href="index.html" style="color: white; text-decoration: none;">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <button id="theme-toggle" style="background: transparent; border: 1px solid white; padding: 0.5em 1em; border-radius: 5px; color: white; cursor: pointer;">
+                <i class="fas fa-moon"></i> Toggle Theme
+            </button>
+        </div>
     </header>
 
     <section id="projects-grid">
-        <h2>All Projects</h2>
+        <h2 class="section-title">All Projects</h2>
 
         <div class="project-card">
             <h3>ClientConnect CRM</h3>
@@ -128,8 +213,7 @@ header nav a:hover {
             <p>A telemedicine application that connects patients with healthcare providers through video consultations, appointment scheduling, and secure messaging.</p>
             <p><strong>Tech Stack:</strong> React Native, Node.js</p>
             <span class="status badge">In Progress</span>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQCuw-URbZub5FEyxPBoatYVuPl-EyjkEIqTjRTnX50WxLFMUyymf
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQCuw-URbZub5FEyxPBoatYVuPl-EyjkEIqTjRTnX50WxLFMUyymfCNs1YatZyRhcJCAs&usqp=CAU" alt="HealthLink Telemedicine App">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQCuw-URbZub5FEyxPBoatYVuPl-EyjkEIqTjRTnX50WxLFMUyymfCNs1YatZyRhcJCAs&usqp=CAU" alt="HealthLink Telemedicine App">
             <p><strong>Developers:</strong> John Doe, Emily Davis, Michael Brown</p>
         </div>
 
@@ -171,7 +255,7 @@ header nav a:hover {
     </section>
 
     <footer>
-        <p>&copy; 2023 Your Company</p>
+        <p>&copy; 2025 CollabSphere. All Rights Reserved.</p>
     </footer>
 
     <script>
@@ -181,7 +265,12 @@ header nav a:hover {
 
         themeToggleButton.addEventListener('click', () => {
             body.classList.toggle('dark-theme');
-            themeToggleButton.textContent = body.classList.contains('dark-theme') ? 'Toggle Light Theme' : 'Toggle Dark Theme';
+            const icon = themeToggleButton.querySelector('i');
+            if (body.classList.contains('dark-theme')) {
+                themeToggleButton.innerHTML = '<i class="fas fa-sun"></i> Toggle Light Theme';
+            } else {
+                themeToggleButton.innerHTML = '<i class="fas fa-moon"></i> Toggle Dark Theme';
+            }
         });
     </script>
 </body>
