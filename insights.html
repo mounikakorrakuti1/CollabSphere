@@ -4,126 +4,190 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Insights - CollabSphere</title>
-  <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    /* General Body Style */
+    :root {
+      --primary: #28a745;
+      --primary-dark: #218838;
+      --text: #333;
+      --text-light: #666;
+      --bg: #f8f9fa;
+      --card-bg: #ffffff;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f4f4f9;
-      color: #333;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
       margin: 0;
-      padding: 0;
+      line-height: 1.6;
     }
 
     header {
-      background: #ffffff;
-      padding: 20px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      background: var(--card-bg);
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-container {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
-    header h1 {
-      margin: 0;
-      font-size: 2rem;
-      color: #28a745;
-    }
-
-    nav a {
-      margin: 0 15px;
-      color: #333;
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
       text-decoration: none;
+    }
+
+    .nav-link {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+      background: rgba(40, 167, 69, 0.1);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card-content {
+      padding: 1.5rem;
+    }
+
+    .card-title {
+      font-size: 1.4rem;
+      margin: 0 0 1rem;
+      color: var(--text);
       font-weight: 600;
     }
 
-    nav a:hover {
-      color: #28a745;
-    }
-
-    .insights-container {
-      padding: 40px 20px;
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 30px;
-      background: #ffffff;
-    }
-
-    .insight-section {
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      background: #fff;
-      margin-bottom: 30px;
-    }
-
-    .insight-section h2 {
-      color: #333;
-      font-size: 1.8rem;
-      margin-bottom: 20px;
-      font-weight: bold;
-    }
-
-    .insight-section p {
-      font-size: 1rem;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-
-    .cta-btn {
-      background: #28a745;
-      color: white;
-      padding: 12px 20px;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      font-size: 1.1rem;
-      text-align: center;
-      width: 100%;
-      margin-top: 20px;
-    }
-
-    .cta-btn:hover {
-      background: #218838;
+    .card-text {
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
     }
 
     .chart-container {
       width: 100%;
-      height: 350px;
-      margin-bottom: 40px;
+      height: 300px;
+      margin: 1.5rem 0;
     }
 
-    .success-story img {
+    .success-story {
+      margin: 1.5rem 0;
+      border-top: 1px solid #eee;
+      padding-top: 1.5rem;
+    }
+
+    .success-story:first-child {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .story-title {
+      font-size: 1.2rem;
+      margin: 0.5rem 0;
+      color: var(--text);
+    }
+
+    .story-image {
       width: 100%;
       border-radius: 8px;
-      margin-top: 20px;
+      height: 200px;
+      object-fit: cover;
+      margin-top: 1rem;
     }
 
-    .success-story h3 {
-      font-size: 1.5rem;
-      color: #333;
-      margin-top: 10px;
+    .btn {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 500;
+      text-align: center;
+      text-decoration: none;
+      transition: background 0.2s ease;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-block {
+      display: block;
+      width: 100%;
     }
 
     footer {
-      padding: 20px 0;
+      background: var(--card-bg);
+      padding: 2rem 0;
       text-align: center;
-      background: #f1f1f1;
-      font-size: 1rem;
+      margin-top: 3rem;
+      border-top: 1px solid #eee;
     }
 
-    footer a {
-      color: #333;
+    .footer-text {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .footer-link {
+      color: var(--primary);
       text-decoration: none;
     }
 
-    /* Responsive Design */
     @media (max-width: 768px) {
-      .insights-container {
+      .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      nav {
+        margin-top: 1rem;
+      }
+      
+      .grid {
         grid-template-columns: 1fr;
-        padding: 20px;
       }
     }
   </style>
@@ -132,120 +196,142 @@
 
 <!-- Header Section -->
 <header>
-  <h1>CollabSphere Insights</h1>
-  <nav>
-    <a href="index.html">Home</a>
-  </nav>
+  <div class="header-container">
+    <a href="index.html" class="logo">CollabSphere Insights</a>
+    <nav>
+      <a href="index.html" class="nav-link">
+        <i class="fas fa-home"></i> Home
+      </a>
+    </nav>
+  </div>
 </header>
 
-<!-- Insights Page Content -->
-<div class="insights-container">
-  <!-- Left Section: Insights & Success Stories -->
-  <div class="insight-section">
-    <h2>Industry Insights</h2>
-    <p>
-      Discover the latest trends in various industries such as healthcare, technology, finance, and marketing. 
-      Our platform provides personalized insights based on your academic field and interests, 
-      helping you stay up-to-date and make informed career decisions.
-    </p>
-    <div class="chart-container">
-      <canvas id="industryChart"></canvas>
-    </div>
+<!-- Main Content -->
+<main class="container">
+  <div class="grid">
+    <!-- Industry Insights Card -->
+    <section class="card">
+      <div class="card-content">
+        <h2 class="card-title">Industry Insights</h2>
+        <p class="card-text">
+          Discover the latest trends across key industries including healthcare, technology, 
+          finance, and marketing. Our platform delivers personalized insights tailored to your 
+          academic background and professional interests.
+        </p>
+        <div class="chart-container">
+          <canvas id="industryChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Market Insights Card -->
+    <section class="card">
+      <div class="card-content">
+        <h2 class="card-title">Market Insights</h2>
+        <p class="card-text">
+          Stay informed about growing sectors and in-demand skills with our comprehensive 
+          market analysis. We track employment trends to help guide your career decisions.
+        </p>
+        <div class="chart-container">
+          <canvas id="marketChart"></canvas>
+        </div>
+        <a href="#" class="btn btn-block">Explore Job Opportunities</a>
+      </div>
+    </section>
   </div>
 
-  <div class="insight-section">
-    <h2>Success Stories from Students</h2>
-    <p>
-      Read inspiring stories from students who have successfully transitioned from academia to industry. 
-      These stories come from various disciplines, including medical, business, law, AI, and more.
-    </p>
-    
-    <!-- Medical Students Success -->
-    <div class="success-story">
-      <h3>Dr. Nocca - Medical Entrepreneur</h3>
-      <img src="https://swarajya.gumlet.io/swarajya/2021-04/d7463c48-126b-48b4-acda-0f2c160a75ea/Nocca_founders.png?w=610&q=50&compress=true&format=auto" alt="Medical Entrepreneur">
-    </div>
+  <!-- Success Stories Section -->
+  <section class="card" style="margin-top: 2rem;">
+    <div class="card-content">
+      <h2 class="card-title">Success Stories</h2>
+      <p class="card-text">
+        Learn from students who have successfully transitioned from academia to industry 
+        across various disciplines.
+      </p>
+      
+      <div class="success-story">
+        <h3 class="story-title">Dr. Nocca - Medical Entrepreneur</h3>
+        <img src="https://swarajya.gumlet.io/swarajya/2021-04/d7463c48-126b-48b4-acda-0f2c160a75ea/Nocca_founders.png?w=610&q=50&compress=true&format=auto" 
+             alt="Medical Entrepreneur" class="story-image">
+      </div>
 
-    <!-- Networking Students Success -->
-    <div class="success-story">
-      <h3>Networking Professional - John Doe</h3>
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReee6KugAkzLrv5nO8QnVzT9eCYh19g3E1gg&s" alt="Networking Professional">
-    </div>
+      <div class="success-story">
+        <h3 class="story-title">Networking Professional - John Doe</h3>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReee6KugAkzLrv5nO8QnVzT9eCYh19g3E1gg&s" 
+             alt="Networking Professional" class="story-image">
+      </div>
 
-    <!-- Law Students Success -->
-    <div class="success-story">
-      <h3>Legal Expert - Jane Smith</h3>
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNWCiuksmMlh4hOaM_peqKQX5JMaz3CauAsA&s" alt="Legal Expert">
+      <div class="success-story">
+        <h3 class="story-title">Legal Expert - Jane Smith</h3>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNWCiuksmMlh4hOaM_peqKQX5JMaz3CauAsA&s" 
+             alt="Legal Expert" class="story-image">
+      </div>
     </div>
-
-    <!-- Business Students Success -->
-    <div class="success-story">
-      <h3>Business Leader - Amit Gupta</h3>
-      <img src="https://thumbs.dreamstime.com/b/two-business-team-manager-having-discussing-new-project-success-financial-statistics-partner-meeting-professional-investor-138126828.jpg" alt="Business Leader">
-    </div>
-
-    <!-- AI Students Success -->
-    <div class="success-story">
-      <h3>AI Innovator - Rahul Sharma</h3>
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8q3z2cazhaBBgLBgO-6GcJEOUUMDBpOCgDw&s" alt="AI Innovator">
-    </div>
-  </div>
-
-  <!-- Right Section: Market Insights & Job Opportunities -->
-  <div class="insight-section">
-    <h2>Market Insights</h2>
-    <p>
-      Stay ahead of the curve with valuable market insights tailored to your academic background and future career aspirations. 
-      Understand what skills are in demand and which industries are growing rapidly.
-    </p>
-    <div class="chart-container">
-      <canvas id="marketChart"></canvas>
-    </div>
-
-    <h2>Explore Job Opportunities</h2>
-    <p>Find your next big opportunity with personalized job recommendations from top companies in your industry.</p>
-    <button class="cta-btn">Explore Jobs</button>
-  </div>
-</div>
+  </section>
+</main>
 
 <footer>
-  <p>&copy; 2025 CollabSphere. All rights reserved. | <a href="privacy.html">Privacy Policy</a></p>
+  <p class="footer-text">&copy; 2025 CollabSphere. All rights reserved. | 
+    <a href="privacy.html" class="footer-link">Privacy Policy</a>
+  </p>
 </footer>
 
 <script>
-  // Industry Insights Chart (Mock Data)
-  const industryCtx = document.getElementById('industryChart').getContext('2d');
-  const industryChart = new Chart(industryCtx, {
-    type: 'pie',
-    data: {
-      labels: ['Healthcare', 'Tech', 'Finance', 'Marketing'],
-      datasets: [{
-        data: [30, 40, 20, 10],
-        backgroundColor: ['#ff5733', '#33ff57', '#1e90ff', '#ffcc00'],
-      }]
-    },
-    options: {
-      responsive: true
-    }
-  });
+  // Industry Insights Chart
+  document.addEventListener('DOMContentLoaded', function() {
+    const industryCtx = document.getElementById('industryChart').getContext('2d');
+    new Chart(industryCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Healthcare', 'Technology', 'Finance', 'Marketing', 'Education'],
+        datasets: [{
+          data: [25, 35, 20, 15, 5],
+          backgroundColor: [
+            '#36a2eb',
+            '#4bc0c0',
+            '#ffcd56',
+            '#ff6384',
+            '#9966ff'
+          ],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'right'
+          }
+        }
+      }
+    });
 
-  // Market Insights Chart (Mock Data)
-  const marketCtx = document.getElementById('marketChart').getContext('2d');
-  const marketChart = new Chart(marketCtx, {
-    type: 'bar',
-    data: {
-      labels: ['2023', '2024', '2025'],
-      datasets: [{
-        label: 'Job Market Trends',
-        data: [100, 200, 300],
-        backgroundColor: '#28a745',
-        borderColor: '#28a745',
-        borderWidth: 1
-      }]
-    },
-    options: {
-      responsive: true
-    }
+    // Market Insights Chart
+    const marketCtx = document.getElementById('marketChart').getContext('2d');
+    new Chart(marketCtx, {
+      type: 'line',
+      data: {
+        labels: ['Q1 2023', 'Q2 2023', 'Q3 2023', 'Q4 2023', 'Q1 2024', 'Q2 2024'],
+        datasets: [{
+          label: 'Job Market Growth',
+          data: [100, 120, 145, 160, 190, 220],
+          borderColor: '#28a745',
+          backgroundColor: 'rgba(40, 167, 69, 0.1)',
+          fill: true,
+          tension: 0.3
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
   });
 </script>
 
