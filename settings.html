@@ -1,381 +1,325 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CollabSphere - Settings</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        header nav a {
-  color: white;
-  margin-right: 1rem;
-  text-decoration: none;
-}
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>CollabSphere – Settings & Assistance</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    /* Navbar link styling */
+    header nav a {
+      color: white;
+      margin-left: 1rem;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    header nav a:hover {
+      text-decoration: underline;
+    }
 
-header nav a:hover {
-  text-decoration: underline;
-}
-        /* Brand Colors - Feel free to adjust these */
-        :root {
-            --brand-primary: #007bff; /* A nice blue */
-            --brand-secondary: #6c757d; /* Grey */
-            --brand-accent: #28a745; /* Green for success/active */
-            --brand-danger: #dc3545; /* Red for delete/error */
-            --text-primary: #333;
-            --text-secondary: #666;
-            --bg-light: #f8f9fa;
-            --bg-dark: #333;
-            --card-bg: #fff;
-            --card-shadow: rgba(0, 0, 0, 0.1);
-            --border-color: #eee;
-        }
+    /* Brand & theme variables */
+    :root {
+      --brand-primary: #007bff;
+      --brand-secondary: #6c757d;
+      --brand-accent: #28a745;
+      --brand-danger: #dc3545;
+      --text-primary: #333;
+      --text-secondary: #666;
+      --bg-light: #f8f9fa;
+      --card-bg: #fff;
+      --card-shadow: rgba(0,0,0,0.1);
+      --border-color: #eee;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg-light);
+      margin: 0; padding: 0;
+      color: var(--text-primary);
+    }
+    .dark-mode {
+      --bg-light: #222;
+      --card-bg: #444;
+      --card-shadow: rgba(0,0,0,0.7);
+      --text-primary: #eee;
+      --border-color: #555;
+      --brand-primary: #4e73df;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-light);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-        }
+    /* Header */
+    header {
+      background: var(--brand-primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+    }
+    header .logo { font-size: 1.25rem; font-weight: bold; }
+    header nav { display: flex; align-items: center; }
 
-        .settings-container {
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            box-shadow: 0 2px 10px var(--card-shadow);
-            width: 90%;
-            max-width: 800px;
-            padding: 30px; /* Increased padding */
-            margin-top: 20px;
-        }
+    /* Container */
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      background: var(--card-bg);
+      border-radius: 8px;
+      box-shadow: 0 2px 10px var(--card-shadow);
+      overflow: hidden;
+    }
 
-        .settings-header {
-            text-align: center;
-            padding-bottom: 25px;
-            border-bottom: 2px solid var(--brand-primary); /* Brand color underline */
-            margin-bottom: 30px;
-        }
+    /* Section headings */
+    .section {
+      padding: 2rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .section:last-child { border-bottom: none; }
+    .section h2 {
+      margin: 0 0 1rem;
+      color: var(--brand-primary);
+      font-size: 1.75rem;
+    }
+    .section h3 {
+      margin: 1rem 0;
+      color: var(--brand-primary);
+      font-size: 1.25rem;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 0.5rem;
+    }
 
-        .settings-header h2 {
-            color: var(--text-primary);
-            margin-bottom: 8px;
-            font-size: 2rem; /* Slightly larger title */
-        }
+    /* Settings items */
+    .setting-item {
+      display: flex; justify-content: space-between;
+      align-items: center; padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .setting-item:last-child { border-bottom: none; }
+    .setting-label { font-weight: 600; }
+    .settings-input,
+    .settings-dropdown {
+      padding: 0.5rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+    .toggle-switch {
+      width: 45px; height: 24px;
+      appearance: none; background: #ccc;
+      border-radius: 12px; position: relative;
+      cursor: pointer; transition: .4s;
+    }
+    .toggle-switch:checked { background: var(--brand-accent); }
+    .toggle-switch::before {
+      content: '';
+      position: absolute; width: 20px; height: 20px;
+      background: white; border-radius: 50%;
+      top: 2px; left: 2px; transition: .4s;
+    }
+    .toggle-switch:checked::before { transform: translateX(21px); }
+    .settings-button {
+      background: var(--brand-primary);
+      color: white; border: none;
+      padding: 0.75rem 1.25rem;
+      border-radius: 6px; cursor: pointer;
+      font-size: 1rem;
+      transition: background .3s;
+    }
+    .settings-button:hover { background: #0056b3; }
+    .settings-button.delete {
+      background: var(--brand-danger);
+    }
+    .settings-button.delete:hover {
+      background: #c82333;
+    }
 
-        .settings-section {
-            margin-bottom: 30px;
-        }
+    /* Assistance quick tiles */
+    .tiles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(120px,1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .tile {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: box-shadow .2s;
+    }
+    .tile:hover { box-shadow: 0 4px 12px var(--card-shadow); }
+    .tile i { font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--brand-primary); }
 
-        .settings-section h3 {
-            color: var(--brand-primary); /* Brand color for section titles */
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 12px;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-        }
+    /* FAQ accordion */
+    .accordion {
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      margin-top: 1rem;
+      overflow: hidden;
+    }
+    .accordion-header {
+      background: var(--bg-light);
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+    }
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .3s ease;
+      background: var(--card-bg);
+      padding: 0 1rem;
+    }
+    .accordion-content p { margin: .75rem 0; }
 
-        .setting-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .setting-item:last-child {
-            border-bottom: none;
-        }
-
-        .setting-label {
-            color: var(--text-primary);
-            font-weight: bold;
-        }
-
-        .setting-control {
-            display: flex;
-            align-items: center;
-        }
-
-        /* Toggle Switch Styling */
-        .toggle-switch {
-            position: relative;
-            width: 45px; /* Slightly wider */
-            height: 24px; /* Slightly taller */
-            -webkit-appearance: none;
-            background: #ccc;
-            outline: none;
-            border-radius: 12px; /* Adjust for height */
-            cursor: pointer;
-            transition: .4s;
-        }
-
-        .toggle-switch:checked {
-            background: var(--brand-accent);
-        }
-
-        .toggle-switch::before {
-            position: absolute;
-            content: "";
-            height: 20px; /* Adjust for height */
-            width: 20px; /* Adjust for height */
-            left: 2px;
-            bottom: 2px;
-            background-color: white;
-            border-radius: 50%;
-            transition: .4s;
-        }
-
-        .toggle-switch:checked::before {
-            transform: translateX(21px); /* Adjust for width */
-        }
-
-        /* Dropdown Styling */
-        .settings-dropdown {
-            padding: 10px 15px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            appearance: none;
-            background-color: #fff;
-            color: var(--text-primary);
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .settings-dropdown:focus {
-            outline: none;
-            border-color: var(--brand-primary);
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-        }
-
-        /* Input Field Styling */
-        .settings-input {
-            padding: 10px 15px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            color: var(--text-primary);
-            font-size: 1rem;
-        }
-
-        .settings-input:focus {
-            outline: none;
-            border-color: var(--brand-primary);
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-        }
-
-        /* Button Styling */
-        .settings-button {
-            background-color: var(--brand-primary);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-size: 1rem;
-        }
-
-        .settings-button:hover {
-            background-color: #0056b3;
-        }
-
-        .settings-button[style*="background-color: #dc3545;"] { /* Specific style for delete button */
-            background-color: var(--brand-danger);
-        }
-
-        .settings-button[style*="background-color: #dc3545;"]:hover {
-            background-color: #c82333;
-        }
-
-        /* Dark Mode */
-        .dark-mode {
-            --text-primary: #eee;
-            --text-secondary: #ccc;
-            --bg-light: #222;
-            --bg-dark: #333;
-            --card-bg: #444;
-            --card-shadow: rgba(0, 0, 0, 0.7);
-            --border-color: #555;
-        }
-
-        .dark-mode body {
-            background-color: var(--bg-light);
-        }
-
-        .dark-mode .settings-container {
-            background-color: var(--card-bg);
-            box-shadow: 0 2px 10px var(--card-shadow);
-        }
-
-        .dark-mode .settings-header h2,
-        .dark-mode .settings-section h3,
-        .dark-mode .setting-label,
-        .dark-mode .settings-dropdown,
-        .dark-mode .settings-input {
-            color: var(--text-primary);
-        }
-
-        .dark-mode .toggle-switch {
-            background: #555;
-        }
-
-        .dark-mode .settings-dropdown,
-        .dark-mode .settings-input {
-            background-color: #555;
-            border-color: #777;
-        }
-
-        .dark-mode .settings-dropdown:focus,
-        .dark-mode .settings-input:focus {
-            border-color: var(--brand-primary);
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-        }
-
-        .dark-mode .settings-button {
-            background-color: var(--brand-primary);
-        }
-
-        .dark-mode .theme-switcher {
-            color: var(--text-secondary);
-        }
-
-        .dark-mode .theme-switcher:hover {
-            color: var(--text-primary);
-        }
-
-        /* Theme Switcher */
-        .theme-switcher {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: color 0.3s ease-in-out;
-            z-index: 1000;
-        }
-
-        .theme-switcher:hover {
-            color: var(--text-primary);
-        }
-    </style>
+  </style>
 </head>
 <body>
-    <button class="theme-switcher" id="themeSwitcher">
-        <i class="fas fa-moon"></i>
-    </button>
-    <div class="settings-container">
-        <div class="settings-header">
-            <h2>Account Settings</h2>
-        </div>
+  <header>
+    <div class="logo">CollabSphere</div>
+    <nav>
+      <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    </nav>
+  </header>
 
-        <div class="settings-section">
-            <h3>Profile Information</h3>
-            <div class="setting-item">
-                <label class="setting-label" for="username">Username</label>
-                <input type="text" id="username" class="settings-input" value="johndoe" readonly>
-            </div>
-            <div class="setting-item">
-                <label class="setting-label" for="fullName">Full Name</label>
-                <input type="text" id="fullName" class="settings-input" value="John Doe">
-            </div>
-            <div class="setting-item">
-                <label class="setting-label" for="email">Email</label>
-                <input type="email" id="email" class="settings-input" value="john.doe@example.com">
-            </div>
-            <div class="setting-item">
-                <label class="setting-label" for="bio">Bio</label>
-                <textarea id="bio" class="settings-input">A passionate collaborator on CollabSphere.</textarea>
-            </div>
-            <div class="setting-item">
-                <label class="setting-label">Edit Profile</label>
-                <button class="settings-button">Edit</button>
-            </div>
+  <div class="container">
+    <!-- Settings Section -->
+    <div class="section">
+      <h2>Account Settings</h2>
+      <!-- Profile Information -->
+      <div class="section">
+        <h3>Profile Information</h3>
+        <div class="setting-item">
+          <div class="setting-label">Username</div>
+          <input class="settings-input" type="text" value="johndoe" readonly/>
         </div>
+        <div class="setting-item">
+          <div class="setting-label">Full Name</div>
+          <input class="settings-input" type="text" value="John Doe"/>
+        </div>
+        <div class="setting-item">
+          <div class="setting-label">Email</div>
+          <input class="settings-input" type="email" value="john.doe@example.com"/>
+        </div>
+        <div class="setting-item">
+          <div class="setting-label">Bio</div>
+          <textarea class="settings-input" rows="2">A passionate collaborator.</textarea>
+        </div>
+      </div>
 
-        <div class="settings-section">
-            <h3>Display Preferences</h3>
-            <div class="setting-item">
-                <label class="setting-label">Dark Mode</label>
-                <div class="setting-control">
-                    <input type="checkbox" id="darkModeToggle" class="toggle-switch">
-                </div>
-            </div>
-            <div class="setting-item">
-                <label class="setting-label" for="language">Language</label>
-                <div class="setting-control">
-                    <select id="language" class="settings-dropdown">
-                        <option value="en">English</option>
-                        <option value="es">Español</option>
-                        <option value="fr">Français</option>
-                    </select>
-                </div>
-            </div>
+      <!-- Display Preferences -->
+      <div class="section">
+        <h3>Display Preferences</h3>
+        <div class="setting-item">
+          <div class="setting-label">Dark Mode</div>
+          <input type="checkbox" id="darkModeToggle" class="toggle-switch"/>
         </div>
+        <div class="setting-item">
+          <div class="setting-label">Language</div>
+          <select class="settings-dropdown">
+            <option>English</option>
+            <option>Español</option>
+            <option>Français</option>
+          </select>
+        </div>
+      </div>
 
-        <div class="settings-section">
-            <h3>Notifications</h3>
-            <div class="setting-item">
-                <label class="setting-label">Project Updates</label>
-                <div class="setting-control">
-                    <input type="checkbox" class="toggle-switch" checked>
-                </div>
-            </div>
-            <div class="setting-item">
-                <label class="setting-label">Direct Messages</label>
-                <div class="setting-control">
-                    <input type="checkbox" class="toggle-switch" checked>
-                </div>
-            </div>
-            <div class="setting-item">
-                <label class="setting-label">Group Invitations</label>
-                <div class="setting-control">
-                    <input type="checkbox" class="toggle-switch">
-                </div>
-            </div>
+      <!-- Notifications -->
+      <div class="section">
+        <h3>Notifications</h3>
+        <div class="setting-item">
+          <div class="setting-label">Project Updates</div>
+          <input type="checkbox" class="toggle-switch" checked/>
         </div>
+        <div class="setting-item">
+          <div class="setting-label">Direct Messages</div>
+          <input type="checkbox" class="toggle-switch" checked/>
+        </div>
+        <div class="setting-item">
+          <div class="setting-label">Group Invitations</div>
+          <input type="checkbox" class="toggle-switch"/>
+        </div>
+      </div>
 
-        <div class="settings-section">
-            <h3>Account Actions</h3>
-            <div class="setting-item">
-                <label class="setting-label">Change Password</label>
-                <button class="settings-button">Change</button>
-            </div>
-            <div class="setting-item">
-                <label class="setting-label" style="color: #dc3545;">Delete Account</label>
-                <button class="settings-button" style="background-color: #dc3545;">Delete</button>
-            </div>
+      <!-- Account Actions -->
+      <div class="section">
+        <h3>Account Actions</h3>
+        <div class="setting-item">
+          <div class="setting-label">Change Password</div>
+          <button class="settings-button">Change</button>
         </div>
+        <div class="setting-item">
+          <div class="setting-label" style="color: var(--brand-danger)">Delete Account</div>
+          <button class="settings-button delete">Delete</button>
+        </div>
+      </div>
     </div>
 
-    <script>
-        const body = document.body;
-        const themeSwitcher = document.getElementById('themeSwitcher');
-        const darkModeToggle = document.getElementById('darkModeToggle');
+    <!-- Assistance Section -->
+    <div class="section">
+      <h2>Assistance & Help</h2>
 
-        themeSwitcher.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            const isDarkMode = body.classList.contains('dark-mode');
-            themeSwitcher.innerHTML = isDarkMode ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
-            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-            darkModeToggle.checked = isDarkMode; // Sync toggle with theme switcher
-        });
+      <!-- Quick Navigation Tiles -->
+      <h3>Quick Navigation</h3>
+      <div class="tiles">
+        <div class="tile" data-target="faq"><i class="fas fa-question-circle"></i><div>FAQs</div></div>
+        <div class="tile" data-target="contact"><i class="fas fa-headset"></i><div>Contact Support</div></div>
+        <div class="tile" data-target="guide"><i class="fas fa-book-open"></i><div>Platform Guide</div></div>
+        <div class="tile" data-target="videos"><i class="fas fa-video"></i><div>Video Tutorials</div></div>
+        <div class="tile" data-target="bug"><i class="fas fa-bug"></i><div>Report a Bug</div></div>
+      </div>
 
-        darkModeToggle.addEventListener('change', () => {
-            body.classList.toggle('dark-mode', darkModeToggle.checked);
-            themeSwitcher.innerHTML = darkModeToggle.checked ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
-            localStorage.setItem('theme', darkModeToggle.checked ? 'dark' : 'light'); // Sync preference
-        });
+      <!-- FAQ Accordion -->
+      <div id="faq" class="accordion">
+        <div class="accordion-header">
+          How to join a project? <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="accordion-content">
+          <p>Request an invite from the project admin or use the project code to join directly.</p>
+        </div>
+      </div>
+      <div class="accordion">
+        <div class="accordion-header">
+          How to create a new workspace? <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="accordion-content">
+          <p>Click on "Create Workspace" on your dashboard and follow the prompts.</p>
+        </div>
+      </div>
+      <!-- Add more FAQ items as needed -->
+    </div>
+  </div>
 
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            body.classList.add('dark-mode');
-            themeSwitcher.innerHTML = '<i class="fas fa-sun"></i>';
-            darkModeToggle.checked = true;
+  <script>
+    // Dark Mode Toggle
+    const body = document.body;
+    const darkToggle = document.getElementById('darkModeToggle');
+    darkToggle.addEventListener('change', () => {
+      body.classList.toggle('dark-mode', darkToggle.checked);
+    });
+
+    // Accordion Toggle
+    document.querySelectorAll('.accordion-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const content = header.nextElementSibling;
+        const open = content.style.maxHeight;
+        document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
+        if (!open) {
+          content.style.maxHeight = content.scrollHeight + 'px';
         }
-    </script>
+      });
+    });
+
+    // Quick Tiles Navigation
+    document.querySelectorAll('.tile').forEach(tile => {
+      tile.addEventListener('click', () => {
+        const target = tile.dataset.target;
+        document.getElementById(target)?.scrollIntoView({behavior: 'smooth'});
+      });
+    });
+  </script>
 </body>
 </html>
