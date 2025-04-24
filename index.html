@@ -4,65 +4,112 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CollabSphere - Connect, Collaborate, Create</title>
-
-  <!-- CSS Links -->
   <link rel="stylesheet" href="assets/css/style.css" />
   <link rel="stylesheet" href="assets/css/responsive.css" />
-
-  <!-- Favicon -->
   <link rel="icon" href="assets/images/logo.png" type="image/png" />
+  <style>
+    /* Enhanced hero cards */
+    .hero-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin: 4rem 0;
+    }
+    .hero-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      overflow: hidden;
+      max-width: 300px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .hero-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    .hero-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .hero-card-content {
+      padding: 1.5rem;
+    }
+    .hero-card-content h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.25rem;
+      color: #0c1f4b;
+    }
+    .hero-card-content p {
+      margin: 0;
+      color: #555;
+      line-height: 1.5;
+    }
+    .highlight {
+      color: #4a6fdc;
+      font-weight: 600;
+    }
+  </style>
 </head>
 <body>
   <header>
     <img src="assets/images/logo.png" alt="CollabSphere Logo" class="logo" />
     <nav>
-      <a href="index.html">Home</a>
       <a href="dashboard.html">Dashboard</a>
       <a href="workspace.html">Workspace</a>
       <a href="project.html">Projects</a>
       <a href="resources.html">Resources</a>
       <a href="insights.html">Insights</a>
-      <a href="assistance.html">Assistance</a>
       <a href="search.html">Search</a>
       <a href="profile.html">Profile</a>
       <a href="messages.html">Messages</a>
       <a href="settings.html">Settings</a>
       <a href="login.html">Login</a>
-      <a href="register.html">Register</a>
     </nav>
   </header>
 
   <main>
-    <section class="hero">
-      <h1>Where Collaboration Meets Innovation</h1>
-      <p>Join students across disciplines. Work on real-world projects. Grow together.</p>
-      <a href="login.html" class="cta-btn">Get Started</a>
+    <section class="hero" style="text-align:center; padding:4rem 1rem; background:#f8f9fa;">
+      <h1 style="font-size:2.5rem; color:#0c1f4b; margin-bottom:1rem;">
+        Where <span class="highlight">Collaboration</span> Meets <span class="highlight">Innovation</span>
+      </h1>
+      <p style="font-size:1.1rem; color:#555; max-width:600px; margin:0 auto 2rem;">
+        Join students across disciplines to work on real‑world projects, share domain insights, and build your portfolio together.
+      </p>
+      <a href="login.html" class="cta-btn" style="padding:0.75rem 1.5rem; font-size:1rem;">
+        Get Started
+      </a>
     </section>
 
-    <section class="features">
-      <div class="feature">
-        <h3>Cross-Disciplinary Teams</h3>
-        <p>Connect with peers across streams and build impactful projects.</p>
+    <section class="hero-cards">
+      <!-- Cross-Disciplinary Collaboration -->
+      <div class="hero-card">
+        <img src="https://miro.medium.com/v2/resize:fit:1400/1*Wqaq04zRbSjxKh5BN0Tknw.png" alt="Cross-Disciplinary Teams">
+        <div class="hero-card-content">
+          <h3>Cross-Disciplinary <span class="highlight">Teams</span></h3>
+          <p>Work seamlessly with peers from different fields to spark creativity and solve complex challenges together.</p>
+        </div>
       </div>
-      <div class="feature">
-        <h3>Career Insights</h3>
-        <p>Get recommendations, skills trends, and job updates specific to your domain.</p>
-      </div>
-      <div class="feature">
-        <h3>Resource Library</h3>
-        <p>Access and share high-quality academic materials easily.</p>
-      </div>
-    </section>
 
-    <section class="quick-links">
-      <h2>Quick Access</h2>
-      <ul>
-        <li><a href="search.html">Search Projects</a></li>
-        <li><a href="assistance.html">Get Peer Assistance</a></li>
-        <li><a href="profile.html">View Your Profile</a></li>
-        <li><a href="messages.html">Check Messages</a></li>
-        <li><a href="settings.html">Account Settings</a></li>
-      </ul>
+      <!-- Career Insights -->
+      <div class="hero-card">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWQoapuFlwGWzaQiC6_5vlocr6vzP2QsALrA&s" alt="Career Insights">
+        <div class="hero-card-content">
+          <h3><span class="highlight">Career</span> Insights</h3>
+          <p>Stay ahead with personalized industry trends, skill requirements, and job opportunities tailored to your domain.</p>
+        </div>
+      </div>
+
+      <!-- Resource Library -->
+      <div class="hero-card">
+        <img src="https://images.squarespace-cdn.com/content/v1/56a7eeb10ab377489fcf31ea/1721189970798-9FEJG5EP7Y6WZNKA5JOA/image-asset.jpeg" alt="Resource Library">
+        <div class="hero-card-content">
+          <h3>Centralized <span class="highlight">Library</span></h3>
+          <p>Discover, share, and rate study materials, code snippets, and guides organized by subject and topic.</p>
+        </div>
+      </div>
     </section>
   </main>
 
@@ -70,7 +117,6 @@
     <p>&copy; 2025 CollabSphere. All Rights Reserved.</p>
   </footer>
 
-  <!-- JS Scripts -->
   <script src="assets/js/main.js"></script>
 </body>
 </html>
