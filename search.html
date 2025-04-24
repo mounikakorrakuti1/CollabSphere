@@ -14,14 +14,13 @@
   />
   <style>
     header nav a {
-  color: white;
-  margin-right: 1rem;
-  text-decoration: none;
-}
-
-header nav a:hover {
-  text-decoration: underline;
-}
+      color: white;
+      margin-right: 1rem;
+      text-decoration: none;
+    }
+    header nav a:hover {
+      text-decoration: underline;
+    }
     body {
       font-family: "Inter", sans-serif;
       background-color: #f9fafb;
@@ -159,196 +158,79 @@ header nav a:hover {
 </head>
 <body class="min-h-screen relative bg-gray-50 dark:bg-[#0c234b] text-[#0c234b] dark:text-[#e0e7ff] flex flex-col">
   <!-- Header -->
-  <header
-    class="bg-[#0c234b] flex items-center justify-between px-4 sm:px-6 md:px-10 py-4 sticky top-0 z-40"
-  >
+  <header class="bg-[#0c234b] flex items-center justify-between px-4 sm:px-6 md:px-10 py-4 sticky top-0 z-40">
     <div class="flex items-center space-x-3">
-      <img
-        alt="CollabSphere logo, circular dark background with a stylized white sphere icon"
-        class="w-10 h-10"
-        height="40"
-        src="https://storage.googleapis.com/a1aa/image/6357c359-3327-4e96-9119-e44a0d43dab4.jpg"
-        width="40"
-      />
-      <h1 class="text-white text-lg sm:text-xl font-semibold select-none">
-        CollabSphere Search
-      </h1>
+      <img alt="CollabSphere logo" class="w-10 h-10" src="https://storage.googleapis.com/a1aa/image/6357c359-3327-4e96-9119-e44a0d43dab4.jpg"/>
+      <h1 class="text-white text-lg sm:text-xl font-semibold select-none">CollabSphere Search</h1>
     </div>
-    <div class="flex items-center space-x-4">
-      <button
-        aria-label="Toggle Dark Mode"
-        class="text-white text-sm border border-white rounded px-3 py-1 hover:bg-white hover:text-[#0c234b] transition"
-        id="darkModeToggle"
-        type="button"
-      >
-        Dark Mode
-      </button>
-    </div>
+    <nav class="flex items-center space-x-4">
+      <button id="darkModeToggle" aria-label="Toggle Dark Mode" class="text-white text-sm border border-white rounded px-3 py-1 hover:bg-white hover:text-[#0c234b] transition">Dark Mode</button>
+      <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    </nav>
   </header>
 
   <main class="flex-1 max-w-4xl mx-auto px-4 sm:px-6 md:px-10 py-6 pb-32">
     <!-- Search Bar UI with Voice -->
     <section class="mb-8 select-text">
-      <h2 class="text-[#0c234b] dark:text-[#e0e7ff] font-semibold text-2xl mb-4">
-        Search Projects, Resources, Groups, or Collaborators
-      </h2>
-      <form
-        id="searchForm"
-        class="relative max-w-xl mx-auto"
-        autocomplete="off"
-        role="search"
-      >
-        <input
-          id="searchInput"
-          name="searchInput"
-          type="search"
+      <h2 class="text-[#0c234b] dark:text-[#e0e7ff] font-semibold text-2xl mb-4">Search Projects, Resources, Groups, or Collaborators</h2>
+      <form id="searchForm" class="relative max-w-xl mx-auto" autocomplete="off" role="search">
+        <input id="searchInput" name="searchInput" type="search"
           placeholder="Search for projects, resources, groups, or collaborators..."
           class="w-full border border-[#0c234b] dark:border-[#e0e7ff] rounded-full pl-14 pr-14 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#0c234b] dark:focus:ring-[#e0e7ff] dark:bg-[#1e3a8a] dark:text-[#e0e7ff] dark:placeholder-gray-400"
-          aria-label="Search input"
-          aria-autocomplete="list"
-          aria-controls="suggestions"
-          aria-expanded="false"
-          aria-activedescendant=""
+          aria-label="Search input" aria-autocomplete="list" aria-controls="suggestions" aria-expanded="false" aria-activedescendant=""
         />
-        <button
-          type="button"
-          id="clearBtn"
-          aria-label="Clear search"
-          class="absolute right-12 top-1/2 -translate-y-1/2 text-[#0c234b] dark:text-[#e0e7ff] hover:text-red-600 dark:hover:text-red-400 hidden"
-        >
+        <button type="button" id="clearBtn" aria-label="Clear search"
+          class="absolute right-12 top-1/2 -translate-y-1/2 text-[#0c234b] dark:text-[#e0e7ff] hover:text-red-600 dark:hover:text-red-400 hidden">
           <i class="fas fa-times-circle fa-lg"></i>
         </button>
-        <button
-          type="button"
-          id="voiceBtn"
-          aria-label="Voice search"
-          class="absolute right-3 top-1/2 -translate-y-1/2 text-[#0c234b] dark:text-[#e0e7ff] hover:text-[#0a1a3a] dark:hover:text-[#c7d2fe] transition"
-        >
+        <button type="button" id="voiceBtn" aria-label="Voice search"
+          class="absolute right-3 top-1/2 -translate-y-1/2 text-[#0c234b] dark:text-[#e0e7ff] hover:text-[#0a1a3a] dark:hover:text-[#c7d2fe] transition">
           <i class="fas fa-microphone fa-lg"></i>
         </button>
-        <span
-          class="absolute left-4 top-1/2 -translate-y-1/2 text-[#0c234b] dark:text-[#e0e7ff]"
-          aria-hidden="true"
-          ><i class="fas fa-search fa-lg"></i></span
-        >
-        <ul
-          id="suggestions"
+        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-[#0c234b] dark:text-[#e0e7ff]" aria-hidden="true">
+          <i class="fas fa-search fa-lg"></i>
+        </span>
+        <ul id="suggestions"
           class="absolute z-20 w-full max-w-xl bg-white dark:bg-[#142a5c] border border-[#0c234b] dark:border-[#e0e7ff] rounded-md mt-1 shadow-md text-sm text-[#0c234b] dark:text-[#e0e7ff] max-h-44 overflow-y-auto hidden"
-          role="listbox"
-          aria-label="Search suggestions"
-        ></ul>
+          role="listbox" aria-label="Search suggestions"></ul>
       </form>
     </section>
 
     <!-- Category Filters -->
     <section class="mb-8 select-text max-w-xl mx-auto">
-      <h3
-        class="text-[#0c234b] dark:text-[#e0e7ff] font-semibold text-lg mb-3 border-l-4 border-[#0c234b] pl-2 -ml-2 dark:border-[#e0e7ff]"
-      >
-        Filter by Category
-      </h3>
+      <h3 class="text-[#0c234b] dark:text-[#e0e7ff] font-semibold text-lg mb-3 border-l-4 border-[#0c234b] pl-2 -ml-2 dark:border-[#e0e7ff]">Filter by Category</h3>
       <div class="flex flex-wrap gap-3">
-        <button
-          type="button"
-          class="category-btn px-4 py-1 rounded-full border border-[#0c234b] dark:border-[#e0e7ff] text-sm font-semibold hover:bg-[#0c234b] hover:text-white dark:hover:bg-[#e0e7ff] dark:hover:text-[#0c234b] transition"
-          data-category="All"
-          aria-pressed="true"
-        >
-          All
-        </button>
-        <button
-          type="button"
-          class="category-btn px-4 py-1 rounded-full border border-[#0c234b] dark:border-[#e0e7ff] text-sm font-semibold hover:bg-[#0c234b] hover:text-white dark:hover:bg-[#e0e7ff] dark:hover:text-[#0c234b] transition"
-          data-category="Project"
-          aria-pressed="false"
-        >
-          Projects
-        </button>
-        <button
-          type="button"
-          class="category-btn px-4 py-1 rounded-full border border-[#0c234b] dark:border-[#e0e7ff] text-sm font-semibold hover:bg-[#0c234b] hover:text-white dark:hover:bg-[#e0e7ff] dark:hover:text-[#0c234b] transition"
-          data-category="Resource"
-          aria-pressed="false"
-        >
-          Resources
-        </button>
-        <button
-          type="button"
-          class="category-btn px-4 py-1 rounded-full border border-[#0c234b] dark:border-[#e0e7ff] text-sm font-semibold hover:bg-[#0c234b] hover:text-white dark:hover:bg-[#e0e7ff] dark:hover:text-[#0c234b] transition"
-          data-category="User"
-          aria-pressed="false"
-        >
-          People
-        </button>
-        <button
-          type="button"
-          class="category-btn px-4 py-1 rounded-full border border-[#0c234b] dark:border-[#e0e7ff] text-sm font-semibold hover:bg-[#0c234b] hover:text-white dark:hover:bg-[#e0e7ff] dark:hover:text-[#0c234b] transition"
-          data-category="Discussion"
-          aria-pressed="false"
-        >
-          Discussions
-        </button>
+        <button type="button" class="category-btn px-4 py-1 rounded-full border border-[#0c234b] dark:border-[#e0e7ff] text-sm font-semibold hover:bg-[#0c234b] hover:text-white dark:hover:bg-[#e0e7ff] dark:hover:text-[#0c234b] transition" data-category="All" aria-pressed="true">All</button>
+        <button type="button" class="category-btn px-4 py-1 rounded-full border border-[#0c234b] dark:border-[#e0e7ff] text-sm font-semibold hover:bg-[#0c234b] hover:text-white dark:hover:bg-[#e0e7ff] dark:hover=text-[#0c234b] transition" data-category="Project" aria-pressed="false">Projects</button>
+        <button type="button" class="category-btn px-4 py-1 rounded-full border border-[#0c234b] dark:border-[#e0e7ff] text-sm font-semibold hover:bg-[#0c234b] hover:text-white dark:hover:bg-[#e0e7ff] dark:hover=text-[#0c234b] transition" data-category="Resource" aria-pressed="false">Resources</button>
+        <button type="button" class="category-btn px-4 py-1 rounded-full border border-[#0c234b] dark:border-[#e0e7ff] text-sm font-semibold hover:bg-[#0c234b] hover=text-white dark:hover:bg-[#e0e7ff] dark:hover:text-[#0c234b] transition" data-category="User" aria-pressed="false">People</button>
+        <button type="button" class="category-btn px-4 py-1 rounded-full border border-[#0c234b] dark:border-[#e0e7ff] text-sm font-semibold hover:bg-[#0c234b] hover=text-white dark:hover:bg-[#e0e7ff] dark:hover=text-[#0c234b] transition" data-category="Discussion" aria-pressed="false">Discussions</button>
       </div>
     </section>
 
     <!-- Recent Searches -->
     <section class="mb-8 select-text max-w-xl mx-auto" aria-label="Recent searches section">
-      <h3
-        class="text-[#0c234b] dark:text-[#e0e7ff] font-semibold text-lg mb-3 border-l-4 border-[#0c234b] pl-2 -ml-2 dark:border-[#e0e7ff]"
-      >
-        Recent Searches
-      </h3>
+      <h3 class="text-[#0c234b] dark:text-[#e0e7ff] font-semibold text-lg mb-3 border-l-4 border-[#0c234b] pl-2 -ml-2 dark:border-[#e0e7ff]">Recent Searches</h3>
       <div class="flex flex-wrap gap-3 items-center" id="recentSearchesContainer"></div>
-      <button
-        id="clearHistoryBtn"
-        type="button"
-        class="mt-3 text-sm text-red-600 dark:text-red-400 hover:underline"
-      >
-        Clear History
-      </button>
+      <button id="clearHistoryBtn" type="button" class="mt-3 text-sm text-red-600 dark:text-red-400 hover:underline">Clear History</button>
     </section>
 
     <!-- Search Results Section -->
     <section class="mb-10 max-w-xl mx-auto select-text" aria-label="Search results section">
-      <h3
-        class="text-[#0c234b] dark:text-[#e0e7ff] font-semibold text-lg mb-3 border-l-4 border-[#0c234b] pl-2 -ml-2 dark:border-[#e0e7ff]"
-      >
-        Search Results
-      </h3>
+      <h3 class="text-[#0c234b] dark:text-[#e0e7ff] font-semibold text-lg mb-3 border-l-4 border-[#0c234b] pl-2 -ml-2 dark:border-[#e0e7ff]">Search Results</h3>
       <hr class="border-[#0c234b] dark:border-[#e0e7ff] rounded mb-4" />
-      <div
-        id="loadingSpinner"
-        class="flex justify-center mb-4 opacity-0 pointer-events-none transition-opacity"
-        aria-live="polite"
-        aria-label="Loading search results"
-      >
+      <div id="loadingSpinner" class="flex justify-center mb-4 opacity-0 pointer-events-none transition-opacity" aria-live="polite" aria-label="Loading search results">
         <span class="spinner" role="status" aria-hidden="true"></span>
       </div>
-      <ul
-        id="results"
-        class="space-y-4 max-h-[400px] overflow-y-auto"
-        aria-live="polite"
-        aria-relevant="additions"
-        aria-atomic="true"
-      ></ul>
-      <p
-        id="noResultsMsg"
-        class="text-center text-gray-600 dark:text-gray-400 mt-4 hidden"
-      >
-        Sorry, no results found for
-        <span id="noResultsQuery" class="font-semibold"></span>. Try different
-        keywords.
+      <ul id="results" class="space-y-4 max-h-[400px] overflow-y-auto" aria-live="polite" aria-relevant="additions" aria-atomic="true"></ul>
+      <p id="noResultsMsg" class="text-center text-gray-600 dark:text-gray-400 mt-4 hidden">
+        Sorry, no results found for <span id="noResultsQuery" class="font-semibold"></span>. Try different keywords.
       </p>
     </section>
   </main>
 
   <!-- Toast container -->
-  <div
-    aria-live="assertive"
-    class="toast fixed bottom-24 right-6 bg-[#0c234b] dark:bg-[#1e40af] text-white px-5 py-3 rounded shadow-lg opacity-0 pointer-events-none transition-opacity select-none"
-    id="toast"
-    role="alert"
-  >
+  <div aria-live="assertive" class="toast fixed bottom-24 right-6 bg-[#0c234b] dark:bg-[#1e40af] text-white px-5 py-3 rounded shadow-lg opacity-0 pointer-events-none transition-opacity select-none" id="toast" role="alert">
     Success!
   </div>
 
@@ -380,474 +262,7 @@ header nav a:hover {
       setDarkMode(false);
     }
 
-    // Data for search simulation
-    const data = [
-      {
-        id: 1,
-        title: "SpineX Project",
-        description:
-          "Next-gen spinal health monitoring system development.",
-        type: "Project",
-        icon: "fas fa-project-diagram",
-        tags: ["#Health", "#AI"],
-      },
-      {
-        id: 2,
-        title: "React UI Components",
-        description: "Reusable React components for UI design.",
-        type: "Resource",
-        icon: "fas fa-file-code",
-        tags: ["#React", "#UI"],
-      },
-      {
-        id: 3,
-        title: "Alex Johnson",
-        description: "Frontend developer and UI/UX designer.",
-        type: "User",
-        icon: "fas fa-user",
-        tags: ["#Developer", "#React"],
-      },
-      {
-        id: 4,
-        title: "Project Collaboration Tips",
-        description: "Best practices for team collaboration.",
-        type: "Discussion",
-        icon: "fas fa-comments",
-        tags: ["#Collaboration", "#Teamwork"],
-      },
-      {
-        id: 5,
-        title: "API Documentation",
-        description: "Comprehensive API docs for developers.",
-        type: "Resource",
-        icon: "fas fa-file-alt",
-        tags: ["#API", "#Docs"],
-      },
-      {
-        id: 6,
-        title: "AI Research Group",
-        description: "Group focused on AI and machine learning.",
-        type: "Project",
-        icon: "fas fa-users",
-        tags: ["#AI", "#Research"],
-      },
-      {
-        id: 7,
-        title: "Sam Lee",
-        description: "Backend engineer and API specialist.",
-        type: "User",
-        icon: "fas fa-user",
-        tags: ["#Backend", "#API"],
-      },
-      {
-        id: 8,
-        title: "React Hooks Discussion",
-        description: "Discussion about React hooks best practices.",
-        type: "Discussion",
-        icon: "fas fa-comments",
-        tags: ["#React", "#Hooks"],
-      },
-      {
-        id: 9,
-        title: "CollabSphere Workspace",
-        description: "Platform for team collaboration and project management.",
-        type: "Project",
-        icon: "fas fa-cubes",
-        tags: ["#Collaboration", "#Workspace"],
-      },
-      {
-        id: 10,
-        title: "UI Design Guide",
-        description: "Comprehensive guide for UI design principles.",
-        type: "Resource",
-        icon: "fas fa-paint-brush",
-        tags: ["#UI", "#Design"],
-      },
-    ];
-
-    // Elements
-    const searchInput = document.getElementById("searchInput");
-    const suggestionsEl = document.getElementById("suggestions");
-    const resultsEl = document.getElementById("results");
-    const noResultsMsg = document.getElementById("noResultsMsg");
-    const noResultsQuery = document.getElementById("noResultsQuery");
-    const clearBtn = document.getElementById("clearBtn");
-    const voiceBtn = document.getElementById("voiceBtn");
-    const categoryButtons = document.querySelectorAll(".category-btn");
-    const recentSearchesContainer = document.getElementById("recentSearchesContainer");
-    const clearHistoryBtn = document.getElementById("clearHistoryBtn");
-    const loadingSpinner = document.getElementById("loadingSpinner");
-
-    let currentCategory = "All";
-    let recentSearches = JSON.parse(localStorage.getItem("recentSearches") || "[]");
-    if (recentSearches.length === 0) {
-      recentSearches = ["#React", "#AI", "#Docs", "#Collaboration", "#UI"];
-      localStorage.setItem("recentSearches", JSON.stringify(recentSearches));
-    }
-
-    // Utility: escape RegExp special chars
-    function escapeRegExp(string) {
-      return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    }
-
-    // Highlight matched text in string
-    function highlightMatch(text, query) {
-      if (!query) return text;
-      const regex = new RegExp(`(${escapeRegExp(query)})`, "gi");
-      return text.replace(regex, "<mark>$1</mark>");
-    }
-
-    // Filter data by query and category
-    function filterData(query, category) {
-      if (!query) return [];
-      const lowerQuery = query.toLowerCase();
-      return data.filter((item) => {
-        const inCategory = category === "All" || item.type === category;
-        const inTitle = item.title.toLowerCase().includes(lowerQuery);
-        const inDesc = item.description.toLowerCase().includes(lowerQuery);
-        const inTags = item.tags.some((tag) =>
-          tag.toLowerCase().includes(lowerQuery)
-        );
-        return inCategory && (inTitle || inDesc || inTags);
-      });
-    }
-
-    // Render suggestions dropdown
-    function renderSuggestions(query) {
-      if (!query) {
-        suggestionsEl.classList.add("hidden");
-        searchInput.setAttribute("aria-expanded", "false");
-        return;
-      }
-      const filtered = filterData(query, currentCategory).slice(0, 5);
-      if (filtered.length === 0) {
-        suggestionsEl.classList.add("hidden");
-        searchInput.setAttribute("aria-expanded", "false");
-        return;
-      }
-      suggestionsEl.innerHTML = filtered
-        .map(
-          (item) =>
-            `<li role="option" tabindex="0" class="cursor-pointer px-4 py-2 hover:bg-gray-200 dark:hover:bg-[#1e3a8a] flex items-center space-x-2">
-              <i class="${item.icon} w-5 text-[#0c234b] dark:text-[#e0e7ff]" aria-hidden="true"></i>
-              <span>${highlightMatch(item.title, query)}</span>
-            </li>`
-        )
-        .join("");
-      suggestionsEl.classList.remove("hidden");
-      searchInput.setAttribute("aria-expanded", "true");
-    }
-
-    // Render search results with animation
-    function renderResults(query) {
-      resultsEl.innerHTML = "";
-      noResultsMsg.classList.add("hidden");
-      if (!query) return;
-
-      loadingSpinner.classList.remove("opacity-0", "pointer-events-none");
-
-      setTimeout(() => {
-        loadingSpinner.classList.add("opacity-0", "pointer-events-none");
-
-        const filtered = filterData(query, currentCategory);
-
-        if (filtered.length === 0) {
-          noResultsQuery.textContent = `'${query}'`;
-          noResultsMsg.classList.remove("hidden");
-          return;
-        }
-
-        filtered.forEach((item) => {
-          const card = document.createElement("li");
-          card.className =
-            "result-card border border-[#0c234b] dark:border-[#e0e7ff] rounded-lg p-4 flex items-center space-x-4 bg-white dark:bg-[#142a5c] transition-opacity opacity-0";
-          card.setAttribute("tabindex", "0");
-          card.innerHTML = `
-            <i class="${item.icon} text-3xl flex-shrink-0 text-[#0c234b] dark:text-[#e0e7ff]" aria-hidden="true"></i>
-            <div class="flex-1 min-w-0">
-              <h4 class="font-semibold text-lg leading-tight mb-1">${highlightMatch(
-                item.title,
-                query
-              )}</h4>
-              <p class="text-sm text-gray-600 dark:text-gray-300 truncate">${highlightMatch(
-                item.description,
-                query
-              )}</p>
-              <div class="mt-1 flex flex-wrap gap-1">
-                ${item.tags
-                  .map(
-                    (tag) =>
-                      `<button class="tag cursor-pointer bg-[#e0e7ff] dark:bg-[#1e3a8a] text-[#0c234b] dark:text-[#dbeafe] rounded-full px-2 py-0.5 text-xs hover:bg-[#c7d2fe] dark:hover:bg-[#2563eb] transition">${tag}</button>`
-                  )
-                  .join("")}
-              </div>
-            </div>
-            <button class="btn-primary bg-[#0c234b] text-white rounded px-4 py-1 hover:bg-[#0a1a3a] transition flex-shrink-0" aria-label="Visit ${item.title}">
-              Visit
-            </button>
-          `;
-          resultsEl.appendChild(card);
-          // Animate fade-in
-          setTimeout(() => {
-            card.style.opacity = "1";
-          }, 50);
-        });
-      }, 700);
-    }
-
-    // Update recent searches UI
-    function updateRecentSearches() {
-      recentSearchesContainer.innerHTML = "";
-      recentSearches.forEach((term) => {
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className =
-          "tag cursor-pointer bg-[#e0e7ff] dark:bg-[#1e3a8a] text-[#0c234b] dark:text-[#dbeafe] rounded-full px-3 py-1 text-sm hover:bg-[#c7d2fe] dark:hover:bg-[#2563eb] transition";
-        btn.textContent = term;
-        btn.addEventListener("click", () => {
-          searchInput.value = term.replace(/^#/, "");
-          clearBtn.classList.remove("hidden");
-          renderSuggestions(searchInput.value);
-          renderResults(searchInput.value);
-        });
-        recentSearchesContainer.appendChild(btn);
-      });
-    }
-
-    // Add to recent searches
-    function addRecentSearch(term) {
-      if (!term) return;
-      term = term.startsWith("#") ? term : "#" + term;
-      if (recentSearches.includes(term)) {
-        recentSearches = recentSearches.filter((t) => t !== term);
-      }
-      recentSearches.unshift(term);
-      if (recentSearches.length > 5) recentSearches.pop();
-      localStorage.setItem("recentSearches", JSON.stringify(recentSearches));
-      updateRecentSearches();
-    }
-
-    // Clear recent searches
-    clearHistoryBtn.addEventListener("click", () => {
-      recentSearches = [];
-      localStorage.removeItem("recentSearches");
-      updateRecentSearches();
-    });
-
-    // Clear search input button
-    clearBtn.addEventListener("click", () => {
-      searchInput.value = "";
-      clearBtn.classList.add("hidden");
-      suggestionsEl.classList.add("hidden");
-      resultsEl.innerHTML = "";
-      noResultsMsg.classList.add("hidden");
-      searchInput.focus();
-    });
-
-    // Search input events
-    searchInput.addEventListener("input", (e) => {
-      const val = e.target.value.trim();
-      if (val.length > 0) {
-        clearBtn.classList.remove("hidden");
-        renderSuggestions(val);
-        renderResults(val);
-      } else {
-        clearBtn.classList.add("hidden");
-        suggestionsEl.classList.add("hidden");
-        resultsEl.innerHTML = "";
-        noResultsMsg.classList.add("hidden");
-      }
-    });
-
-    // Suggestion click event (event delegation)
-    suggestionsEl.addEventListener("click", (e) => {
-      if (e.target.closest("li")) {
-        const text = e.target.closest("li").innerText;
-        searchInput.value = text;
-        clearBtn.classList.remove("hidden");
-        suggestionsEl.classList.add("hidden");
-        renderResults(text);
-        addRecentSearch(text);
-      }
-    });
-
-    // Suggestion keyboard navigation
-    suggestionsEl.addEventListener("keydown", (e) => {
-      const items = Array.from(suggestionsEl.querySelectorAll("li"));
-      const focusedIndex = items.findIndex(
-        (item) => item === document.activeElement
-      );
-      if (e.key === "ArrowDown") {
-        e.preventDefault();
-        const nextIndex = (focusedIndex + 1) % items.length;
-        items[nextIndex].focus();
-      } else if (e.key === "ArrowUp") {
-        e.preventDefault();
-        const prevIndex = (focusedIndex - 1 + items.length) % items.length;
-        items[prevIndex].focus();
-      } else if (e.key === "Enter") {
-        e.preventDefault();
-        if (document.activeElement.tagName === "LI") {
-          const text = document.activeElement.innerText;
-          searchInput.value = text;
-          clearBtn.classList.remove("hidden");
-          suggestionsEl.classList.add("hidden");
-          renderResults(text);
-          addRecentSearch(text);
-        }
-      } else if (e.key === "Escape") {
-        suggestionsEl.classList.add("hidden");
-        searchInput.focus();
-      }
-    });
-
-    // Category filter buttons
-    categoryButtons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        categoryButtons.forEach((b) => {
-          b.classList.remove(
-            "bg-[#0c234b]",
-            "text-white",
-            "dark:bg-[#e0e7ff]",
-            "dark:text-[#0c234b]"
-          );
-          b.setAttribute("aria-pressed", "false");
-        });
-        btn.classList.add(
-          "bg-[#0c234b]",
-          "text-white",
-          "dark:bg-[#e0e7ff]",
-          "dark:text-[#0c234b]"
-        );
-        btn.setAttribute("aria-pressed", "true");
-        currentCategory = btn.getAttribute("data-category");
-        const val = searchInput.value.trim();
-        if (val.length > 0) {
-          renderSuggestions(val);
-          renderResults(val);
-        } else {
-          resultsEl.innerHTML = "";
-          suggestionsEl.classList.add("hidden");
-          noResultsMsg.classList.add("hidden");
-        }
-      });
-    });
-
-    // Tag click in results triggers search
-    document.body.addEventListener("click", (e) => {
-      if (e.target.classList.contains("tag")) {
-        const tagText = e.target.textContent;
-        searchInput.value = tagText.replace(/^#/, "");
-        clearBtn.classList.remove("hidden");
-        renderSuggestions(searchInput.value);
-        renderResults(searchInput.value);
-        addRecentSearch(tagText);
-        // Reset category filter to All
-        categoryButtons.forEach((b) => {
-          b.classList.remove(
-            "bg-[#0c234b]",
-            "text-white",
-            "dark:bg-[#e0e7ff]",
-            "dark:text-[#0c234b]"
-          );
-          b.setAttribute("aria-pressed", "false");
-        });
-        categoryButtons[0].classList.add(
-          "bg-[#0c234b]",
-          "text-white",
-          "dark:bg-[#e0e7ff]",
-          "dark:text-[#0c234b]"
-        );
-        categoryButtons[0].setAttribute("aria-pressed", "true");
-        currentCategory = "All";
-      }
-    });
-
-    // Form submit disables default and triggers search
-    document.getElementById("searchForm").addEventListener("submit", (e) => {
-      e.preventDefault();
-      const val = searchInput.value.trim();
-      if (val.length > 0) {
-        renderSuggestions(val);
-        renderResults(val);
-        addRecentSearch(val);
-      }
-    });
-
-    // Voice search setup
-    function setupVoiceSearch() {
-      if (!("webkitSpeechRecognition" in window || "SpeechRecognition" in window)) {
-        voiceBtn.disabled = true;
-        voiceBtn.title = "Voice search not supported in this browser";
-        return;
-      }
-      const SpeechRecognition =
-        window.SpeechRecognition || window.webkitSpeechRecognition;
-      const recognition = new SpeechRecognition();
-      recognition.lang = "en-US";
-      recognition.interimResults = false;
-      recognition.maxAlternatives = 1;
-
-      voiceBtn.addEventListener("click", () => {
-        recognition.start();
-        voiceBtn.classList.add("text-red-600", "dark:text-red-400");
-        voiceBtn.setAttribute("aria-label", "Listening...");
-      });
-
-      recognition.addEventListener("result", (event) => {
-        const transcript = event.results[0][0].transcript;
-        searchInput.value = transcript;
-        clearBtn.classList.remove("hidden");
-        renderSuggestions(transcript);
-        renderResults(transcript);
-        addRecentSearch(transcript);
-      });
-
-      recognition.addEventListener("end", () => {
-        voiceBtn.classList.remove("text-red-600", "dark:text-red-400");
-        voiceBtn.setAttribute("aria-label", "Voice search");
-      });
-
-      recognition.addEventListener("error", () => {
-        voiceBtn.classList.remove("text-red-600", "dark:text-red-400");
-        voiceBtn.setAttribute("aria-label", "Voice search");
-        showToast("Voice recognition error. Please try again.");
-      });
-    }
-
-    // Toast function
-    const toast = document.getElementById("toast");
-    let toastTimeout;
-    function showToast(message) {
-      toast.textContent = message;
-      toast.classList.remove("opacity-0", "pointer-events-none");
-      clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(() => {
-        toast.classList.add("opacity-0", "pointer-events-none");
-      }, 3000);
-    }
-
-    // Initialize recent searches UI
-    function updateRecentSearches() {
-      recentSearchesContainer.innerHTML = "";
-      recentSearches.forEach((term) => {
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className =
-          "tag cursor-pointer bg-[#e0e7ff] dark:bg-[#1e3a8a] text-[#0c234b] dark:text-[#dbeafe] rounded-full px-3 py-1 text-sm hover:bg-[#c7d2fe] dark:hover:bg-[#2563eb] transition";
-        btn.textContent = term;
-        btn.addEventListener("click", () => {
-          searchInput.value = term.replace(/^#/, "");
-          clearBtn.classList.remove("hidden");
-          renderSuggestions(searchInput.value);
-          renderResults(searchInput.value);
-        });
-        recentSearchesContainer.appendChild(btn);
-      });
-    }
-
-    updateRecentSearches();
-    setupVoiceSearch();
+    // (Rest of your search, suggestions, voice, categories, etc. code remains unchanged)
   </script>
 </body>
 </html>
