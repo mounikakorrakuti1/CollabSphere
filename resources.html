@@ -7,14 +7,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         header nav a {
-  color: white;
-  margin-right: 1rem;
-  text-decoration: none;
-}
+            color: white;
+            margin-right: 1rem;
+            text-decoration: none;
+        }
 
-header nav a:hover {
-  text-decoration: underline;
-}
+        header nav a:hover {
+            text-decoration: underline;
+        }
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -28,7 +29,22 @@ header nav a:hover {
             background: #007bff;
             color: white;
             padding: 20px;
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5em;
         }
 
         h1 {
@@ -37,6 +53,8 @@ header nav a:hover {
 
         .container {
             padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .section {
@@ -46,46 +64,69 @@ header nav a:hover {
         .section h2 {
             margin-bottom: 20px;
             color: #007bff;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #007bff;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
         }
 
         .card {
             background: white;
             border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 15px;
-            margin: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             display: flex;
+            flex-direction: column;
             align-items: center;
-            flex-direction: column; /* Center content vertically */
-            text-align: center; /* Center text */
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .card img {
-            width: 100%; /* Responsive image */
-            height: auto; /* Maintain aspect ratio */
-            max-width: 150px; /* Set a max width for images */
-            margin-bottom: 10px; /* Space below image */
+            width: 100%;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            border-radius: 5px;
         }
 
         .card-title {
             font-weight: bold;
-            margin: 0;
+            margin: 0 0 10px 0;
+            font-size: 1.1em;
+            color: #333;
         }
 
         .card-description {
-            margin: 5px 0;
+            margin: 0 0 15px 0;
+            font-size: 0.9em;
+            color: #666;
+            flex-grow: 1;
         }
 
         .visit-button {
             background: #007bff;
             color: white;
             border: none;
-            padding: 10px 15px;
+            padding: 8px 15px;
             border-radius: 5px;
             cursor: pointer;
-            text-align: center;
             text-decoration: none;
+            font-size: 0.9em;
+            transition: background 0.3s;
+            width: 100%;
+            max-width: 150px;
         }
 
         .visit-button:hover {
@@ -97,6 +138,7 @@ header nav a:hover {
             padding: 20px;
             background: #007bff;
             color: white;
+            margin-top: 40px;
         }
 
         /* Dark Theme Styles */
@@ -110,6 +152,19 @@ header nav a:hover {
             border: 1px solid #555;
         }
 
+        .dark-theme .card-title {
+            color: #f4f4f4;
+        }
+
+        .dark-theme .card-description {
+            color: #ccc;
+        }
+
+        .dark-theme .section h2 {
+            color: #4da6ff;
+            border-bottom-color: #4da6ff;
+        }
+
         .dark-theme .visit-button {
             background: #5cb85c;
         }
@@ -117,216 +172,263 @@ header nav a:hover {
         .dark-theme .visit-button:hover {
             background: #4cae4c;
         }
+
+        @media (max-width: 768px) {
+            .cards-container {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>Learning Resources</h1>
-        <button id="theme-toggle">Toggle Dark/Light Theme</button>
+        <div class="header-content">
+            <h1>Learning Resources</h1>
+            <nav>
+                <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="#"><i class="fas fa-book"></i> Resources</a>
+                <a href="#"><i class="fas fa-tools"></i> Tools</a>
+            </nav>
+        </div>
+        <div class="header-right">
+            <button id="theme-toggle" style="background: transparent; border: 1px solid white; padding: 0.5em 1em; border-radius: 5px; color: white; cursor: pointer;">
+                <i class="fas fa-moon"></i> Toggle Theme
+            </button>
+        </div>
     </header>
 
     <div class="container">
         <div class="section">
             <h2>1. Learning Resources (For Individual Growth)</h2>
-            <div class="card">
-                <img src="https://www.simplilearn.com/ice9/free_resources_article_thumb/Best-Programming-Languages-to-Start-Learning-Today.jpg" alt="Programming Languages">
-                <h3 class="card-title">Programming Languages</h3>
-                <p class="card-description">HTML, CSS, JS, Python, Java (links to docs, cheat sheets, tutorials)</p>
-                <a href="#" class="visit-button">Visit</a>
-            </div>
-            <div class="card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSe5hbZgB_CCCem5oKhePBhmQLEVBCTnhQJA&s" alt="Frontend Libraries">
-                <h3 class="card-title">Frontend Libraries</h3>
-                <p class="card-description">React, Bootstrap, Tailwind (official sites, visual playgrounds)</p>
-                <a href="#" class="visit-button">Visit</a>
-            </div>
-            <div class="card">
-                <img src="https://miro.medium.com/v2/resize:
-                                <img src="https://umangsoftware.com/wp-content/uploads/2021/04/Blog-05-1024x510.png" alt="Version Control">
-                <h3 class="card-title">Version Control</h3>
-                <p class="card-description">Git & GitHub guides</p>
-                <a href="#" class="visit-button">Visit</a>
-            </div>
-            <div class="card">
-                <img src="https://www.infoskysolutions.com/blog/wp-content/uploads/2024/03/cloud-vs-traditional-hosting.jpg" alt="Cloud & Hosting Basics">
-                <h3 class="card-title">Cloud & Hosting Basics</h3>
-                <p class="card-description">Netlify, Vercel, Firebase (links to starter kits/tutorials)</p>
-                <a href="#" class="visit-button">Visit</a>
-            </div>
-            <div class="card">
-                <img src="https://miro.medium.com/v2/resize:fit:1400/1*b82rUOF15AtdEMqAmzFHeQ.jpeg" alt="UI/UX Design Tools">
-                <h3 class="card-title">UI/UX Design Tools</h3>
-                <p class="card-description">Figma, Canva, Coolors, FontPair</p>
-                <a href="#" class="visit-button">Visit</a>
+            <div class="cards-container">
+                <div class="card">
+                    <img src="https://www.simplilearn.com/ice9/free_resources_article_thumb/Best-Programming-Languages-to-Start-Learning-Today.jpg" alt="Programming Languages">
+                    <h3 class="card-title">Programming Languages</h3>
+                    <p class="card-description">HTML, CSS, JS, Python, Java (links to docs, cheat sheets, tutorials)</p>
+                    <a href="#" class="visit-button">Visit</a>
+                </div>
+                <div class="card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSe5hbZgB_CCCem5oKhePBhmQLEVBCTnhQJA&s" alt="Frontend Libraries">
+                    <h3 class="card-title">Frontend Libraries</h3>
+                    <p class="card-description">React, Bootstrap, Tailwind (official sites, visual playgrounds)</p>
+                    <a href="#" class="visit-button">Visit</a>
+                </div>
+                <div class="card">
+                    <img src="https://umangsoftware.com/wp-content/uploads/2021/04/Blog-05-1024x510.png" alt="Version Control">
+                    <h3 class="card-title">Version Control</h3>
+                    <p class="card-description">Git & GitHub guides</p>
+                    <a href="#" class="visit-button">Visit</a>
+                </div>
+                <div class="card">
+                    <img src="https://www.infoskysolutions.com/blog/wp-content/uploads/2024/03/cloud-vs-traditional-hosting.jpg" alt="Cloud & Hosting Basics">
+                    <h3 class="card-title">Cloud & Hosting Basics</h3>
+                    <p class="card-description">Netlify, Vercel, Firebase (links to starter kits/tutorials)</p>
+                    <a href="#" class="visit-button">Visit</a>
+                </div>
             </div>
         </div>
 
         <div class="section">
             <h2>2. Skill Practice Tools (Hands-on Practice)</h2>
-            <div class="card">
-                <img src="https://images.ctfassets.net/lzny33ho1g45/1nBwzHo2cVkaJDcuwPhaeY/c825951e5d8ccb76b316e992d16f2cdc/best-code-editor.jpg?w=1520&fm=jpg&q=31&fit=thumb&h=760" alt="Code Editors in Browser">
-                <h3 class="card-title">Code Editors in Browser</h3>
-                <p class="card-description">Replit, CodeSandbox, JSFiddle</p>
-                <a href="#" class="visit-button">Visit</a>
-            </div>
-            <div class="card">
-                <img src="https://edri.org/wp-content/uploads/2020/08/DSA-launch-sharepic.png" alt="DSA Platforms">
-                <h3 class="card-title">DSA Platforms</h3>
-                <p class="card-description">LeetCode, HackerRank, Codeforces</p>
-                <a href="#" class="visit-button">Visit</a>
-            </div>
-            <div class="card">
-                <img src="https://repository-images.githubusercontent.com/455791988/c9fefd61-f0ce-47b1-905c-dd314dbd912c" alt="Mini Project Repositories">
-                <h3 class="card-title">Mini Project Repositories</h3>
-                <p class="card-description">Curated GitHub repos for self-practice</p>
-                <a href="#" class="visit-button">Visit</a>
+            <div class="cards-container">
+                <div class="card">
+                    <img src="https://images.ctfassets.net/lzny33ho1g45/1nBwzHo2cVkaJDcuwPhaeY/c825951e5d8ccb76b316e992d16f2cdc/best-code-editor.jpg?w=1520&fm=jpg&q=31&fit=thumb&h=760" alt="Code Editors in Browser">
+                    <h3 class="card-title">Code Editors in Browser</h3>
+                    <p class="card-description">Replit, CodeSandbox, JSFiddle</p>
+                    <a href="#" class="visit-button">Visit</a>
+                </div>
+                <div class="card">
+                    <img src="https://edri.org/wp-content/uploads/2020/08/DSA-launch-sharepic.png" alt="DSA Platforms">
+                    <h3 class="card-title">DSA Platforms</h3>
+                    <p class="card-description">LeetCode, HackerRank, Codeforces</p>
+                    <a href="#" class="visit-button">Visit</a>
+                </div>
+                <div class="card">
+                    <img src="https://repository-images.githubusercontent.com/455791988/c9fefd61-f0ce-47b1-905c-dd314dbd912c" alt="Mini Project Repositories">
+                    <h3 class="card-title">Mini Project Repositories</h3>
+                    <p class="card-description">Curated GitHub repos for self-practice</p>
+                    <a href="#" class="visit-button">Visit</a>
+                </div>
+                <div class="card">
+                    <img src="https://miro.medium.com/v2/resize:fit:1400/1*b82rUOF15AtdEMqAmzFHeQ.jpeg" alt="UI/UX Design Tools">
+                    <h3 class="card-title">UI/UX Design Tools</h3>
+                    <p class="card-description">Figma, Canva, Coolors, FontPair</p>
+                    <a href="#" class="visit-button">Visit</a>
+                </div>
             </div>
         </div>
 
         <div class="section">
             <h2>3. Tools for Collaboration & Project Management</h2>
-            <div class="card">
-                <img src="https://images.ctfassets.net/lzny33ho1g45/6PmcendukU0IlZ6HYmse3K/84ca9272078c23996ec7cd6722af530b/whiteboards2.png" alt="Whiteboard Tools">
-                <h3 class="card-title">Whiteboard Tools</h3>
-                <p class="card-description">Excalidraw, Miro (for ideation)</p>
-                <a href="#" class="visit-button">Visit</a>
-            </div>
-            <div class="card">
-                <img src="https://www.givainc.com/images/customer_service_tools_channels.png" alt="Communication Tools">
-                <h3 class="card-title">Communication Tools</h3>
-                <p class="card-description">Discord, Slack, Notion</p>
-                <a href="#" class="visit-button">Visit</a>
-            </div>
-            <div class="card">
-                <img src="https://cdn-dilge.nitrocdn.com/CEoyLRJrMZkvcZHgfQFGOitFXuUyzTkm/assets/images/optimized/rev-5858ab4/projectmanagement.ie/wp-content/uploads/2022/10/2_1.jpg" alt
-                                <img src="https://cdn-dilge.nitrocdn.com/CEoyLRJrMZkvcZHgfQFGOitFXuUyzTkm/assets/images/optimized/rev-5858ab4/projectmanagement.ie/wp-content/uploads/2022/10/2_1.jpg" alt="Project Management">
-                <h3 class="card-title">Project Management</h3>
-                <p class="card-description">Trello, GitHub Projects, Google Sheets (for task tracking)</p>
-                <a href="#" class="visit-button">Visit</a>
+            <div class="cards-container">
+                <div class="card">
+                    <img src="https://images.ctfassets.net/lzny33ho1g45/6PmcendukU0IlZ6HYmse3K/84ca9272078c23996ec7cd6722af530b/whiteboards2.png" alt="Whiteboard Tools">
+                    <h3 class="card-title">Whiteboard Tools</h3>
+                    <p class="card-description">Excalidraw, Miro (for ideation)</p>
+                    <a href="#" class="visit-button">Visit</a>
+                </div>
+                <div class="card">
+                    <img src="https://www.givainc.com/images/customer_service_tools_channels.png" alt="Communication Tools">
+                    <h3 class="card-title">Communication Tools</h3>
+                    <p class="card-description">Discord, Slack, Notion</p>
+                    <a href="#" class="visit-button">Visit</a>
+                </div>
+                <div class="card">
+                    <img src="https://cdn-dilge.nitrocdn.com/CEoyLRJrMZkvcZHgfQFGOitFXuUyzTkm/assets/images/optimized/rev-5858ab4/projectmanagement.ie/wp-content/uploads/2022/10/2_1.jpg" alt="Project Management">
+                    <h3 class="card-title">Project Management</h3>
+                    <p class="card-description">Trello, GitHub Projects, Google Sheets</p>
+                    <a href="#" class="visit-button">Visit</a>
+                </div>
+                <div class="card">
+                    <img src="https://uizard.io/static/5d1216d70167670acc1a95dd51673c54/a8e47/d8733a4d375aeb660c14eb37464b551b6ef3059c-1440x835.png" alt="UI Templates">
+                    <h3 class="card-title">UI Templates</h3>
+                    <p class="card-description">HTML/CSS templates for quick use</p>
+                    <a href="#" class="visit-button">Visit</a>
+                </div>
             </div>
         </div>
 
         <div class="section">
             <h2>4. Templates & Downloads</h2>
-            <div class="card">
-                <img src="https://uizard.io/static/5d1216d70167670acc1a95dd51673c54/a8e47/d8733a4d375aeb660c14eb37464b551b6ef3059c-1440x835.png" alt="UI Templates">
-                <h3 class="card-title">UI Templates</h3>
-                <p class="card-description">HTML/CSS templates for quick use</p>
-                <a href="#" class="visit-button">Visit</a>
-            </div>
-            <div class="card">
-                <img src="https://powerpointschool.com/wp-content/uploads/2018/04/Free-Creative-PowerPoint-Template.png" alt="PPT Templates">
-                <h3 class="card-title">PPT Templates</h3>
-                <p class="card-description">Professional PowerPoint templates</p>
-                <a href="#" class="visit-button">Visit</a>
-            </div>
-            <div class="card">
-                <img src="https://marketplace.canva.com/EAFzfwx_Qik/4/0/1131w/canva-blue-simple-professional-cv-resume-T9RPR4DPdiw.jpg" alt="Resume Templates">
-                <h3 class="card-title">Resume Templates</h3>
-                <p class="card-description">Templates to create standout resumes</p>
-                <a href="#" class="visit-button">Visit</a>
-            </div>
-            <div class="card">
-                <img src="https://cdn-jbfmn.nitrocdn.com/wEJcMIQACsJgGpxOIwJopeleOqcghywb/assets/mobile/optimized/rev-cc2596f/lh7-us.googleusercontent.com/j3f2oLoDMFzVISBpX3Udb3cpqcekwuqGn9b3zjFK7D7DG_XadGHbDdunNYI6WBxjHrDfLhoGP8NVhANN0zK2YcafxsGEIxcyuLic-5BYG4saOP1t2lv62umRneFiVX5pixTNfIFj0NrOOXH8-zaFLDM" alt="PRD Samples">
-                <h3 class="card-title">PRD Samples</h3>
-                <p class="card-description">Product Requirement Document samples</p>
-                <a href="#" class="visit-button">Visit</a>
-            </div>
-            <div class="card">
-                <img src="https://t4.ftcdn.net/jpg/04/63/94/87/360_F_463948736_iOgEHsooVNyH9LZsa16oWt8H80jS1ngk.jpg" alt="README.md Template">
-                <h3 class="card-title">README.md Template</h3>
-                <p class="card-description">Template for project documentation</p>
-                <a href="#" class="visit-button">Visit</a>
+            <div class="cards-container">
+                <div class="card">
+                    <img src="https://powerpointschool.com/wp-content/uploads/2018/04/Free-Creative-PowerPoint-Template.png" alt="PPT Templates">
+                    <h3 class="card-title">PPT Templates</h3>
+                    <p class="card-description">Professional PowerPoint templates</p>
+                    <a href="#" class="visit-button">Visit</a>
+                </div>
+                <div class="card">
+                    <img src="https://marketplace.canva.com/EAFzfwx_Qik/4/0/1131w/canva-blue-simple-professional-cv-resume-T9RPR4DPdiw.jpg" alt="Resume Templates">
+                    <h3 class="card-title">Resume Templates</h3>
+                    <p class="card-description">Templates to create standout resumes</p>
+                    <a href="#" class="visit-button">Visit</a>
+                </div>
+                <div class="card">
+                    <img src="https://cdn-jbfmn.nitrocdn.com/wEJcMIQACsJgGpxOIwJopeleOqcghywb/assets/mobile/optimized/rev-cc2596f/lh7-us.googleusercontent.com/j3f2oLoDMFzVISBpX3Udb3cpqcekwuqGn9b3zjFK7D7DG_XadGHbDdunNYI6WBxjHrDfLhoGP8NVhANN0zK2YcafxsGEIxcyuLic-5BYG4saOP1t2lv62umRneFiVX5pixTNfIFj0NrOOXH8-zaFLDM" alt="PRD Samples">
+                    <h3 class="card-title">PRD Samples</h3>
+                    <p class="card-description">Product Requirement Document samples</p>
+                    <a href="#" class="visit-button">Visit</a>
+                </div>
+                <div class="card">
+                    <img src="https://t4.ftcdn.net/jpg/04/63/94/87/360_F_463948736_iOgEHsooVNyH9LZsa16oWt8H80jS1ngk.jpg" alt="README.md Template">
+                    <h3 class="card-title">README.md Template</h3>
+                    <p class="card-description">Template for project documentation</p>
+                    <a href="#" class="visit-button">Visit</a>
+                </div>
             </div>
         </div>
 
         <div class="section">
             <h2>5. Reference Files & Icon Sets</h2>
-            <div class="card">
-                <img src="https://www.shutterstock.com/image-vector/56-avatars-women-men-heads-260nw-1048223107.jpg" alt="Sticky Note Backgrounds">
-                <h3 class="card-title">Sticky Note Backgrounds</h3>
-                <p class="card-description">Backgrounds for sticky notes</p>
-                <a href="#" class="visit-button">Visit</a>
-            </div>
-            <div class="card">
-                <img src="https://static.vecteezy.com/system/resources/previews/006/137/657/non_2x/cute-action-and-reaction-social-media-icon-set-with-outline-style-free-vector.jpg" alt="Avatar Packs">
-                <h3 class
-                                <h3 class="card-title">Avatar Packs</h3>
-                <p class="card-description">Custom avatar packs for use</p>
-                <a href="#" class="visit-button">Visit</a>
-            </div>
-            <div class="card">
-                <img src="https://cdn-icons-png.flaticon.com/512/71/71632.png" alt="Icon Sets">
-                <h3 class="card-title">Icon Sets</h3>
-                <p class="card-description">Tech logos and file type icons</p>
-                <a href="#" class="visit-button">Visit</a>
-            </div>
-            <div class="card">
-                <img src="https://images.ctfassets.net/xj3nhn227zgg/76B45EzjgDHEXylprsDZq5/b5e033fe63e91e250f7523a28c590769/P-high-five-inside-personalization-1HBE2086.jpg" alt="Backgrounds for Dashboards">
-                <h3 class="card-title">Backgrounds for Dashboards</h3>
-                <p class="card-description">Backgrounds for whiteboards or dashboards</p>
-                <a href="#" class="visit-button">Visit</a>
+            <div class="cards-container">
+                <div class="card">
+                    <img src="https://www.shutterstock.com/image-vector/56-avatars-women-men-heads-260nw-1048223107.jpg" alt="Sticky Note Backgrounds">
+                    <h3 class="card-title">Sticky Note Backgrounds</h3>
+                    <p class="card-description">Backgrounds for sticky notes</p>
+                    <a href="#" class="visit-button">Visit</a>
+                </div>
+                <div class="card">
+                    <img src="https://static.vecteezy.com/system/resources/previews/006/137/657/non_2x/cute-action-and-reaction-social-media-icon-set-with-outline-style-free-vector.jpg" alt="Avatar Packs">
+                    <h3 class="card-title">Avatar Packs</h3>
+                    <p class="card-description">Custom avatar packs for use</p>
+                    <a href="#" class="visit-button">Visit</a>
+                </div>
+                <div class="card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/71/71632.png" alt="Icon Sets">
+                    <h3 class="card-title">Icon Sets</h3>
+                    <p class="card-description">Tech logos and file type icons</p>
+                    <a href="#" class="visit-button">Visit</a>
+                </div>
+                <div class="card">
+                    <img src="https://images.ctfassets.net/xj3nhn227zgg/76B45EzjgDHEXylprsDZq5/b5e033fe63e91e250f7523a28c590769/P-high-five-inside-personalization-1HBE2086.jpg" alt="Backgrounds for Dashboards">
+                    <h3 class="card-title">Backgrounds for Dashboards</h3>
+                    <p class="card-description">Backgrounds for whiteboards or dashboards</p>
+                    <a href="#" class="visit-button">Visit</a>
+                </div>
             </div>
         </div>
 
         <div class="section">
             <h2>6. Personal Notes or Quick Tips Section</h2>
-            <div class="card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLXmikL71tqnYWJbMZt0dsChlgi36lrK4oiQ&s" alt="Personal Notes">
-                <h3 class="card-title">Personal Notes</h3>
-                <p class="card-description">Write and save your personal notes</p>
-                <a href="#" class="visit-button">Visit</a>
+            <div class="cards-container">
+                <div class="card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLXmikL71tqnYWJbMZt0dsChlgi36lrK4oiQ&s" alt="Personal Notes">
+                    <h3 class="card-title">Personal Notes</h3>
+                    <p class="card-description">Write and save your personal notes</p>
+                    <a href="#" class="visit-button">Visit</a>
+                </div>
             </div>
         </div>
 
         <div class="section">
             <h2>7. Theme Switch + Accessibility</h2>
-            <div class="card">
-                <img src="https://chromeunboxed.com/wp-content/uploads/2017/03/chromenegative.png" alt="Theme Switch">
-                <h3 class="card-title">Theme Switch</h3>
-                <p class="card-description">Toggle between dark/light themes</p>
-                <a href="#" class="visit-button">Visit</a>
-            </div>
-            <div class="card">
-                <img src="https://www.groovypost.com/wp-content/uploads/2011/04/How-to-Create-a-Playlist-on-YouTube-featured.jpg" alt="Font Size Increase">
-                <h3 class="card-title">Font Size Increase</h3>
-                <p class="card-description">Increase font size for better readability</p>
-                <a href="#" class="visit-button">Visit</a>
-            </div>
-            <div class="card">
-                <img src="https://static.vecteezy.com/system/resources/previews/002/062/261/non_2x/pdf-guides-concept-icon-vector.jpg" alt="High Contrast Mode">
-                <h3 class="card-title">High Contrast Mode</h3>
-                <p class="card-description">Toggle high contrast mode for accessibility</p>
-                <a href="#" class="visit-button">Visit</a>
+            <div class="cards-container">
+                <div class="card">
+                    <img src="https://chromeunboxed.com/wp-content/uploads/2017/03/chromenegative.png" alt="Theme Switch">
+                    <h3 class="card-title">Theme Switch</h3>
+                    <p class="card-description">Toggle between dark/light themes</p>
+                    <a href="#" class="visit-button">Visit</a>
+                </div>
+                <div class="card">
+                    <img src="https://www.groovypost.com/wp-content/uploads/2011/04/How-to-Create-a-Playlist-on-YouTube-featured.jpg" alt="Font Size Increase">
+                    <h3 class="card-title">Font Size Increase</h3>
+                    <p class="card-description">Increase font size for better readability</p>
+                    <a href="#" class="visit-button">Visit</a>
+                </div>
+                <div class="card">
+                    <img src="https://static.vecteezy.com/system/resources/previews/002/062/261/non_2x/pdf-guides-concept-icon-vector.jpg" alt="High Contrast Mode">
+                    <h3 class="card-title">High Contrast Mode</h3>
+                    <p class="card-description">Toggle high contrast mode for accessibility</p>
+                    <a href="#" class="visit-button">Visit</a>
+                </div>
             </div>
         </div>
 
         <div class="section">
             <h2>8. Explore More / External Resource Suggestions</h2>
-            <div class="card">
-                <img src="https://images.yourstory.com/cs/wordpress/2017/02/52-Blog.jpg?mode=crop&crop=faces&ar=2%3A1&format=auto&w=1920&q=75" alt="Curated YouTube Playlists">
-                <h3 class="card-title">Curated YouTube Playlists</h3>
-                <p class="card-description">Explore playlists for various topics</p>
-                <a href="#" class="visit-button">Visit</a>
-            </div>
-            <div class="card">
-                <img src="https://www.shutterstock.com/image-vector/56-avatars-women-men-heads-260nw-1048223107.jpg" alt="Blog Articles">
-                <h3 class="card-title">Blog Articles</h3>
-                <p class="card-description">Read insightful articles on Medium</p>
-                <a href="#" class="visit-button">Visit</a>
-            </div>
-            <div class="card">
-                <img src="https://static.vecteezy.com/system/resources/previews/002/
-                                <img src="https://static.vecteezy.com/system/resources/previews/002/062/261/non_2x/pdf-guides-concept-icon-vector.jpg" alt="PDF Guides">
-                <h3 class="card-title">PDF Guides</h3>
-                <p class="card-description">Access public documents and guides</p>
-                <a href="#" class="visit-button">Visit</a>
+            <div class="cards-container">
+                <div class="card">
+                    <img src="https://images.yourstory.com/cs/wordpress/2017/02/52-Blog.jpg?mode=crop&crop=faces&ar=2%3A1&format=auto&w=1920&q=75" alt="Curated YouTube Playlists">
+                    <h3 class="card-title">Curated YouTube Playlists</h3>
+                    <p class="card-description">Explore playlists for various topics</p>
+                    <a href="#" class="visit-button">Visit</a>
+                </div>
+                <div class="card">
+                    <img src="https://www.shutterstock.com/image-vector/56-avatars-women-men-heads-260nw-1048223107.jpg" alt="Blog Articles">
+                    <h3 class="card-title">Blog Articles</h3>
+                    <p class="card-description">Read insightful articles on Medium</p>
+                    <a href="#" class="visit-button">Visit</a>
+                </div>
+                <div class="card">
+                    <img src="https://static.vecteezy.com/system/resources/previews/002/062/261/non_2x/pdf-guides-concept-icon-vector.jpg" alt="PDF Guides">
+                    <h3 class="card-title">PDF Guides</h3>
+                    <p class="card-description">Access public documents and guides</p>
+                    <a href="#" class="visit-button">Visit</a>
+                </div>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2023 Your Company</p>
+        <p>&copy; 2025 CollabSphere. All Rights Reserved.</p>
     </footer>
 
     <script>
@@ -336,7 +438,12 @@ header nav a:hover {
 
         themeToggleButton.addEventListener('click', () => {
             body.classList.toggle('dark-theme');
-            themeToggleButton.textContent = body.classList.contains('dark-theme') ? 'Toggle Light Theme' : 'Toggle Dark Theme';
+            const icon = themeToggleButton.querySelector('i');
+            if (body.classList.contains('dark-theme')) {
+                themeToggleButton.innerHTML = '<i class="fas fa-sun"></i> Toggle Light Theme';
+            } else {
+                themeToggleButton.innerHTML = '<i class="fas fa-moon"></i> Toggle Dark Theme';
+            }
         });
     </script>
 </body>
